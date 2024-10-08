@@ -16,4 +16,8 @@ class ViewsController extends Controller
     public function login(){
         return view('Auth.Login');
     }
+
+    public function admin(){
+        return view('Admin.Inicio');
+    }
 }

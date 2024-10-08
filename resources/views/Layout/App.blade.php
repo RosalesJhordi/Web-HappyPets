@@ -33,7 +33,7 @@
                 </ul>
             </div>
             @if (Session::has('authToken'))
-                <livewire:reniec />
+                @livewire('datos.datos-usuario')
             @else
                 <div class="p-1 w-auto mt-2 md:mt-0">
                     <a href="Registro" wire:navigate class="p-1 md:p-2 hover:border-b-2 hover:text-gray-500 border-gray-400">Registrarse</a>
