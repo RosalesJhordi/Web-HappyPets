@@ -1,16 +1,7 @@
+{{-- admin.productos.productos --}}
 <div class="w-full px-5">
     <div class="w-full py-5 flex gap-5">
-        <div
-            class="w-1/5 h-32 bg-white border rounded-sm shadow-md text-gray-400 px-5 py-5 flex justify-start items-center gap-2">
-            <span class="rounded-full text-blue-600 bg-blue-200 w-14 h-14 flex justify-center items-center text-xl">
-                <i class="fa-solid fa-bowl-food"></i>
-            </span>
-            <span>
-                <h1 class="text-3xl text-gray-900 font-bold">{{ count($totalproductos) }}</h1>
-                <h2 class="text-sm font-semibold">Productos Totales</h2>
-            </span>
-        </div>
-
+        @livewire('admin.secciones.productos-count')
         <button onclick="my_modal_3.showModal()"
             class="w-1/5 h-32 bg-white border rounded-sm shadow-md text-gray-400 px-5 py-5 flex justify-start items-center gap-2">
             <span class="rounded-full text-green-600 bg-green-200 w-14 h-14 flex justify-center items-center text-xl">
@@ -101,12 +92,39 @@
         <button wire:click='ocultar' type="button" class="btn btn-primary text-xl w-20">
             <i class="fa-solid fa-arrow-left"></i>
         </button>
-        @livewire('admin.productos.shows',['id' => $id])
+        @livewire('admin.productos.shows', ['id' => $id])
     @else
+    @if ($alert && session()->has('success'))
+        <div>
+            <label for="my_modal_6" class="btn hidden" wire:click="$set('alert', true)"></label>
 
+            <input type="checkbox" id="my_modal_6" class="modal-toggle" wire:model="alert" />
+
+            <div class="modal" style="{{ $alert ? '' : 'display: none;' }}">
+                <div class="modal-box">
+                    <form method="dialog">
+                        <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2" wire:click="alertfalse">✕</button>
+                    </form>
+                    <h3 class="text-3xl font-bold text-green-500">
+                        <span>
+                            <i class="fa-regular fa-circle-check"></i>
+                        </span>
+                        Exito
+                    </h3>
+                    <p class="py-4 text-2xl text-gray-400 font-semibold">{{ session('success') }}</p>
+                </div>
+            </div>
+        </div>
+    @endif
         {{-- filtro --}}
-        <div class="flex justify-between items-center relative">
+        <div class="flex py-2 justify-between items-center relative">
             <h1 class="text-gray-400 font-extrabold text-xl py-2">Tabla Productos</h1>
+            {{-- buscador --}}
+            <label class="input input-bordered flex items-center gap-2 p-1  w-1/3">
+                <input type="text" wire:model.live="buscado" class="grow p-1" placeholder="Buscar por nombre" />
+                <i class="fa-solid fa-magnifying-glass text-xl px-2 text-gray-400"></i>
+            </label>
+            {{-- filtros --}}
             <div class="flex justify-center items-center gap-2">
                 <p class="text-gray-400 font-semibold">{{ $filtro }}</p>
                 <details class="dropdown">
@@ -123,12 +141,18 @@
 
                         <button type="button" class="p-1 rounded-md btn" wire:click='preciomax'>Precio Mayor</button>
 
-                        <button type="button" class="p-1 rounded-md btn" wire:click='preciomin'>Precio Menor</button>
+                        <button type="button" class="p-1 rounded-md btn" wire:click='preciomin'>Precio
+                            Menor</button>
                     </ul>
                 </details>
+
+                <button type="button" wire:click='obtenerdatos' class="btn btn-primary">
+                    <i class="fa-solid fa-rotate-right"></i>
+                </button>
             </div>
+
         </div>
-   
+
         {{-- tabla --}}
         <table class="table table-zebra h-full relative py-5 bg-white" style="width: 100%">
             <!-- head -->
@@ -142,13 +166,13 @@
                     <th class="border">Descuento</th>
                     <th class="border">Stock</th>
                     <th class="border">Fecha Creacion</th>
-                    <th class="border w-56">Opciones</th>
+                    <th class="border">Opciones</th>
                 </tr>
             </thead>
             <tbody>
                 <!-- row 1 -->
                 @foreach ($datos as $dato)
-                    <tr>
+                    <tr wire:key="{{ $dato['id'] }}">
                         <td class="border">
                             <div class="flex items-center gap-3">
                                 <div class="avatar">
@@ -192,12 +216,8 @@
                                     class="badge py-3 px-5  bg-blue-200 text-blue-500 border border-blue-500"><i
                                         class="fa-regular fa-eye"></i></button>
                             </div>
-                            <div class="tooltip" data-tip="Editar">
-                                <button class="badge py-3 px-5  bg-green-200 text-green-500 border border-green-500"><i
-                                        class="fa-solid fa-pen"></i></button>
-                            </div>
                             <div class="tooltip" data-tip="Eliminar">
-                                <button class="badge py-3 px-5  bg-red-200 text-red-500 border border-red-500"><i
+                                <button wire:click='eliminar({{ $dato['id'] }})' class="badge py-3 px-5  bg-red-200 text-red-500 border border-red-500"><i
                                         class="fa-solid fa-trash"></i></button>
                             </div>
                         </th>

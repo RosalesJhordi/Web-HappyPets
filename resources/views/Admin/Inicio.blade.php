@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es" data-theme="ligth">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,11 +13,16 @@
     <link rel="stylesheet" href="{{ asset('css/Admin.css') }}">
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.css">
+    <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+
     @livewireStyles
 </head>
+
 <body>
     @livewire('admin.inicio')
     @livewireScripts
 </body>
+
 </html>

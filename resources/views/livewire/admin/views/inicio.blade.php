@@ -1,63 +1,18 @@
-<div class="w-full">
+<div class="w-full" wire:ignore>
     <div class="w-full py-5 flex gap-5">
-        <div
-            class="w-1/5 h-32 bg-white border rounded-sm shadow-md text-gray-400 px-5 py-5 flex justify-start items-center gap-2">
-            <span
-                class="rounded-full text-blue-600 bg-blue-200 w-14 h-14 flex justify-center items-center text-xl">
-                <i class="fa-solid fa-users"></i>
-            </span>
-            <span>
-                <h1 class="text-3xl text-gray-900 font-bold">{{count($totaluser)}}</h1>
-                <h2 class="text-sm font-semibold">Usuarios Totales</h2>
-            </span>
-        </div>
 
-        <div
-            class="w-1/5 h-32 bg-white border rounded-sm shadow-md text-gray-400 px-5 py-5 flex justify-start items-center gap-2">
-            <span
-                class="rounded-full text-blue-600 bg-blue-200 w-14 h-14 flex justify-center items-center text-xl">
-                <i class="fa-solid fa-sack-dollar"></i>
-            </span>
-            <span>
-                <h1 class="text-3xl text-gray-900 font-bold">$456.000</h1>
-                <h2 class="text-sm font-semibold">Ganacias totales</h2>
-            </span>
-        </div>
-
-        <div
-            class="w-1/5 h-32 bg-white border rounded-sm shadow-md text-gray-400 px-5 py-5 flex justify-start items-center gap-2">
-            <span
-                class="rounded-full text-blue-600 bg-blue-200 w-14 h-14 flex justify-center items-center text-xl">
-                <i class="fa-solid fa-cart-shopping"></i>
-            </span>
-            <span>
-                <h1 class="text-3xl text-gray-900 font-bold">{{ count($totalproductos) }}</h1>
-                <h2 class="text-sm font-semibold">Productos Totales</h2>
-            </span>
-        </div>
-
-        {{-- <div
-            class="w-1/5 h-32 bg-white border rounded-sm shadow-md text-gray-400 px-5 py-5 flex justify-start items-center gap-2">
-            <span
-                class="rounded-full text-blue-600 bg-blue-200 w-14 h-14 flex justify-center items-center text-xl">
-                <i class="fa-solid fa-syringe"></i>
-            </span>
-            <span>
-                <h1 class="text-3xl text-gray-900 font-bold">{{ count($totalservicios) }}</h1>
-                <h2 class="text-sm font-semibold">Servicios Totales</h2>
-            </span>
-        </div> --}}
-
+        @livewire('admin.secciones.usuarios-count')
+        @livewire('admin.secciones.ganancias')
+        @livewire('admin.secciones.productos-count')
+        @livewire('admin.secciones.mascotas-count')
+        
     </div>
     <h1 class="text-gray-400 font-semibold text-xl">Graficos</h1>
     <div class="flex w-full flex-wrap gap-5 py-5">
         @livewire('admin.graficos.grafico1')
         @livewire('admin.graficos.grafico2')
         @livewire('admin.graficos.grafico3')
-        {{-- <div id="chart2" class="bg-white h-1/2" style="width: 100%;"></div>
-        <div id="chart3" class="bg-white h-1/2" style="width: 100%;"></div> --}}
         @livewire('admin.graficos.grafico4')
-        {{-- <div id="chart4" class="bg-white h-full" style="width: 100%;"></div> --}}
         <div class="w-full flex justify-center items-center gap-5">
             <div class="" style="width: 79%; height: 500px;">
                 <div class="overflow-x-auto border bg-white w-full h-full">
@@ -258,4 +213,12 @@
             </div>
         </div>
     </div>
+    <script>
+        if (!window.intervalGaaa) {
+            window.intervalGaaa = setInterval(() => {
+                console.log("gaaaa");
+            }, 500);
+        }
+    </script>
 </div>
+

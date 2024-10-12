@@ -1,3 +1,4 @@
+{{-- admin.inicio --}}
 <div class="flex relative">
     <style>
         .submenu {
@@ -17,7 +18,7 @@
 
             <!-- Botón Inicio -->
             <li>
-                <a wire:navigate href="Admin"
+                <a href="Admin"
                     class="{{ $activeButton === 'home' ? 'bg-gray-400 text-white' : 'text-gray-400' }} hover:bg-gray-600  rounded flex items-center gap-2">
                     <i class="fa-solid fa-home"></i>
                     Inicio
@@ -26,35 +27,11 @@
 
             <!-- Botón Servicios / Productos -->
             <li>
-                <label for="submenu1-toggle"
-                    class="cursor-pointer flex items-center justify-between hover:bg-gray-600 text-gray-400 rounded-md">
-                    <span>
-                        <i class="fa-solid fa-box-archive"></i>
-                        Servicios / Productos
-                    </span>
-                    <svg class="w-4 h-4 transition-transform duration-300" fill="none" stroke="currentColor"
-                        viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path id="icon2" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M19 9l-7 7-7-7"></path>
-                    </svg>
-                </label>
-                <input type="checkbox" id="submenu1-toggle" class="hidden" />
-                <ul class="submenu pl-4">
-                    <li>
-                        <a wire:click.prevent='setActive("services")'
-                            class="{{ $activeButton === 'services' ? 'bg-gray-400 text-white' : 'text-gray-400' }} hover:bg-gray-600 rounded flex items-center gap-2">
-                            <i class="fa-solid fa-syringe"></i>
-                            Servicios
-                        </a>
-                    </li>
-                    <li>
-                        <a wire:click.prevent='setActive("products")'
-                            class="{{ $activeButton === 'products' ? 'bg-gray-400 text-white' : 'text-gray-400' }} hover:bg-gray-600 rounded flex items-center gap-2">
-                            <i class="fa-solid fa-bowl-food"></i>
-                            Productos
-                        </a>
-                    </li>
-                </ul>
+                <a wire:click.prevent='setActive("products")'
+                    class="{{ $activeButton === 'products' ? 'bg-gray-400 text-white' : 'text-gray-400' }} hover:bg-gray-600 rounded flex items-center gap-2">
+                    <i class="fa-solid fa-boxes-stacked"></i>
+                    Productos
+                </a>
             </li>
 
             <!-- Botón Citas -->
@@ -95,6 +72,15 @@
                         </a>
                     </li>
                 </ul>
+            </li>
+
+            <!-- Botón mascotas -->
+            <li>
+                <a wire:click.prevent='setActive("pets")'
+                    class="{{ $activeButton === 'pets' ? 'bg-gray-400 text-white' : 'text-gray-400' }} hover:bg-gray-600 rounded flex items-center gap-2">
+                    <i class="fa-solid fa-dog"></i>
+                    Mascotas
+                </a>
             </li>
 
             <!-- Botón Estado -->
@@ -168,10 +154,10 @@
         <div class="w-full py-5 navbar border-b-2 sticky top-0 z-50 bg-white flex justify-between items-center">
             @if ($activeButton === 'home')
                 <h1 class="text-2xl font-extrabold">Inicio</h1>
-            @elseif ($activeButton === 'services')
-                <h1 class="text-2xl font-extrabold">Servicios</h1>
             @elseif ($activeButton === 'products')
                 <h1 class="text-2xl font-extrabold">Productos</h1>
+            @elseif ($activeButton === 'pets')
+                <h1 class="text-2xl font-extrabold">Mascotas</h1>
             @endif
             <div class="indicator text-2xl">
                 <span class="indicator-item badge text-xs badge-primary">0</span>
@@ -182,10 +168,7 @@
         {{-- contenido --}}
 
         @if ($activeButton === 'home')
-            {{-- @livewire('admin.views.inicio') --}}
-            @livewire('admin.productos.productos')
-        @elseif ($activeButton === 'services')
-            @livewire('admin.productos.productos')
+            @livewire('admin.views.inicio')
         @elseif ($activeButton === 'products')
             @livewire('admin.productos.productos')
         @else

@@ -12,7 +12,6 @@ class Productos extends Component
     use WithFileUploads;
 
     public $url = "https://api-happypetshco-com.preview-domain.com/api";
-    public $totalproductos;
     public $datos;
 
     public $imagen;
@@ -27,19 +26,79 @@ class Productos extends Component
     public $nombres;
     public $id;
     public $ver = false;
+    public $buscado = '';
+    public $alert = false;
 
     public function mount()
     {
-        $this->totalProd();
-        $this->datos();
+        $this->obtenerdatos();
     }
-    public function totalProd()
+    // Método para buscar productos
+    public function busqueda()
     {
-        $response = Http::withoutVerifying()->get($this->url . '/ListarProductos');
-        $respuesta = $response->json();
-        $this->totalproductos = $respuesta['productos'];
+        $productos = collect($this->datos);
+
+        // Aplicar filtro si no es "Todos"
+        if ($this->filtro !== "Todos") {
+            switch ($this->filtro) {
+                case "A - Z":
+                    $productos = $productos->sortBy(function ($producto) {
+                        return strtolower($producto['nm_producto']);
+                    });
+                    break;
+                case "Z - A":
+                    $productos = $productos->sortByDesc(function ($producto) {
+                        return strtolower($producto['nm_producto']);
+                    });
+                    break;
+                case "ANTIGUOS":
+                    $productos = $productos->sortBy(function ($producto) {
+                        return $producto['created_at'];
+                    });
+                    break;
+                case "RECIENTES":
+                    $productos = $productos->sortByDesc(function ($producto) {
+                        return $producto['created_at'];
+                    });
+                    break;
+                case "PRECIO MIN":
+                    $productos = $productos->sortBy(function ($producto) {
+                        return (float)$producto['precio'];
+                    });
+                    break;
+                case "PRECIO MAX":
+                    $productos = $productos->sortByDesc(function ($producto) {
+                        return (float)$producto['precio'];
+                    });
+                    break;
+            }
+        }
+
+        // Aplicar búsqueda
+        if (!empty($this->buscado)) {
+            $productos = $productos->filter(function ($producto) {
+                return str_contains(strtolower($producto['nm_producto']), strtolower($this->buscado));
+            });
+        }
+
+        $this->datos = $productos->values()->all();
     }
-    public function datos()
+
+    public function alertfalse(){
+        $this->alert = false;
+    }
+
+    public function eliminar($id){
+        $response = Http::withoutVerifying()->get($this->url . '/EliminarProducto=' . $id);
+        if ($response->successful()) {
+            session()->flash('success','Producto eliminado con exito');
+            $this->alert = true;
+            $this->obtenerdatos();
+        } else {
+            return back()->with('error', "Error: " . $response->body());
+        }
+    }
+    public function obtenerdatos()
     {
         $response = Http::withoutVerifying()->withToken(Session::get('authToken'))->get($this->url . '/ListarProductos');
         $respuesta = $response->json();
@@ -49,7 +108,7 @@ class Productos extends Component
     //Mostrar Todos
     public function showAll()
     {
-        $this->datos();
+        $this->obtenerdatos();
         $this->filtro = "Todos";
     }
 
@@ -104,7 +163,7 @@ class Productos extends Component
     public function preciomax()
     {
         $this->datos = collect($this->datos)->sortByDesc(function ($producto) {
-            return (float)$producto['precio']; 
+            return (float)$producto['precio'];
         })->values()->all();
 
         $this->filtro = "PRECIO MAX";
@@ -129,7 +188,7 @@ class Productos extends Component
 
             if ($response->successful()) {
                 $this->reset(['nm_producto', 'descripcion', 'categoria', 'precio', 'descuento', 'stock', 'imagen']);
-                $this->datos();
+                $this->obtenerdatos();
                 return back()->with('mensaje', 'Servicio registrado exitosamente');
             } else {
                 return back()->with('error', "Error: " . $response->body());
@@ -139,15 +198,19 @@ class Productos extends Component
         }
     }
 
-    public function verproducto($id){
+    public function verproducto($id)
+    {
         $this->id = $id;
         $this->ver = true;
     }
-    public function ocultar(){
+    public function ocultar()
+    {
         $this->ver = false;
+        $this->obtenerdatos();
     }
     public function render()
     {
+        $this->busqueda();
         return view('livewire.admin.productos.productos');
     }
 }

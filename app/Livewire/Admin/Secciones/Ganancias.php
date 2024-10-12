@@ -1,0 +1,13 @@
+<?php
+
+namespace App\Livewire\Admin\Secciones;
+
+use Livewire\Component;
+
+class Ganancias extends Component
+{
+    public function render()
+    {
+        return view('livewire.admin.secciones.ganancias');
+    }
+}
