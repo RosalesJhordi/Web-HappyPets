@@ -1,23 +1,23 @@
-<div class="w-full" wire:ignore>
-    <div class="w-full py-5 flex gap-5">
+<div class="w-full" >
+    <div class="flex w-full gap-5 py-5">
 
         @livewire('admin.secciones.usuarios-count')
         @livewire('admin.secciones.ganancias')
         @livewire('admin.secciones.productos-count')
         @livewire('admin.secciones.mascotas-count')
-        
+
     </div>
-    <h1 class="text-gray-400 font-semibold text-xl">Graficos</h1>
-    <div class="flex w-full flex-wrap gap-5 py-5">
+    <h1 class="text-xl font-semibold text-gray-400">Graficos</h1>
+    <div class="flex flex-wrap w-full gap-5 py-5">
         @livewire('admin.graficos.grafico1')
         @livewire('admin.graficos.grafico2')
         @livewire('admin.graficos.grafico3')
         @livewire('admin.graficos.grafico4')
-        <div class="w-full flex justify-center items-center gap-5">
+        <div class="flex items-center justify-center w-full gap-5">
             <div class="" style="width: 79%; height: 500px;">
-                <div class="overflow-x-auto border bg-white w-full h-full">
+                <div class="w-full h-full overflow-x-auto bg-white border">
                     <table class="table">
-                        <h1 class="text-center text-gray-400 py-2">Tabla Usuarios</h1>
+                        <h1 class="py-2 text-center text-gray-400">Tabla Usuarios</h1>
                         <!-- head -->
                         <thead>
                             <tr>
@@ -43,7 +43,7 @@
                                 <td>
                                     <div class="flex items-center gap-3">
                                         <div class="avatar">
-                                            <div class="mask mask-squircle h-12 w-12">
+                                            <div class="w-12 h-12 mask mask-squircle">
                                                 <img src="https://img.daisyui.com/images/profile/demo/2@94.webp"
                                                     alt="Avatar Tailwind CSS Component" />
                                             </div>
@@ -74,7 +74,7 @@
                                 <td>
                                     <div class="flex items-center gap-3">
                                         <div class="avatar">
-                                            <div class="mask mask-squircle h-12 w-12">
+                                            <div class="w-12 h-12 mask mask-squircle">
                                                 <img src="https://img.daisyui.com/images/profile/demo/3@94.webp"
                                                     alt="Avatar Tailwind CSS Component" />
                                             </div>
@@ -105,7 +105,7 @@
                                 <td>
                                     <div class="flex items-center gap-3">
                                         <div class="avatar">
-                                            <div class="mask mask-squircle h-12 w-12">
+                                            <div class="w-12 h-12 mask mask-squircle">
                                                 <img src="https://img.daisyui.com/images/profile/demo/4@94.webp"
                                                     alt="Avatar Tailwind CSS Component" />
                                             </div>
@@ -136,7 +136,7 @@
                                 <td>
                                     <div class="flex items-center gap-3">
                                         <div class="avatar">
-                                            <div class="mask mask-squircle h-12 w-12">
+                                            <div class="w-12 h-12 mask mask-squircle">
                                                 <img src="https://img.daisyui.com/images/profile/demo/5@94.webp"
                                                     alt="Avatar Tailwind CSS Component" />
                                             </div>
@@ -173,10 +173,10 @@
                 </div>
             </div>
             <div class="" style="width: 29%;height: 500px;">
-                <div class="overflow-x-auto border bg-white w-full h-full">
+                <div class="w-full h-full overflow-x-auto bg-white border">
                     <table class="table table-zebra ">
                         <!-- head -->
-                        <h1 class="text-center text-gray-400 py-2">Tabla Empleados</h1>
+                        <h1 class="py-2 text-center text-gray-400">Tabla Empleados</h1>
                         <thead>
                             <tr>
                                 <th></th>
@@ -213,12 +213,5 @@
             </div>
         </div>
     </div>
-    <script>
-        if (!window.intervalGaaa) {
-            window.intervalGaaa = setInterval(() => {
-                console.log("gaaaa");
-            }, 500);
-        }
-    </script>
 </div>
 

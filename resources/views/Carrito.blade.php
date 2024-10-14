@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme='light'>
 
 <head>
     <meta charset="UTF-8">
@@ -14,29 +14,29 @@
     @livewireStyles()
 </head>
 
-<body class="bg-gray-100 relative">
+<body class="relative bg-gray-100">
     <a href="{{route('ShowServicio')}}"
-        class="fixed bottom-2 left-2 z-50 w-16 h-16 bg-secondary flex justify-center items-center text-white rounded-full">
-        <div class="indicator text-2xl">
+        class="fixed z-50 flex items-center justify-center w-16 h-16 text-white rounded-full bottom-2 left-2 bg-secondary">
+        <div class="text-2xl indicator">
             @livewire('carrito.carrito-count')
             <i class="fa-solid fa-cart-shopping"></i>
         </div>
     </a>
     <button onclick="toggleModal()"
-        class="fixed bottom-20 left-2 z-50 w-16 h-16 bg-primary flex justify-center items-center text-white rounded-full">
-        <div class="indicator text-2xl">
+        class="fixed z-50 flex items-center justify-center w-16 h-16 text-white rounded-full bottom-20 left-2 bg-primary">
+        <div class="text-2xl indicator">
             <i class="fa-solid fa-robot"></i>
         </div>
     </button>
 
 
     <div id="chatModal"
-        class="fixed left-2 bottom-24 hidden bg-white rounded-md items-center justify-center border z-50 xl:w-1/3 md:w-1/2"
+        class="fixed z-50 items-center justify-center hidden bg-white border rounded-md left-2 bottom-24 xl:w-1/3 md:w-1/2"
         style="height: 50vh;>
-    <div class="bg-white rounded-lg shadow-lg w-full">
-        <div class="flex w-full justify-between items-center bg-blue-600 p-4 rounded-md">
-            <h2 class="text-white font-bold">Chatbot</h2>
-            <button class="text-white text-2xl hover:text-gray-300" onclick="toggleModal()">&times;</button>
+    <div class="w-full bg-white rounded-lg shadow-lg">
+        <div class="flex items-center justify-between w-full p-4 bg-blue-600 rounded-md">
+            <h2 class="font-bold text-white">Chatbot</h2>
+            <button class="text-2xl text-white hover:text-gray-300" onclick="toggleModal()">&times;</button>
         </div>
         @livewire('chat-bot')
     </div>

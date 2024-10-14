@@ -1,5 +1,5 @@
 {{-- admin.inicio --}}
-<div class="flex relative">
+<div class="relative flex">
     <style>
         .submenu {
             max-height: 0;
@@ -11,10 +11,10 @@
             max-height: 500px;
         }
     </style>
-    <aside class="h-screen bg-gray-900 shadow-md sticky top-0 z-50 text-gray-400" style="width: 18%">
-        <img src="{{ asset('img/logo.png') }}" alt="logo" class="w-80 py-5 px-5">
-        <ul class="flex text-base flex-col px-10 gap-2 py-10 w-full menu">
-            <p class="uppercase text-sm py-2 text-gray-400">Menu</p>
+    <aside class="sticky top-0 z-50 h-screen text-gray-400 bg-gray-900 shadow-md" style="width: 18%">
+        <img src="{{ asset('img/logo.png') }}" alt="logo" class="px-5 py-5 w-80">
+        <ul class="flex flex-col w-full gap-2 px-10 py-10 text-base menu">
+            <p class="py-2 text-sm text-gray-400 uppercase">Menu</p>
 
             <!-- Botón Inicio -->
             <li>
@@ -37,7 +37,7 @@
             <!-- Botón Citas -->
             <li>
                 <label for="submenu2-toggle"
-                    class="cursor-pointer flex items-center justify-between hover:bg-gray-600 text-gray-400 rounded-md">
+                    class="flex items-center justify-between text-gray-400 rounded-md cursor-pointer hover:bg-gray-600">
                     <span>
                         <i class="fa-solid fa-calendar-alt"></i>
                         Citas
@@ -49,7 +49,7 @@
                     </svg>
                 </label>
                 <input type="checkbox" id="submenu2-toggle" class="hidden" />
-                <ul class="submenu pl-4">
+                <ul class="pl-4 submenu">
                     <li>
                         <a wire:click.prevent='setActive("today")'
                             class="{{ $activeButton === 'today' ? 'bg-gray-400 text-white' : 'text-gray-400' }} hover:bg-gray-600  rounded flex items-center gap-2">
@@ -95,7 +95,7 @@
             <!-- Botón Usuarios -->
             <li>
                 <label for="submenu3-toggle"
-                    class="cursor-pointer flex items-center justify-between text-gray-400  hover:bg-gray-600">
+                    class="flex items-center justify-between text-gray-400 cursor-pointer hover:bg-gray-600">
                     <span>
                         <i class="fa-solid fa-users"></i>
                         Usuarios
@@ -107,7 +107,7 @@
                     </svg>
                 </label>
                 <input type="checkbox" id="submenu3-toggle" class="hidden" />
-                <ul class="submenu pl-4">
+                <ul class="pl-4 submenu">
                     <li>
                         <a wire:click.prevent='setActive("clients")'
                             class="{{ $activeButton === 'clients' ? 'bg-gray-200' : 'text-gray-400' }} p-2 rounded flex items-center gap-2 hover:bg-gray-600 hover:text-white">
@@ -136,22 +136,22 @@
 
             <!-- Botón Salir -->
             <li>
-                <a href="/" class="flex items-center gap-2 hover:bg-gray-600 text-gray-400">
+                <a href="/" class="flex items-center gap-2 text-gray-400 hover:bg-gray-600">
                     <i class="fa-solid fa-sign-out-alt"></i>
                     Salir
                 </a>
             </li>
         </ul>
 
-        <div class="absolute bottom-1 text-center w-full">
+        <div class="absolute w-full text-center bottom-1">
             <p class="text-xs ">HappyPets - 2024</p>
             <p class="text-xs">Todos los derechos reservados - &copy</p>
             <p class="text-xs text-gray-400">RosalesJhon &Jsercy;&hamilt;</p>
         </div>
     </aside>
 
-    <div class="px-5 h-full" style="width: 82%;">
-        <div class="w-full py-5 navbar border-b-2 sticky top-0 z-50 bg-white flex justify-between items-center">
+    <div class="h-full px-5" style="width: 82%;">
+        <div class="sticky top-0 z-50 flex items-center justify-between w-full py-5 bg-white border-b-2 navbar">
             @if ($activeButton === 'home')
                 <h1 class="text-2xl font-extrabold">Inicio</h1>
             @elseif ($activeButton === 'products')
@@ -159,8 +159,8 @@
             @elseif ($activeButton === 'pets')
                 <h1 class="text-2xl font-extrabold">Mascotas</h1>
             @endif
-            <div class="indicator text-2xl">
-                <span class="indicator-item badge text-xs badge-primary">0</span>
+            <div class="text-2xl indicator">
+                <span class="text-xs indicator-item badge badge-primary">0</span>
                 <i class="fa-regular fa-bell"></i>
             </div>
         </div>

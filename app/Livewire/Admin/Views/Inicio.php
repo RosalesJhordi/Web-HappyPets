@@ -9,7 +9,7 @@ use Livewire\Component;
 class Inicio extends Component
 {
     public function mount(){
-        
+
     }
     public function render()
     {

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es" data-theme="ligth">
+<html lang="es" data-theme="light">
 
 <head>
     <meta charset="UTF-8">
@@ -16,11 +16,13 @@
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.css">
     <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+
 
     @livewireStyles
 </head>
 
-<body>
+<body class="bg-white">
     @livewire('admin.inicio')
     @livewireScripts
 </body>

@@ -21,7 +21,7 @@
                 <p class="mb-4 text-5xl tracking-tight font-bold text-gray-900 md:text-4xl dark:text-white">No Autorizado</p>
                 <p class="mb-4 text-2xl text-gray-500 dark:text-gray-400 font-semibold"> La solicitud requiere autenticación del usuario, pero no se ha proporcionado o faltan permisos necesarios</p>
                 <a href="/" class="btn bg-blue-600">Volver a Inicio</a>
-            </div>   
+            </div>
         </div>
     </section>
 </body>
