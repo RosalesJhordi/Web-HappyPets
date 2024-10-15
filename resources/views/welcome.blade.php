@@ -6,8 +6,14 @@
 
 @section('contenido')
     @livewire('admin.secciones.slide')
-    <div class="w-full px-40 sm:px-5 md:px-14 lg:px-24 xl:px-36 py-5">
-        <h1 class="text-gray-400 text-2xl font-semibold ">Productos nuevos</h1>
+    <div class="w-full">
         @livewire('productos.todos')
+        @livewire('productos.descuentos')
+
+        <div class="h-auto py-5">
+            <div class="w-full h-full visme_d" data-title="Contact Form" data-url="8r6nwpjm-contact-form" data-domain="forms"
+                data-full-page="false" data-min-height="800px" data-form-id="40366"></div>
+            <script src="https://static-bundles.visme.co/forms/vismeforms-embed.js"></script>
+        </div>
     </div>
 @endsection

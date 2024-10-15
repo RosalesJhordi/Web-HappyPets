@@ -8,12 +8,13 @@ use Livewire\Component;
 
 class ShowCarrito extends Component
 {
-    public $url = "https://api-happypetshco-com.preview-domain.com/api";
+    public $url;
     public $id_usuario;
     public $datos;
     public $importeTotal;
 
     public function mount(){
+        $this->url = env('API_URL', '');
         $this->datos();
         $this->mostrar();
     }

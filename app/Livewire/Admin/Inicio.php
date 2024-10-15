@@ -9,8 +9,6 @@ class Inicio extends Component
     public $permisos;
     public $notificacion;
 
-    public $url = "https://api-happypetshco-com.preview-domain.com/api";
-
     public $activeButton = 'home';
 
     public function setActive($button)

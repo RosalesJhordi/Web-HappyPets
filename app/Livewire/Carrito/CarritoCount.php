@@ -8,7 +8,7 @@ use Livewire\Component;
 
 class CarritoCount extends Component
 {
-    public $url = 'https://api-happypetshco-com.preview-domain.com/api';
+    public $url;
 
     public $id_usuario;
 
@@ -18,7 +18,9 @@ class CarritoCount extends Component
 
     public function mount()
     {
+        $this->url = env('API_URL', 'https://api-happypetshco-com.preview-domain.com/api');
         if (Session::get('authToken')) {
+
             $this->datoss();
             $this->datosCarrito();
         }
@@ -41,11 +43,9 @@ class CarritoCount extends Component
 
     public function datosCarrito()
     {
-        $response = Http::withHeaders([
-            'Authorization' => 'Bearer '.Session::get('authToken'),
-        ])->withOptions([
+        $response = Http::withoutVerifying()->withToken(Session::get('authToken'))->withOptions([
             'verify' => false,
-        ])->get($this->url.'/ListarCarrito='.$this->id_usuario);
+        ])->get($this->url.'/ListarCarrito='. $this->id_usuario);
 
         if ($response->successful()) {
             $data = $response->json();

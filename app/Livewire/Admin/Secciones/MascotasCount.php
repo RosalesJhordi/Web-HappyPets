@@ -3,21 +3,23 @@
 namespace App\Livewire\Admin\Secciones;
 
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Session;
 use Livewire\Component;
 
 class MascotasCount extends Component
 {
-    public $url = "https://api-happypetshco-com.preview-domain.com/api";
+    public $url;
     public $totalMascotas;
 
     public function totalMascotas()
     {
-        $response = Http::withoutVerifying()->get($this->url . '/ListarMascotas');
+        $response = Http::withoutVerifying()->withToken(Session::get('authToken'))->get($this->url . '/ListarMascotas');
         $respuesta = $response->json();
         $this->totalMascotas = $respuesta['mascotas'];
     }
 
     public function mount(){
+        $this->url = env('API_URL', '');
         $this->totalMascotas();
     }
     public function render()

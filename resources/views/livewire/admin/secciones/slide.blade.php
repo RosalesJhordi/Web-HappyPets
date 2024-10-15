@@ -1,5 +1,3 @@
-
-
 <div id="default-carousel" class="relative w-full" data-carousel="slide">
     <!-- Carousel wrapper -->
     <style>
@@ -15,19 +13,19 @@
     <div class="relative overflow-hidden rounded-lg md:h-96 jsjs">
          <!-- Item 1 -->
         <div class="hidden duration-700 ease-in-out" data-carousel-item>
-            <img src="{{ asset('img/slide1.webp') }}" class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="...">
+            <img src="{{ asset('img/360_F_481320874_0ySypkY4mZYl4jEmCOGXMbPgVhocmw2t.jpg') }}" class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="...">
         </div>
         <!-- Item 2 -->
         <div class="hidden duration-700 ease-in-out" data-carousel-item>
-            <img src="{{ asset('img/slide2.webp') }}" class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="...">
+            <img src="{{ asset('img/360_F_481854656_gHGTnBscKXpFEgVTwAT4DL4NXXNhDKU9.jpg') }}" class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="...">
         </div>
         <!-- Item 3 -->
         <div class="hidden duration-700 ease-in-out" data-carousel-item>
-            <img src="{{ asset('img/slide3.webp') }}" class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="...">
+            <img src="{{ asset('img/iStock-1346380406-1-2000x1065.jpg') }}" class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="...">
         </div>
         <!-- Item 4 -->
         <div class="hidden duration-700 ease-in-out" data-carousel-item>
-            <img src="{{ asset('img/slide4.webp') }}" class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="...">
+            <img src="{{ asset('img/small-pets.jpg') }}" class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="...">
         </div>
 
     </div>

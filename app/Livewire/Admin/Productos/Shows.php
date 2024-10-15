@@ -9,7 +9,7 @@ use Livewire\Component;
 class Shows extends Component
 {
     public $id;
-    public $url = "https://api-happypetshco-com.preview-domain.com/api";
+    public $url;
     public $datos;
     public $nm_producto;
     public $descripcion;
@@ -21,12 +21,13 @@ class Shows extends Component
 
     public function mount($id)
     {
+        $this->url = env('API_URL', '');
         $this->id = $id;
         $this->cargardatos();
     }
     public function cargardatos()
     {
-        $response = Http::withoutVerifying()->get($this->url . '/BuscarProducto=' . $this->id);
+        $response = Http::withoutVerifying()->withToken(Session::get('authToken'))->get($this->url . '/BuscarProducto=' . $this->id);
         $respuesta = $response->json();
         $this->datos = $respuesta['producto'];
         $this->nm_producto = $this->datos['nm_producto'];
@@ -61,7 +62,7 @@ class Shows extends Component
         $this->alert = false;
     }
     public function delete(){
-        $response = Http::withoutVerifying()->get($this->url . '/EliminarProducto=' . $this->id);
+        $response = Http::withoutVerifying()->withToken(Session::get('authToken'))->get($this->url . '/EliminarProducto=' . $this->id);
         if ($response->successful()) {
             session()->flash('success','Producto eliminado con exito');
             $this->alert = true;

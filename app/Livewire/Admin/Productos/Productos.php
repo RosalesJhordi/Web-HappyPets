@@ -11,7 +11,7 @@ class Productos extends Component
 {
     use WithFileUploads;
 
-    public $url = "https://api-happypetshco-com.preview-domain.com/api";
+    public $url;
     public $datos;
 
     public $imagen;
@@ -31,6 +31,7 @@ class Productos extends Component
 
     public function mount()
     {
+        $this->url = env('API_URL', '');
         $this->obtenerdatos();
     }
     // Método para buscar productos
@@ -89,7 +90,7 @@ class Productos extends Component
     }
 
     public function eliminar($id){
-        $response = Http::withoutVerifying()->get($this->url . '/EliminarProducto=' . $id);
+        $response = Http::withoutVerifying()->withToken(Session::get('authToken'))->get($this->url . '/EliminarProducto=' . $id);
         if ($response->successful()) {
             session()->flash('success','Producto eliminado con exito');
             $this->alert = true;

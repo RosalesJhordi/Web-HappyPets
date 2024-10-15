@@ -14,12 +14,16 @@ class Registro extends Component
     public $password;
     public $password_confirmation;
     public $remember = false;
-    public $url = "https://api-happypetshco-com.preview-domain.com/api";
+    public $url;
 
     public $error;
     public $exito;
 
     public $mostrar = true;
+
+    public function mount(){
+        $this->url = env('API_URL', '');
+    }
 
     public function registro()
     {

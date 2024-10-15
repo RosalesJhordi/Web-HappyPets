@@ -23,12 +23,12 @@ class ViewsController extends Controller
     }
 
     public function show($id){
-        $url = "https://api-happypetshco-com.preview-domain.com/api";
-    
+        $url = env('API_URL', '');
+
         $response = Http::withHeaders([
             'Authorization' => 'Bearer '. Session::get('authToken'),
         ])->withoutVerifying()->get($url . '/BuscarProducto=' . $id);
-    
+
         if ($response->successful()) {
             $serv = $response->json();
             $producto = $serv['producto'];
@@ -36,5 +36,5 @@ class ViewsController extends Controller
         } else {
             return redirect()->back()->with('error', 'No se pudo obtener el servicio.');
         }
-    }    
+    }
 }

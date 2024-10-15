@@ -8,10 +8,10 @@ use Livewire\Component;
 
 class DatosUsuario extends Component
 {
-    public $url = "https://api-happypetshco-com.preview-domain.com/api";
+    public $url;
     public $nombres;
     public $permisos;
-    
+
     public function cargarDatosUsuario(){
         $response = Http::withHeaders([
             'Authorization' => 'Bearer ' . Session::get('authToken'),
@@ -31,6 +31,7 @@ class DatosUsuario extends Component
         }
     }
     public function mount(){
+        $this->url = env('API_URL', 'https://api-happypetshco-com.preview-domain.com/api');
         $this->cargarDatosUsuario();
     }
     public function deletetoken(){

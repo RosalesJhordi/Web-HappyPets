@@ -1,48 +1,38 @@
-<div class="flex flex-col py-2">
-
-    <div class="w-full flex justify-center items-center">
-        <div wire:loading.remove class="w-full grid grid-cols-5 sm:grid-cols-2 md:grid-cols-2  lg:grid-cols-3 xl:grid-cols-4  py-5 gap-6 flex-wrap">
-            @if (!empty($datos))
-                @foreach ($datos as $dato)
-                    <div class="card card-compact rounded-md border bg-base-100 w-full shadow-xl">
-                        <figure>
-                            <img src="{{ 'https://api-happypetshco-com.preview-domain.com/ServidorProductos/' . $dato['imagen'] }}"
-                                alt="Imagen servicio {{ $dato['nm_producto'] }}" class="w-full object-cover h-72" />
-                        </figure>
-                        <div class="card-body">
-                            <h2 class="card-title">{{ $dato['nm_producto'] }}</h2>
-                            <p>{{ $dato['descripcion'] }}</p>
-                            <p>{{ $dato['categoria'] }}</p>
-                            <div class="card-actions justify-end">
-                                {{-- @livewire('modal.reservar-cita',['id_servicio' => $dato['id']]) --}}
-                                <a href="{{ route('ShowServicio',$dato['id']) }}" class="btn btn-primary">
-                                    Añadir a carrito
-                                    <i class="fa-solid fa-cart-shopping"></i>
-                                </a>
+<div class="w-full bg-white">
+    <div class="max-w-2xl px-4 py-5 mx-auto sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
+        <h2 class="text-2xl font-bold tracking-tight text-gray-500">Productos nuevos</h2>
+        @if (!empty($datos))
+            <div wire:poll='obtenerdatos' class="grid grid-cols-1 mt-6 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
+                @foreach ($datos as $data)
+                    <div class="relative border rounded-md group">
+                        <div
+                            class="w-full overflow-hidden bg-gray-200 rounded-md aspect-h-1 aspect-w-1 lg:aspect-none group-hover:opacity-75 lg:h-80">
+                            <img src="{{ 'https://api-happypetshco-com.preview-domain.com/ServidorProductos/' . $data['imagen'] }}"
+                                alt="Front of men&#039;s Basic Tee in black."
+                                class="object-cover object-center w-full h-full lg:h-full lg:w-full">
+                        </div>
+                        <div class="flex justify-between px-2 py-2 mt-4">
+                            <div>
+                                <h3 class="text-sm text-gray-700">
+                                    <span aria-hidden="true" class="absolute inset-0"></span>
+                                    {{ $data['nm_producto'] }}
+                                </h3>
+                                <p class="mt-1 text-sm text-gray-500">{{ $data['categoria'] }}</p>
                             </div>
+                            <p class="text-sm font-medium text-gray-900">S/. {{ $data['precio'] }}</p>
                         </div>
                     </div>
                 @endforeach
-            @else
-                <div class="w-full h-96 flex flex-col justify-center items-center py-10">
-                    <div class="avatar">
-                        <div class="mask mask-squircle w-64">
-                            <img src="{{ asset('img/oops.jpg') }}" alt="oops img">
-                        </div>
-                    </div>
-                    <p class="text-3xl text-gray-400">No se encontraron servicios en esta categoria</p>
-                </div>
-            @endif
-        </div>
-        <div wire:loading class="w-full h-screen">
-            <div class="flex w-full flex-col gap-4 px-40 py-5">
-                <div class="loading loading-spinner loading-lg text-2xl text-gray-400 text-center">Cargando...</div>
-                <div class="skeleton h-60 w-full"></div>
-                <div class=" h-72 w-full flex justify-between gap-2">
-                    <div class="skeleton h-72 w-1/2"></div>
-                    <div class="skeleton h-72 w-1/2"></div>
-                </div>
             </div>
-        </div>
+            <div class="flex items-center justify-end w-full py-2 mt-2">
+                <button class="flex items-center justify-between p-2 px-5 text-xl font-semibold btn btn-primary">
+                    Ver mas productos
+                </button>
+            </div>
+        @else
+            <div>
+                <h1>Productos no encontrados</h1>
+            </div>
+        @endif
     </div>
 </div>

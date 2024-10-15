@@ -8,7 +8,7 @@ use Livewire\Component;
 
 class AddCar extends Component
 {
-    public $url = "https://api-happypetshco-com.preview-domain.com/api";
+    public $url;
     public $id_usuario;
     public $cantidad = 0;
     public $nombre;
@@ -17,6 +17,7 @@ class AddCar extends Component
     public $total;
     public $color;
     public function mount($nombre,$id,$importe){
+        $this->url = env('API_URL', '');
         $this->nombre = $nombre;
         $this->id = $id;
         $this->importe = $importe;
@@ -28,7 +29,7 @@ class AddCar extends Component
     }
     public function decrementar(){
         if ($this->cantidad == 0) {
-            
+
         }else{
             $this->cantidad--;
             $this->calculartotal();

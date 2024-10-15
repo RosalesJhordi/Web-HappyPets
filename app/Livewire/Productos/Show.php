@@ -8,11 +8,12 @@ use Livewire\Component;
 class Show extends Component
 {
     public $id_producto;
-    public $url = "https://api-happypetshco-com.preview-domain.com/api";
+    public $url;
     public $producto;
     public $productos;
 
     public function mount($id_producto){
+        $this->url = env('API_URL', '');
         $this->id_producto = $id_producto;
         $this->producto();
         $this->productos();

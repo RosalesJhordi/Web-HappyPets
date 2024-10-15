@@ -8,16 +8,15 @@ use Livewire\Component;
 
 class UsuariosCount extends Component
 {
-    public $url = "https://api-happypetshco-com.preview-domain.com/api";
+    public $url;
     public $totaluser;
 
     public function mount(){
+        $this->url = env("API_URL", "");
         $this->users();
     }
     public function users(){
-        $response = Http::withHeaders([
-            'Authorization' => 'Bearer '. Session::get('authToken'),
-        ])->withOptions([
+        $response = Http::withoutVerifying()->withToken(Session::get('authToken'))->withOptions([
             'verify' => false,
         ])->get($this->url. '/Usuarios');
         $respuesta = $response->json();
