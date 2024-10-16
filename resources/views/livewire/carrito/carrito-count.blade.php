@@ -4,7 +4,8 @@
         <div class="drawer-content">
             <!-- Page content here -->
             <label for="my-drawer-4" class="cursor-pointer drawer-button">
-                <div id="openDrawer" class="flex items-center justify-center mr-4 text-gray-400 indicator hover:text-gray-500">
+                <div id="openDrawer"
+                    class="flex items-center justify-center mr-4 text-gray-400 indicator hover:text-gray-500">
                     <span wire:poll='datosCarrito'
                         class="z-0 flex items-center text-base font-semibold text-white justify-start-center indicator-item badge bg-rosa">
                         @if ($datos)
@@ -23,7 +24,7 @@
         </div>
         <div class="drawer-side">
             <label for="my-drawer-4" aria-label="close sidebar" class="drawer-overlay"></label>
-            <ul class="w-1/4 min-h-full p-4 bg-white menu text-base-content" style="z-index: 9999;">
+            <ul class="min-h-full p-4 bg-white w-96 md:w-1/4 menu text-base-content" style="z-index: 9999;">
 
                 <div class="w-full text-2xl">
                     <h1 class="w-full font-bold text-center text-morado-oscuro">Productos en el carrito</h1>
@@ -35,24 +36,28 @@
                             @foreach ($datos as $dato)
                                 <div class="flex items-start py-6">
                                     <div
-                                        class="flex-shrink-0 w-24 h-24 overflow-hidden border border-gray-200 rounded-md">
-                                        <img src="{{ 'https://api-happypetshco-com.preview-domain.com/ServidorProductos/' . $dato['producto']['imagen'] }}"
+                                        class="relative flex-shrink-0 w-24 h-24 overflow-hidden border border-gray-200 rounded-md">
+                                        <img src="{{ 'https://api-happypetshco-com.preview-domain.com/ServidorProductos/' . $dato['imagen'] }}"
                                             alt="imagen de producto" class="object-cover object-center w-full h-full">
+                                        <div
+                                            class="absolute inline-flex items-center justify-center w-6 h-6 px-4 py-4 text-lg font-bold text-white bg-red-500 border-2 border-white rounded-full -top-1 -end-2 dark:border-gray-900">
+                                            {{ $dato['cantidad'] }}
+                                        </div>
                                     </div>
 
                                     <div class="flex flex-col flex-1 ml-4">
                                         <div>
                                             <div class="flex justify-between text-base font-medium text-gray-900">
                                                 <h3>
-                                                    <a href="#">{{ $dato['producto']['nm_producto'] }}</a>
+                                                    <a href="#">{{ $dato['nombre'] }}</a>
                                                 </h3>
                                                 <p class="ml-4">S/. {{ $dato['importe'] }}</p>
                                             </div>
-                                            <p class="mt-1 text-sm text-gray-500">{{ $dato['producto']['categoria'] }}
+                                            <p class="mt-1 text-sm text-gray-500">{{ $dato['categoria'] }}
                                             </p>
                                         </div>
                                         <div class="flex items-center justify-between flex-1 text-sm">
-                                            <p class="text-gray-500">{{ $dato['color'] }}</p>
+                                            <p class="text-gray-500">{{ $dato['colores'] }}</p>
                                             <div class="flex">
                                                 <button type="button"
                                                     class="font-medium text-indigo-600 hover:text-indigo-500">Eliminar</button>
@@ -85,13 +90,14 @@
                             </div>
                         </div>
                     @else
-                    <div class="flex flex-col items-center justify-center w-full h-full gap-4 mt-8 ">
-                        <img src="{{ asset('img/undraw_empty_cart_co35.svg') }}" alt="imagen carrito" class="w-96">
-                        <h1 class="text-3xl text-gray-400 ">0 productos en el carrito</h1>
-                        <a href="#" class="btn btn-primary">
-                            Agregar productos
-                        </a>
-                    </div>
+                        <div class="flex flex-col items-center justify-center w-full h-full gap-4 mt-8 ">
+                            <img src="{{ asset('img/undraw_empty_cart_co35.svg') }}" alt="imagen carrito"
+                                class="w-96">
+                            <h1 class="text-3xl text-gray-400 ">0 productos en el carrito</h1>
+                            <a href="#" class="btn btn-primary">
+                                Agregar productos
+                            </a>
+                        </div>
                     @endif
                 @else
                     <div class="flex flex-col items-center justify-center px-5 text-2xl" style="height: 80vh;">

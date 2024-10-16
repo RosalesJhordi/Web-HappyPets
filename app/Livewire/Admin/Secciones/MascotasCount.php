@@ -19,7 +19,7 @@ class MascotasCount extends Component
     }
 
     public function mount(){
-        $this->url = env('API_URL', '');
+        $this->url = env('API_URL', 'https://api-happypetshco-com.preview-domain.com/api');
         $this->totalMascotas();
     }
     public function render()

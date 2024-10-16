@@ -6,15 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>HappyPets - Registro</title>
-    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.10/dist/full.min.css" rel="stylesheet" type="text/css" />
-    <script src="https://cdn.tailwindcss.com"></script>
     @vite(['resources/css/app.css'])
     <script src="https://kit.fontawesome.com/a22afade38.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="{{ asset('css/App.css') }}">
     <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.css" rel="stylesheet" />
-    <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.js"></script>
+    <script src="https://unpkg.com/flowbite@latest/dist/flowbite.js"></script>
     @livewireStyles
 
 <body class="relative flex items-center justify-center h-screen">
@@ -26,7 +23,7 @@
         @livewireScripts()
     </div>
 
-    <video src="{{ asset('media/ct.mp4') }}" autoplay loop muted class="h-full w-[100%] object-cover">
+    <video src="{{ asset('media/ct.mp4') }}" autoplay loop muted class="h-full w-[100%] hidden sm:flex object-cover">
         Tu navegador no admite la etiqueta de video.
     </video>
 </body>

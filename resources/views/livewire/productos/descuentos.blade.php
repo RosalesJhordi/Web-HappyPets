@@ -1,9 +1,9 @@
 <div class="w-full bg-white">
-    <div class="max-w-2xl px-4 py-5 mx-auto sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
+    <div class="max-w-2xl px-4 py-5 mx-auto sm:px-6 sm:py-10 lg:max-w-7xl lg:px-8">
         <h2 class="text-2xl font-bold tracking-tight text-gray-500">Productos en descuento</h2>
         @if (!empty($datos))
             <div wire:poll='obtenerdatos'
-                class="grid grid-cols-1 mt-6 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
+                class="grid grid-cols-2 mt-6 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
                 @foreach ($datos as $data)
                     <div class="relative border rounded-md group">
                         <div
@@ -29,28 +29,30 @@
                 @endforeach
             </div>
             <div class="flex items-center justify-end w-full py-2 mt-2">
-                <button class="flex items-center justify-between p-2 px-5 text-xl font-semibold btn btn-primary">
+                <a href="{{ route('Productos') }}" class="flex items-center justify-between p-2 px-5 text-xl font-semibold btn btn-primary">
                     Ver mas productos
-                </button>
+                </a>
             </div>
         @else
             <div>
                 <h1>Productos no encontrados</h1>
             </div>
         @endif
-        <div class="grid flex-wrap grid-cols-5 gap-2 py-2">
+        <h2 class="py-5 mt-5 text-2xl font-bold tracking-tight text-gray-500">Nuestras Categorias</h2>
+        <div class="grid flex-wrap grid-cols-5 gap-2 py-2 mb-5">
             @foreach ($categorias as $categoria)
-                <a href="#" class="text-white btn bg-rosa">
+                <a href="#" class="flex flex-col items-center justify-center text-white btn bg-rosa">
+                    @if ($categoria == "Alimentos y Golosinas")
+                        <i class="fa-solid fa-mortar-pestle"></i>
+                    @endif
                     {{ $categoria }}
                 </a>
             @endforeach
         </div>
 
-
-
         <section
             class="bg-center bg-no-repeat bg-[url('https://assets-au-01.kc-usercontent.com/ab37095e-a9cb-025f-8a0d-c6d89400e446/5dbf581b-8254-4aa2-b523-aa91735b9075/article-curious-things-my-pet-does.jpg')] bg-gray-700 bg-blend-multiply">
-            <div class="max-w-screen-xl px-4 py-24 mx-auto text-center lg:py-56">
+            <div class="max-w-screen-xl px-4 py-5 mx-auto text-center lg:py-56">
                 <h1 class="mb-4 text-4xl font-extrabold leading-none tracking-tight text-white md:text-5xl lg:text-6xl">
                     Cuidamos a tu mascota con amor y dedicación.</h1>
                 <p class="mb-8 text-lg font-normal text-gray-300 lg:text-xl sm:px-16 lg:px-48">En nuestra clínica
@@ -73,6 +75,7 @@
                 </div>
             </div>
         </section>
+
 
     </div>
 </div>

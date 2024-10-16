@@ -19,7 +19,7 @@ class ProductosCount extends Component
     }
 
     public function mount(){
-        $this->url = env('API_URL', '');
+        $this->url = env('API_URL', 'https://api-happypetshco-com.preview-domain.com/api');
         $this->totalProd();
     }
     public function render()

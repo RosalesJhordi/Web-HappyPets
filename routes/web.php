@@ -20,7 +20,10 @@ Route::middleware([CheckPermissions::class. ':Administrador'])->group(function (
     Route::get('Admin', [ViewsController::class, 'admin'])->name('Admin');
 });
 
-Route::get('ShowServicio={id}',[ViewsController::class,'show'])->name('ShowServicio');
+Route::get('Productos',function(){
+    return view('Productos');
+})->name('Productos');
+
 Route::get('ShowCarrito',function(){
     return view('Carrito');
 })->name('ShowCarrito');

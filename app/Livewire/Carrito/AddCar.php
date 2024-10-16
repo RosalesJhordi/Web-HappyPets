@@ -16,11 +16,18 @@ class AddCar extends Component
     public $importe;
     public $total;
     public $color;
-    public function mount($nombre,$id,$importe){
-        $this->url = env('API_URL', '');
+    public $descuento;
+
+    public $descripcion;
+    public $imagen;
+    public function mount($nombre,$imagen,$id,$descuento,$importe,$descripcion){
+        $this->url = env('API_URL', 'https://api-happypetshco-com.preview-domain.com/api');
         $this->nombre = $nombre;
+        $this->imagen = $imagen;
         $this->id = $id;
+        $this->descuento = $descuento;
         $this->importe = $importe;
+        $this->descripcion = $descripcion;
     }
     public function incrementar(){
         $this->cantidad++;
@@ -37,6 +44,7 @@ class AddCar extends Component
     }
 
     public function agregarCarrito(){
+
         $response = Http::withoutVerifying()->withToken(Session::get('authToken'))->post($this->url . '/AñadirCarrito', [
             'cantidad' => $this->cantidad,
             'color' => $this->color,
@@ -46,7 +54,7 @@ class AddCar extends Component
         ]);
 
         if ($response->successful()) {
-            return back()->with('mensaje', 'Servicio registrado exitosamente');
+            return back()->with('mensaje', 'Producto agregado exitosamente');
         } else {
             return back()->with('error', "Error: " . $response->body());
         }
@@ -64,7 +72,15 @@ class AddCar extends Component
         }
     }
     public function calculartotal(){
-        $this->total = $this->cantidad * $this->importe;
+        if ($this->descuento) {
+            $this->total = $this->cantidad * ($this->importe - ($this->importe * $this->descuento) / 100);
+        } else {
+            $this->total = $this->cantidad * $this->importe;
+        }
+    }
+
+    public function actualizarcolor($color){
+        $this->color = $color;
     }
     public function render()
     {

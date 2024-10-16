@@ -25,7 +25,6 @@
         </div>
     </button>
 
-
     <div id="chatModal"
         class="fixed z-50 items-center justify-center hidden bg-white border rounded-md right-2 bottom-24 xl:w-1/3 md:w-1/2"
         style="height: 50vh;>
@@ -50,24 +49,41 @@
             <div class="relative flex items-center justify-between h-16">
 
                 <div class="absolute inset-y-0 left-0 flex items-center sm:hidden">
+                    <div class="drawer">
+                        <input id="my-drawer-3" type="checkbox" class="drawer-toggle" />
+                        <div class="flex flex-col drawer-content">
+                            <div class="flex-none lg:hidden">
+                                <label for="my-drawer-3" aria-label="open sidebar" class="btn btn-square btn-ghost">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                        class="inline-block w-6 h-6 stroke-current">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M4 6h16M4 12h16M4 18h16"></path>
+                                    </svg>
+                                </label>
+                            </div>
 
-                    <button type="button"
-                        class="relative inline-flex items-center justify-center p-2 text-gray-400 rounded-md hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
-                        aria-controls="mobile-menu" aria-expanded="false">
-                        <span class="absolute -inset-0.5"></span>
-                        <span class="sr-only">Open main menu</span>
-
-                        <svg class="block w-6 h-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                            stroke="currentColor" aria-hidden="true" data-slot="icon">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
-                        </svg>
-
-                        <svg class="hidden w-6 h-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                            stroke="currentColor" aria-hidden="true" data-slot="icon">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
-                        </svg>
-                    </button>
+                        </div>
+                        <div class="drawer-side">
+                            <label for="my-drawer-3" aria-label="close sidebar" class="drawer-overlay"></label>
+                            <ul class="flex flex-col items-center justify-start min-h-full p-4 bg-white menu w-96">
+                                <div class="flex items-center justify-center">
+                                    <img src="{{asset('img/logo.jpg')}}" alt="logo" class="py-5 w-60 ">
+                                </div>
+                                <div class="flex flex-col items-center w-full h-full space-x-4">
+                                    <a href="/"
+                                        class="flex items-center justify-center h-16 px-3 text-lg font-semibold text-gray-500 border-b-4 border-transparent hover:border-blue-600"
+                                        aria-current="page">Inicio</a>
+                                    <a href="{{ route('Productos') }}"
+                                        class="flex items-center justify-center h-16 px-3 text-lg font-semibold text-gray-500 border-b-4 border-transparent hover:border-blue-600">Productos</a>
+                                    <a href="#"
+                                        class="flex items-center justify-center h-16 px-3 text-lg font-semibold text-gray-500 border-b-4 border-transparent hover:border-blue-600">Sobre
+                                        Nosotros</a>
+                                    <a href="#"
+                                        class="flex items-center justify-center h-16 px-3 text-lg font-semibold text-gray-500 border-b-4 border-transparent hover:border-blue-600">Contactanos</a>
+                                </div>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="items-center justify-center flex-1 hidden h-16 sm:justify-start sm:flex">
@@ -79,10 +95,10 @@
                     <div class="items-center hidden h-full sm:ml-6 sm:block">
                         <div class="flex items-center h-full space-x-4">
                             <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
-                            <a href="#"
+                            <a href="/"
                                 class="flex items-center justify-center h-16 px-3 text-lg font-semibold text-gray-500 border-b-4 border-transparent hover:border-blue-600"
                                 aria-current="page">Inicio</a>
-                            <a href="#"
+                            <a href="{{ route('Productos') }}"
                                 class="flex items-center justify-center h-16 px-3 text-lg font-semibold text-gray-500 border-b-4 border-transparent hover:border-blue-600">Productos</a>
                             <a href="#"
                                 class="flex items-center justify-center h-16 px-3 text-lg font-semibold text-gray-500 border-b-4 border-transparent hover:border-blue-600">Sobre
@@ -145,7 +161,7 @@
     @yield('contenido')
 
     <footer class="w-full bg-white dark:bg-gray-900">
-        <div class="max-w-2xl px-4 mt-5 mx-auto sm:px-6 lg:max-w-7xl lg:px-8">
+        <div class="max-w-2xl px-4 mx-auto mt-5 sm:px-6 lg:max-w-7xl lg:px-8">
             <div class="grid grid-cols-2 gap-8 px-4 py-6 lg:py-8 md:grid-cols-4">
                 <div>
                     <h2 class="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">Company</h2>

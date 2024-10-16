@@ -22,7 +22,7 @@ class Registro extends Component
     public $mostrar = true;
 
     public function mount(){
-        $this->url = env('API_URL', '');
+        $this->url = env('API_URL', 'https://api-happypetshco-com.preview-domain.com/api');
     }
 
     public function registro()
@@ -49,8 +49,15 @@ class Registro extends Component
         ]);
         if ($response->successful()) {
             $this->exito = $response->json();
-            Session::put('authToken', $this->exito['token']);
-            return redirect()->route('/');
+
+            if (isset($this->exito['error'])) {
+                session()->flash('error', $this->exito['error']);
+            }else{
+                session()->flash('exito', $this->exito['mensaje']);
+                Session::put('authToken', $this->exito['token']);
+                return redirect()->route('/');
+            }
+
         } else {
             $this->error = $response->json();
         }

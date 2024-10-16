@@ -1,9 +1,9 @@
-<div class="z-0 flex items-center justify-center gap-3">
+<div class="z-10 flex items-center justify-center gap-3">
 
-    <div class="relative z-0 inline-block text-left">
-        <div class="z-0">
+    <div class="relative z-10 inline-block text-left">
+        <div class="z-10">
             <button type="button"
-                class="inline-flex z-0 justify-center items-center h-8 w-8 gap-x-1.5 rounded-full bg-blue-600 px-3 py-2 text-base font-normal text-white  hover:bg-blue-500"
+                class="inline-flex z-10 justify-center items-center h-8 w-8 gap-x-1.5 rounded-full bg-blue-600 px-3 py-2 text-base font-normal text-white  hover:bg-blue-500"
                 id="menu-button" aria-expanded="false" aria-haspopup="true" onclick="toggleDropdown()">
                 {{ substr($nombres, 0, 2) }}
             </button>
