@@ -4,20 +4,31 @@
             buscador
         </div>
         <div class="grid grid-cols-3 gap-2 sm:grid-cols-4 md:grid-cols-6">
-            <button wire:click='cambiarFiltro("Todos")'
-                class="text-morado-oscuro @if ($filtro == 'Todos') bg-rosa text-white @endif btn border border-rosa hover:bg-rosa hover:text-white">Todos</button>
-            <button wire:click='cambiarFiltro("Descuento")'
-                class="text-morado-oscuro @if ($filtro == 'Descuento') bg-rosa text-white @endif btn border border-rosa hover:bg-rosa hover:text-white">En
-                Descuento</button>
-            <button wire:click='cambiarFiltro("Accesorio")'
-                class="text-morado-oscuro @if ($filtro == 'Accesorio') bg-rosa text-white @endif btn border border-rosa hover:bg-rosa hover:text-white">Accesorios</button>
-            <button wire:click='cambiarFiltro("Camas")'
-                class="text-morado-oscuro @if ($filtro == 'Camas') bg-rosa text-white @endif btn border border-rosa hover:bg-rosa hover:text-white">Camas</button>
-            <button wire:click='cambiarFiltro("Alimentos y Golosinas")'
-                class="text-morado-oscuro @if ($filtro == 'Alimentos y Golosinas') bg-rosa text-white @endif btn border border-rosa hover:bg-rosa hover:text-white">Alimento
-                y Golosinas</button>
-            <button wire:click='cambiarFiltro("Cuidado")'
-                class="text-morado-oscuro @if ($filtro == 'Cuidado') bg-rosa text-white @endif btn border border-rosa hover:bg-rosa hover:text-white">Cuidado</button>
+            <button wire:click="cambiarFiltro('Todos')" type="button"
+                class="text-white font-semibold @if ($filtro == 'Todos') bg-rosa text-white @else bg-blue-700 @endif hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2">
+                Todos
+            </button>
+
+            <button wire:click="cambiarFiltro('Descuento')" type="button"
+                class="text-white font-semibold @if ($filtro == 'Descuento') bg-rosa text-white @else bg-blue-700 @endif hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2">
+                Descuento
+            </button>
+            <button wire:click="cambiarFiltro('Accesorio')" type="button"
+                class="text-white font-semibold @if ($filtro == 'Accesorio') bg-rosa text-white @else bg-blue-700 @endif hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2">
+                Accesorio
+            </button>
+            <button wire:click="cambiarFiltro('Camas')"type="button"
+                class="text-white font-semibold @if ($filtro == 'Camas') bg-rosa text-white @else bg-blue-700 @endif hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2">
+                Camas
+            </button>
+            <button wire:click='cambiarFiltro("Alimentos y Golosinas")' type="button"
+                class="text-white font-semibold @if ($filtro == 'Alimentos y Golosinas') bg-rosa text-white @else bg-blue-700 @endif hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2">
+                Alimento y Golosinas
+            </button>
+            <button wire:click='cambiarFiltro("Cuidado")' type="button"
+                class="text-white font-semibold @if ($filtro == 'Cuidado') bg-rosa text-white @else bg-blue-700 @endif hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2">
+                Cuidado
+            </button>
         </div>
         <h2 class="py-3 text-2xl font-bold tracking-tight text-gray-500">{{ $filtro }}</h2>
         <div wire:loading.remove class="w-full">
@@ -78,7 +89,7 @@
                                             <button
                                                 class="absolute btn btn-lg btn-circle btn-ghost right-2 top-2">✕</button>
                                         </form>
-                                        @livewire('carrito.add-car', [$producto['nm_producto'],$producto['imagen'], $producto['id'], $producto['descuento'], $producto['precio'],$producto['descripcion']], key($producto['id']))
+                                        @livewire('carrito.add-car', [$producto['nm_producto'], $producto['imagen'], $producto['id'], $producto['descuento'], $producto['precio'], $producto['descripcion'],$producto['colores']], key($producto['id']))
                                     </div>
                                 </dialog>
 
@@ -105,3 +116,4 @@
             </div>
         </div>
     </div>
+</div>

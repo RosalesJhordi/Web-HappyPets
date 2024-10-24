@@ -1,4 +1,4 @@
-<div id="chart" class="bg-white shadow-md border"></div>
+<div id="chart" class="w-full bg-white border shadow-md"></div>
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {
@@ -6,22 +6,22 @@
             chart: {
                 type: 'line',
                 toolbar: {
-                    show: true 
+                    show: true
                 },
                 animations: {
                     enabled: true,
                     easing: 'easeinout',
-                    speed: 800 
+                    speed: 800
                 }
             },
             stroke: {
-                curve: 'smooth', 
-                width: 3,  
-                colors: ['#1E90FF'] 
+                curve: 'smooth',
+                width: 3,
+                colors: ['#1E90FF']
             },
             markers: {
-                size: 5, 
-                colors: ['#1E90FF'],  
+                size: 5,
+                colors: ['#1E90FF'],
                 strokeColors: '#fff',
                 strokeWidth: 2,
                 hover: {
@@ -39,12 +39,12 @@
             grid: {
                 show: true,
                 borderColor: '#e7e7e7',
-                strokeDashArray: 5  
+                strokeDashArray: 5
             },
             series: [{
                 name: 'Ganancias',
                 data: [30, 10, 30, 65, 90, 80, 85, 40, 35, 50, 33, 49, 60, 70],
-                color: '#1E90FF'  
+                color: '#1E90FF'
             }],
             xaxis: {
                 categories: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul'],
@@ -74,7 +74,7 @@
                 theme: 'dark',
                 y: {
                     formatter: function (val) {
-                        return val + "k"; 
+                        return val + "k";
                     }
                 }
             },

@@ -1,5 +1,5 @@
 <div class="w-full" >
-    <div class="flex w-full gap-5 py-5">
+    <div class="grid w-full grid-cols-2 gap-2 py-5 md:gap-5 md:flex md:grid-cols-4">
 
         @livewire('admin.secciones.usuarios-count')
         @livewire('admin.secciones.ganancias')
@@ -8,13 +8,13 @@
 
     </div>
     <h1 class="text-xl font-semibold text-gray-400">Graficos</h1>
-    <div class="flex flex-wrap w-full gap-5 py-5">
+    <div class="grid flex-wrap w-full grid-cols-1 gap-5 py-5 md:flex">
         @livewire('admin.graficos.grafico1')
         @livewire('admin.graficos.grafico2')
         @livewire('admin.graficos.grafico3')
         @livewire('admin.graficos.grafico4')
-        <div class="flex items-center justify-center w-full gap-5">
-            <div class="" style="width: 79%; height: 500px;">
+        <div class="grid items-center justify-center w-full grid-cols-1 gap-5 md:flex ">
+            <div class="tableii">
                 <div class="w-full h-full overflow-x-auto bg-white border">
                     <table class="table">
                         <h1 class="py-2 text-center text-gray-400">Tabla Usuarios</h1>
@@ -172,7 +172,7 @@
                     </table>
                 </div>
             </div>
-            <div class="" style="width: 29%;height: 500px;">
+            <div class="tableii2">
                 <div class="w-full h-full overflow-x-auto bg-white border">
                     <table class="table table-zebra ">
                         <!-- head -->

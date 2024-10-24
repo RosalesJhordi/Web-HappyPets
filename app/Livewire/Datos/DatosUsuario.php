@@ -10,24 +10,21 @@ class DatosUsuario extends Component
 {
     public $url;
     public $nombres;
-    public $permisos;
+    public $permisos = [];
 
     public function cargarDatosUsuario(){
         $response = Http::withHeaders([
             'Authorization' => 'Bearer ' . Session::get('authToken'),
         ])->withOptions([
             'verify' => false,
-        ])->get($this->url . '/DatosUsuario');
+        ])->get($this->url . '/Datos');
 
         if ($response->successful()) {
             $data = $response->json();
             $this->nombres = $data['usuarios']['nombres'];
             $this->permisos = $data['usuarios']['permisos'];
-            $dataaa = $this->permisos;
-            if (is_string($dataaa)) {
-                $permiso = explode(',', $dataaa);
-            }
-            Session::put('permisos', $permiso);
+
+            Session::put('permisos', $this->permisos);
         }
     }
     public function mount(){

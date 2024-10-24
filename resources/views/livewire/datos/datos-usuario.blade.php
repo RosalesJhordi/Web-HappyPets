@@ -9,11 +9,12 @@
             </button>
         </div>
 
-        <div id="dropdown-menu" class="absolute right-0 z-10 hidden w-56 mt-2 origin-top-right bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5"
+        <div id="dropdown-menu"
+            class="absolute right-0 z-10 hidden w-56 mt-2 origin-top-right bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5"
             role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1">
             <div class="py-1" role="none">
-                <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1"
-                    id="menu-item-0">Perfil</a>
+                <a wire:navigate href="{{ route('Perfil') }}" class="block px-4 py-2 text-sm text-gray-700"
+                    role="menuitem" tabindex="-1" id="menu-item-0">Perfil</a>
 
                 <button wire:click='deletetoken' type="button"
                     class="block w-full px-4 py-2 text-sm text-left text-gray-700" role="menuitem" tabindex="-1"
@@ -24,15 +25,19 @@
         </div>
     </div>
 
-    @if ($permisos == 'Administrador')
-        <a href="{{ route('Admin') }}">
-            <div class="fixed z-50 p-5 text-white bg-orange-600 rounded-md bottom-2 right-2">
-                <span>
-                    <i class="fa-solid fa-chart-simple"></i>
-                </span>
-                Administrar
-            </div>
-        </a>
+    @if ($permisos)
+        @foreach ($permisos as $permiso)
+            @if ($permiso == 'Administrador')
+                <a href="{{ route('Admin') }}">
+                    <div class="fixed z-50 p-5 text-white bg-orange-600 rounded-md bottom-2 right-2">
+                        <span>
+                            <i class="fa-solid fa-chart-simple"></i>
+                        </span>
+                        Administrar
+                    </div>
+                </a>
+            @endif
+        @endforeach
     @endif
 </div>
 

@@ -13,7 +13,7 @@ class MascotasCount extends Component
 
     public function totalMascotas()
     {
-        $response = Http::withoutVerifying()->withToken(Session::get('authToken'))->get($this->url . '/ListarMascotas');
+        $response = Http::withoutVerifying()->withToken(Session::get('authToken'))->get($this->url . '/TodasMascotas');
         $respuesta = $response->json();
         $this->totalMascotas = $respuesta['mascotas'];
     }

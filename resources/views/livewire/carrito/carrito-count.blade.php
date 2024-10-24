@@ -9,7 +9,7 @@
                     <span wire:poll='datosCarrito'
                         class="z-0 flex items-center text-base font-semibold text-white justify-start-center indicator-item badge bg-rosa">
                         @if ($datos)
-                            {{ is_countable($datos) ? count($datos) : 0 }}
+                            {{ count($datos)}}
                         @else
                             0
                         @endif
@@ -22,7 +22,7 @@
                 </div>
             </label>
         </div>
-        <div class="drawer-side">
+        <div class="drawer-side" style="z-index: 9999;">
             <label for="my-drawer-4" aria-label="close sidebar" class="drawer-overlay"></label>
             <ul class="min-h-full p-4 bg-white w-96 md:w-1/4 menu text-base-content" style="z-index: 9999;">
 

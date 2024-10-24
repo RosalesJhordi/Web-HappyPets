@@ -19,7 +19,7 @@ class Productos extends Component
     }
     public function obtenerdatos()
     {
-        $response = Http::withoutVerifying()->withToken(Session::get('authToken'))->get($this->url . '/ListarProductos');
+        $response = Http::withoutVerifying()->get($this->url . '/ListarProductos');
         $respuesta = $response->json();
         $productos = collect($respuesta['productos']);
 

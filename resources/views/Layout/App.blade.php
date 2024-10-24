@@ -7,16 +7,17 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>HappyPets - @yield('titulo')</title>
 
-    @vite(['resources/css/app.css'])
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
     <script src="https://kit.fontawesome.com/a22afade38.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="{{ asset('css/App.css') }}">
     <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <script src="https://unpkg.com/flowbite@latest/dist/flowbite.js"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.js"></script>
 </head>
 
 <body class="relative">
+    <script src="../path/to/flowbite/dist/flowbite.min.js"></script>
 
     <button onclick="toggleModal()"
         class="fixed z-50 flex items-center justify-center w-16 h-16 text-white rounded-full bottom-20 right-2 bg-primary">
@@ -67,7 +68,7 @@
                             <label for="my-drawer-3" aria-label="close sidebar" class="drawer-overlay"></label>
                             <ul class="flex flex-col items-center justify-start min-h-full p-4 bg-white menu w-96">
                                 <div class="flex items-center justify-center">
-                                    <img src="{{asset('img/logo.jpg')}}" alt="logo" class="py-5 w-60 ">
+                                    <img src="{{ asset('img/logo.jpg') }}" alt="logo" class="py-5 w-60 ">
                                 </div>
                                 <div class="flex flex-col items-center w-full h-full space-x-4">
                                     <a href="/"
@@ -75,6 +76,8 @@
                                         aria-current="page">Inicio</a>
                                     <a href="{{ route('Productos') }}"
                                         class="flex items-center justify-center h-16 px-3 text-lg font-semibold text-gray-500 border-b-4 border-transparent hover:border-blue-600">Productos</a>
+                                    <a href="{{ route('Servicios') }}"
+                                        class="flex items-center justify-center h-16 px-3 text-lg font-semibold text-gray-500 border-b-4 border-transparent hover:border-blue-600">Servicios</a>
                                     <a href="#"
                                         class="flex items-center justify-center h-16 px-3 text-lg font-semibold text-gray-500 border-b-4 border-transparent hover:border-blue-600">Sobre
                                         Nosotros</a>
@@ -100,6 +103,8 @@
                                 aria-current="page">Inicio</a>
                             <a href="{{ route('Productos') }}"
                                 class="flex items-center justify-center h-16 px-3 text-lg font-semibold text-gray-500 border-b-4 border-transparent hover:border-blue-600">Productos</a>
+                            <a href="{{ route('Servicios') }}"
+                                class="flex items-center justify-center h-16 px-3 text-lg font-semibold text-gray-500 border-b-4 border-transparent hover:border-blue-600">Servicios</a>
                             <a href="#"
                                 class="flex items-center justify-center h-16 px-3 text-lg font-semibold text-gray-500 border-b-4 border-transparent hover:border-blue-600">Sobre
                                 Nosotros</a>

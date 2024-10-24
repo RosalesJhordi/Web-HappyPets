@@ -24,6 +24,15 @@ Route::get('Productos',function(){
     return view('Productos');
 })->name('Productos');
 
+
+Route::get('Servicios',function(){
+    return view('Servicios');
+})->name('Servicios');
+
 Route::get('ShowCarrito',function(){
     return view('Carrito');
 })->name('ShowCarrito');
+
+Route::get('Perfil',function(){
+    return view('Perfil');
+})->name('Perfil');

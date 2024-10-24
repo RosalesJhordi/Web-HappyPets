@@ -43,8 +43,17 @@
                 class="grid grid-cols-2 mt-6 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
                 @foreach ($datos as $data)
                     <div class="relative border rounded-md group">
+                        <style>
+                            .imagen {
+                                transition: transform 0.5s ease; /* Animación suave */
+                            }
+
+                            .imagen:hover {
+                                transform: scaleX(-1); /* Refleja horizontalmente la imagen */
+                            }
+                        </style>
                         <div
-                            class="w-full overflow-hidden bg-gray-200 rounded-md aspect-h-1 aspect-w-1 lg:aspect-none group-hover:opacity-75 lg:h-80">
+                            class="w-full overflow-hidden bg-gray-200 rounded-md aspect-h-1 aspect-w-1 lg:aspect-none group-hover:opacity-75 lg:h-80 imagen">
                             <img src="{{ 'https://api-happypetshco-com.preview-domain.com/ServidorProductos/' . $data['imagen'] }}"
                                 alt="Front of men&#039;s Basic Tee in black."
                                 class="object-cover object-center w-full h-full lg:h-full lg:w-full">

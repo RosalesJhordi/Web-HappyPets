@@ -17,10 +17,10 @@ class AddCar extends Component
     public $total;
     public $color;
     public $descuento;
-
+    public $colores = [];
     public $descripcion;
     public $imagen;
-    public function mount($nombre,$imagen,$id,$descuento,$importe,$descripcion){
+    public function mount($nombre,$imagen,$id,$descuento,$importe,$descripcion,$colores){
         $this->url = env('API_URL', 'https://api-happypetshco-com.preview-domain.com/api');
         $this->nombre = $nombre;
         $this->imagen = $imagen;
@@ -28,6 +28,7 @@ class AddCar extends Component
         $this->descuento = $descuento;
         $this->importe = $importe;
         $this->descripcion = $descripcion;
+        $this->colores = explode(',', $colores);
     }
     public function incrementar(){
         $this->cantidad++;
@@ -45,16 +46,17 @@ class AddCar extends Component
 
     public function agregarCarrito(){
 
-        $response = Http::withoutVerifying()->withToken(Session::get('authToken'))->post($this->url . '/AñadirCarrito', [
+        $response = Http::withoutVerifying()->withToken(Session::get('authToken'))->post($this->url . '/AgregarCarrito', [
             'cantidad' => $this->cantidad,
             'color' => $this->color,
             'importe' => $this->total,
             'id_producto' => $this->id,
             'id_usuario' => $this->id_usuario
         ]);
-
+        //dd($this->cantidad, $this->id_usuario, $this->color, $this->importe, $this->id,$this->total);
         if ($response->successful()) {
             return back()->with('mensaje', 'Producto agregado exitosamente');
+            return redirect()->route('Productos');
         } else {
             return back()->with('error', "Error: " . $response->body());
         }
@@ -64,7 +66,7 @@ class AddCar extends Component
             'Authorization' => 'Bearer ' . Session::get('authToken'),
         ])->withOptions([
             'verify' => false,
-        ])->get($this->url . '/DatosUsuario');
+        ])->get($this->url . '/Datos');
 
         if ($response->successful()) {
             $data = $response->json();

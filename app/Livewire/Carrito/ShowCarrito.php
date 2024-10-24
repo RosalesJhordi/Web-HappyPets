@@ -23,7 +23,7 @@ class ShowCarrito extends Component
             'Authorization' => 'Bearer ' . Session::get('authToken'),
         ])->withOptions([
             'verify' => false,
-        ])->get($this->url . '/DatosUsuario');
+        ])->get($this->url . '/Datos');
 
         if ($response->successful()) {
             $data = $response->json();
@@ -35,7 +35,7 @@ class ShowCarrito extends Component
             'Authorization' => 'Bearer ' . Session::get('authToken'),
         ])->withOptions([
             'verify' => false,
-        ])->get($this->url . '/ListarCarrito='. $this->id_usuario);
+        ])->get($this->url . '/MostrarCarrito='. $this->id_usuario);
 
         if ($response->successful()) {
             $data = $response->json();
