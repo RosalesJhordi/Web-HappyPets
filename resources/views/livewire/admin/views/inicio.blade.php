@@ -5,6 +5,7 @@
         @livewire('admin.secciones.ganancias')
         @livewire('admin.secciones.productos-count')
         @livewire('admin.secciones.mascotas-count')
+        @livewire('admin.secciones.servicios-count')
 
     </div>
     <h1 class="text-xl font-semibold text-gray-400">Graficos</h1>

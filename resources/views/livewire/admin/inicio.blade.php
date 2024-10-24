@@ -217,6 +217,8 @@
                 @livewire('admin.views.inicio')
             @elseif ($activeButton === 'productos')
                 @livewire('admin.productos.productos')
+            @elseif ($activeButton === 'servicios')
+                @livewire('admin.servicios.inicio')
             @elseif ($activeButton === 'clientes')
                 @livewire('admin.usuarios.clientes')
             @else

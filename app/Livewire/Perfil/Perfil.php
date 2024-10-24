@@ -4,6 +4,7 @@ namespace App\Livewire\Perfil;
 
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Session;
+use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
@@ -31,6 +32,8 @@ class Perfil extends Component
 
     public $img = false;
 
+    public $historial = false;
+
     //mascota
     public $nombre;
 
@@ -48,6 +51,24 @@ class Perfil extends Component
 
     public $sexo;
 
+    public $datosHistorial;
+
+    public $historialCollection;
+    public $mascotaHistorial;
+    #[Url(as: 'his')]
+    public $his = 'historial';
+
+    public function mostraHistorial($id)
+    {
+        $this->historial = true;
+        $this->historialCollection = collect($this->datosHistorial['mascotas']);
+        $mascotaHistorial = $this->historialCollection->firstWhere('id', $id);
+        $this->mascotaHistorial = $mascotaHistorial;
+    }
+    public function ocultarHistorial(){
+        $this->historial = false;
+    }
+
     public function actualizarSexo($sex)
     {
         $this->sexo = $sex;
@@ -56,6 +77,19 @@ class Perfil extends Component
     public function actualizarEspecie($especie)
     {
         $this->especieSeleccionada = $especie;
+    }
+
+    public function historialMascota()
+    {
+        $response = Http::withHeaders([
+            'Authorization' => 'Bearer '.Session::get('authToken'),
+        ])->withOptions([
+            'verify' => false,
+        ])->get($this->url.'/HistorialMascota='.$this->id);
+
+        if ($response->successful()) {
+            $this->datosHistorial = $response->json();
+        }
     }
 
     public function cargarDatosUsuario()
@@ -130,6 +164,7 @@ class Perfil extends Component
         $this->url = env('API_URL', 'https://api-happypetshco-com.preview-domain.com/api');
         $this->cargarDatosUsuario();
         $this->mascotas();
+        $this->historialMascota();
     }
 
     public function render()
