@@ -30,3 +30,5 @@ Este proyecto está construido con Laravel v11 y Livewire v3, permitiendo la cre
 
 - Jhon R
 - Edward J
+
+
