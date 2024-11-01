@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ViewsController;
 use App\Http\Middleware\CheckPermissions;
+use App\Livewire\Admin\Usuarios\Empleados;
 use Illuminate\Http\Client\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -20,7 +21,7 @@ Route::middleware([CheckPermissions::class. ':Administrador'])->group(function (
     Route::get('Admin', [ViewsController::class, 'admin'])->name('Admin');
 });
 
-Route::get('Productos',function(){
+Route::get('/Productos',function(){
     return view('Productos');
 })->name('Productos');
 

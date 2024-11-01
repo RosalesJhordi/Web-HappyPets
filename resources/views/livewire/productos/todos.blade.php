@@ -37,7 +37,7 @@
         </div>
     </div>
     <div class="max-w-2xl px-4 py-5 mx-auto sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
-        <h2 class="text-2xl font-bold tracking-tight text-gray-500">Productos nuevos</h2>
+        <h2 class="text-xl font-bold tracking-tight text-gray-500 lg:text-2xl">Productos nuevos</h2>
         @if (!empty($datos))
             <div wire:poll='obtenerdatos'
                 class="grid grid-cols-2 mt-6 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
@@ -73,7 +73,7 @@
             </div>
             <div class="flex items-center justify-end w-full py-2 mt-2">
                 <a href="{{ route('Productos') }}"
-                    class="flex items-center justify-between p-2 px-5 text-xl font-semibold btn btn-primary">
+                class="flex items-center justify-between p-1 px-2 font-semibold lg:p-2 lg:px-5 text-md lg:text-xl btn btn-primary">
                     Ver mas productos
                 </a>
             </div>

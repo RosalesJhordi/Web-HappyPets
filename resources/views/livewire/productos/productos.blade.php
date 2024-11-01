@@ -5,28 +5,28 @@
         </div>
         <div class="grid grid-cols-3 gap-2 sm:grid-cols-4 md:grid-cols-6">
             <button wire:click="cambiarFiltro('Todos')" type="button"
-                class="text-white font-semibold @if ($filtro == 'Todos') bg-rosa text-white @else bg-blue-700 @endif hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2">
+                class="text-white font-semibold {{  $filtro == 'Todos' ? 'bg-rosa text-white' : 'bg-blue-700' }} hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2">
                 Todos
             </button>
 
             <button wire:click="cambiarFiltro('Descuento')" type="button"
-                class="text-white font-semibold @if ($filtro == 'Descuento') bg-rosa text-white @else bg-blue-700 @endif hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2">
+                class="text-white font-semibold {{  $filtro == 'Descuento' ? 'bg-rosa text-white' : 'bg-blue-700' }} hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2">
                 Descuento
             </button>
             <button wire:click="cambiarFiltro('Accesorio')" type="button"
-                class="text-white font-semibold @if ($filtro == 'Accesorio') bg-rosa text-white @else bg-blue-700 @endif hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2">
+                class="text-white font-semibold {{  $filtro == 'Accesorio' ? 'bg-rosa text-white' : 'bg-blue-700' }} hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2">
                 Accesorio
             </button>
             <button wire:click="cambiarFiltro('Camas')"type="button"
-                class="text-white font-semibold @if ($filtro == 'Camas') bg-rosa text-white @else bg-blue-700 @endif hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2">
+                class="text-white font-semibold {{  $filtro == 'Camas' ? 'bg-rosa text-white' : 'bg-blue-700' }} hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2">
                 Camas
             </button>
             <button wire:click='cambiarFiltro("Alimentos y Golosinas")' type="button"
-                class="text-white font-semibold @if ($filtro == 'Alimentos y Golosinas') bg-rosa text-white @else bg-blue-700 @endif hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2">
+                class="text-white font-semibold {{  $filtro == 'Alimentos y Golosinas' ? 'bg-rosa text-white' : 'bg-blue-700' }} hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2">
                 Alimento y Golosinas
             </button>
             <button wire:click='cambiarFiltro("Cuidado")' type="button"
-                class="text-white font-semibold @if ($filtro == 'Cuidado') bg-rosa text-white @else bg-blue-700 @endif hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2">
+                class="text-white font-semibold {{  $filtro == 'Cuidado' ? 'bg-rosa text-white' : 'bg-blue-700' }} hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2">
                 Cuidado
             </button>
         </div>
@@ -43,10 +43,9 @@
                                         alt="Front of men&#039;s Basic Tee in black."
                                         class="object-cover object-center w-full h-80 lg:h-full lg:w-full">
                                     @if ($producto['descuento'])
-                                        <div
-                                            class="absolute top-0 left-0 z-10 w-16 p-2 text-center text-white bg-red-500">
-                                            -{{ $producto['descuento'] }}%
-                                        </div>
+                                    <div class="absolute top-0 left-0 z-20 flex items-center justify-center w-16 h-8 p-2 text-center text-white bg-red-500" >
+                                        -{{ $producto['descuento'] }}%
+                                    </div>
                                     @endif
                                 </div>
                                 <div class="flex justify-between px-2 py-2 mt-4">
@@ -87,7 +86,7 @@
                                     <div class="w-11/12 max-w-5xl modal-box">
                                         <form method="dialog">
                                             <button
-                                                class="absolute btn btn-lg btn-circle btn-ghost right-2 top-2">✕</button>
+                                                class="absolute z-50 btn btn-lg btn-circle btn-ghost right-1 top-1">✕</button>
                                         </form>
                                         @livewire('carrito.add-car', [$producto['nm_producto'], $producto['imagen'], $producto['id'], $producto['descuento'], $producto['precio'], $producto['descripcion'],$producto['colores']], key($producto['id']))
                                     </div>

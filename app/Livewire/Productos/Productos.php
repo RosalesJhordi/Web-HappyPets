@@ -14,7 +14,7 @@ class Productos extends Component
     public $filtro = 'Todos';
     public function mount()
     {
-        $this->url = env('API_URL', 'https://api-happypetshco-com.preview-domain.com/api');
+        $this->url = env('API_URL', 'https://api.happypetshco.com/api');
         $this->obtenerdatos();
     }
     public function obtenerdatos()
@@ -23,9 +23,8 @@ class Productos extends Component
         $respuesta = $response->json();
         $productos = collect($respuesta['productos']);
 
-         // Aplicar filtro basado en la selección
          if ($this->filtro === 'Descuento') {
-            // Filtro: productos donde 'descuento' no sea 0 ni null
+
             $productos = $productos->filter(function ($producto) {
                 return $producto['descuento'] !== 0 && !is_null($producto['descuento']);
             });
@@ -35,7 +34,6 @@ class Productos extends Component
             });
         }
 
-        // Ordenar por fecha de creación descendente y tomar los primeros 8 productos
         $this->datos = $productos
             ->sortByDesc(function ($producto) {
                 return $producto['created_at'];

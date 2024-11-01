@@ -7,7 +7,27 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>HappyPets - @yield('titulo')</title>
 
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp,container-queries"></script>
+    <link href="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.13/dist/full.min.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'morado-oscuro': '#805395',
+                        'morado-claro': '#A881B7',
+                        'rosa': "#E94282",
+                    },
+                }
+            }
+        }
+    </script>
+
     <script src="https://kit.fontawesome.com/a22afade38.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="{{ asset('css/App.css') }}">
     <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
@@ -64,20 +84,22 @@
                             </div>
 
                         </div>
-                        <div class="drawer-side">
+                        <div class="z-50 drawer-side">
                             <label for="my-drawer-3" aria-label="close sidebar" class="drawer-overlay"></label>
-                            <ul class="flex flex-col items-center justify-start min-h-full p-4 bg-white menu w-96">
+                            <ul class="z-50 flex flex-col items-center justify-start min-h-full p-4 bg-white menu w-96">
                                 <div class="flex items-center justify-center">
                                     <img src="{{ asset('img/logo.jpg') }}" alt="logo" class="py-5 w-60 ">
                                 </div>
                                 <div class="flex flex-col items-center w-full h-full space-x-4">
-                                    <a href="/"
-                                        class="flex items-center justify-center h-16 px-3 text-lg font-semibold text-gray-500 border-b-4 border-transparent hover:border-blue-600"
+                                    <a href="{{ route('/') }}"
+                                        class="flex items-center justify-center h-16 px-3 text-lg font-semibold text-gray-500 border-b-4
+                                         hover:border-blue-600 {{ Route::is('/') ? 'border-blue-600' : 'border-transparent' }}"
                                         aria-current="page">Inicio</a>
                                     <a href="{{ route('Productos') }}"
-                                        class="flex items-center justify-center h-16 px-3 text-lg font-semibold text-gray-500 border-b-4 border-transparent hover:border-blue-600">Productos</a>
+                                        class="flex items-center justify-center h-16 px-3 text-lg font-semibold text-gray-500 border-b-4
+                                        hover:border-blue-600 {{ Route::is('Productos') ? 'border-blue-600' : 'border-transparent' }}">Productos</a>
                                     <a href="{{ route('Servicios') }}"
-                                        class="flex items-center justify-center h-16 px-3 text-lg font-semibold text-gray-500 border-b-4 border-transparent hover:border-blue-600">Servicios</a>
+                                        class="flex items-center justify-center h-16 px-3 text-lg font-semibold text-gray-500 border-b-4 {{ Route::is('Servicios') ? 'border-blue-600' : 'border-transparent' }} hover:border-blue-600">Servicios</a>
                                     <a href="#"
                                         class="flex items-center justify-center h-16 px-3 text-lg font-semibold text-gray-500 border-b-4 border-transparent hover:border-blue-600">Sobre
                                         Nosotros</a>
@@ -99,24 +121,25 @@
                         <div class="flex items-center h-full space-x-4">
                             <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
                             <a href="/"
-                                class="flex items-center justify-center h-16 px-3 text-lg font-semibold text-gray-500 border-b-4 border-transparent hover:border-blue-600"
+                                class="flex items-center justify-center h-16 px-3 text-lg font-semibold text-gray-500 border-b-4 hover:border-blue-600 {{ Route::is('/') ? 'border-blue-600' : 'border-transparent' }}"
                                 aria-current="page">Inicio</a>
                             <a href="{{ route('Productos') }}"
-                                class="flex items-center justify-center h-16 px-3 text-lg font-semibold text-gray-500 border-b-4 border-transparent hover:border-blue-600">Productos</a>
+                                class="flex items-center justify-center h-16 px-3 text-lg font-semibold text-gray-500 border-b-4 hover:border-blue-600 {{ Route::is('Productos') ? 'border-blue-600' : 'border-transparent' }}">Productos</a>
                             <a href="{{ route('Servicios') }}"
-                                class="flex items-center justify-center h-16 px-3 text-lg font-semibold text-gray-500 border-b-4 border-transparent hover:border-blue-600">Servicios</a>
+                                class="flex items-center justify-center h-16 px-3 text-lg font-semibold text-gray-500 border-b-4 hover:border-blue-600 {{ Route::is('Servicios') ? 'border-blue-600' : 'border-transparent' }}">Servicios</a>
                             <a href="#"
-                                class="flex items-center justify-center h-16 px-3 text-lg font-semibold text-gray-500 border-b-4 border-transparent hover:border-blue-600">Sobre
+                                class="flex items-center justify-center h-16 px-3 text-lg font-semibold text-gray-500 border-b-4 hover:border-blue-600">Sobre
                                 Nosotros</a>
                             <a href="#"
-                                class="flex items-center justify-center h-16 px-3 text-lg font-semibold text-gray-500 border-b-4 border-transparent hover:border-blue-600">Contactanos</a>
+                                class="flex items-center justify-center h-16 px-3 text-lg font-semibold text-gray-500 border-b-4 hover:border-blue-600">Contactanos</a>
                         </div>
                     </div>
                 </div>
 
-                <div class="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+                <div
+                    class="absolute inset-y-0 right-0 z-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
                     <button type="button"
-                        class="relative p-1 text-gray-400 bg-white rounded-full hover:text-gray-500 focus:outline-none focus:ring-1 focus:ring-black focus:ring-offset-1 focus:ring-offset-gray-800">
+                        class="relative p-1 text-gray-400 rounded-full hover:text-gray-500 focus:outline-none focus:ring-1 focus:ring-black focus:ring-offset-1 focus:ring-offset-gray-800">
                         <span class="absolute -inset-1.5"></span>
                         <span class="sr-only">View notifications</span>
                         <svg class="w-6 h-6 " fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -147,20 +170,6 @@
             </div>
         </div>
 
-        <!-- Mobile menu, show/hide based on menu state. -->
-        {{-- <div class="sm:hidden" id="mobile-menu">
-            <div class="px-2 pt-2 pb-3 space-y-1">
-                <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
-                <a href="#" class="block px-3 py-2 text-base font-medium text-white bg-gray-900 rounded-md"
-                    aria-current="page">Inicio</a>
-                <a href="#"
-                    class="block px-3 py-2 text-base font-medium text-gray-300 rounded-md hover:bg-gray-700 hover:text-white">Productos</a>
-                <a href="#"
-                    class="block px-3 py-2 text-base font-medium text-gray-300 rounded-md hover:bg-gray-700 hover:text-white">Sobre Nosotros</a>
-                <a href="#"
-                    class="block px-3 py-2 text-base font-medium text-gray-300 rounded-md hover:bg-gray-700 hover:text-white">Contactanos</a>
-            </div>
-        </div> --}}
     </nav>
 
     @yield('contenido')

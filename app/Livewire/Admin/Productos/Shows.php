@@ -23,7 +23,7 @@ class Shows extends Component
 
     public function mount($id)
     {
-        $this->url = env('API_URL', '');
+        $this->url = env('API_URL', 'https://api.happypetshco.com/api');
         $this->id = $id;
         $this->cargardatos();
     }

@@ -21,7 +21,7 @@ class AddCar extends Component
     public $descripcion;
     public $imagen;
     public function mount($nombre,$imagen,$id,$descuento,$importe,$descripcion,$colores){
-        $this->url = env('API_URL', 'https://api-happypetshco-com.preview-domain.com/api');
+        $this->url = env('API_URL', 'https://api.happypetshco.com/api');
         $this->nombre = $nombre;
         $this->imagen = $imagen;
         $this->id = $id;

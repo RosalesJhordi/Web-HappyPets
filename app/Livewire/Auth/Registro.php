@@ -22,7 +22,7 @@ class Registro extends Component
     public $mostrar = true;
 
     public function mount(){
-        $this->url = env('API_URL', 'https://api-happypetshco-com.preview-domain.com/api');
+        $this->url = env('API_URL', 'https://api.happypetshco.com/api');
     }
 
     public function registro()

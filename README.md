@@ -1,66 +1,32 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+## VETERINARIA HAPPYPETS-HCO
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+<img src="./logo.jpg" alt="Veterinaria HappyPets">
 
-## About Laravel
+## SOBRE EL PROYECTO 
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Este proyecto está construido con Laravel v11 y Livewire v3, permitiendo la creación de componentes en tiempo real sin la necesidad de utilizar JavaScript. La plataforma está diseñada para gestionar de manera eficiente los servicios y productos de una veterinaria, brindando a los usuarios una experiencia rápida y fluida.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+### Funcionalidades principales:
+- **Gestión de Productos y Servicios:** Administración completa de los productos y servicios ofrecidos por la veterinaria, con categorías, precios, descuentos y disponibilidad de stock.
+- **Módulo de Clientes y Mascotas:** Registro detallado de clientes y sus mascotas, con funcionalidades para llevar el historial médico, cirugías, vacunaciones, tratamientos, y servicios de aseo.
+- **Sistema de Pedidos:** Los usuarios pueden realizar pedidos de productos y servicios desde la web, con opción de seguimiento y pago en línea.
+- **Dashboard en Tiempo Real:** Utilizando ApexCharts, el sistema ofrece gráficos en tiempo real sobre las ventas, productos más vendidos y estadísticas de atención a las mascotas.
+- **Notificaciones Interactivas:** A través de Toastify, los usuarios son notificados de manera interactiva sobre el estado de sus pedidos, alertas y promociones.
+- **Seguridad y Autenticación:** Utilizando autenticación avanzada y permisos configurados en formato JSON para gestionar accesos de usuarios y empleados.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### Integraciones:
+- **Onirix:** Para implementar funcionalidades de realidad aumentada (AR), permitiendo a los usuarios visualizar productos de manera innovadora.
+- **Izipay:** Para procesar pagos en línea de manera segura y confiable.
 
-## Learning Laravel
+### Tecnologías Utilizadas:
+- **Laravel 11**: Framework de backend que permite la construcción de aplicaciones web robustas y escalables.
+- **Livewire v3**: Herramienta para el desarrollo de interfaces interactivas en tiempo real sin necesidad de JavaScript.
+- **Tailwind CSS**: Framework de diseño utilizado para construir interfaces de usuario modernas y responsivas.
+- **ApexCharts**: Librería de gráficos para mostrar datos interactivos y visuales.
+- **Figma**: Herramienta de diseño utilizada para la planificación y prototipado de la interfaz de usuario.
+- **Vite**: Para la compilación rápida y eficiente de archivos de estilo y scripts.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### DESARROLLADORES
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
-
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
-
-## Laravel Sponsors
-
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
-
-### Premium Partners
-
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+- Jhon R
+- Edward J

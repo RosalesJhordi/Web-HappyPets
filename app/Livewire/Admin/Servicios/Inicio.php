@@ -20,17 +20,22 @@ class Inicio extends Component
     public $filtro = 'Todos';
 
     public $img = false;
+
     public $tipo;
+
     public $descripcion;
+
+    public $buscado = '';
+
     public function mount()
     {
-        $this->url = env('API_URL', 'https://api-happypetshco-com.preview-domain.com/api');
+        $this->url = env('API_URL', 'https://api.happypetshco.com/api');
         $this->obtenerdatos();
     }
 
     public function obtenerdatos()
     {
-        $response = Http::withoutVerifying()->get($this->url.'/ListarServicios');
+        $response = Http::withoutVerifying()->withToken(Session::get('authToken'))->get($this->url.'/ListarServicios');
         $respuesta = $response->json();
         $this->datos = $respuesta['servicios'];
     }
@@ -60,8 +65,85 @@ class Inicio extends Component
         }
     }
 
+    public function buscarServicios()
+    {
+        $servicios = collect($this->datos);
+
+        // Aplicar filtro si no es "Todos"
+        if ($this->filtro !== 'Todos') {
+            switch ($this->filtro) {
+                case 'A - Z':
+                    $servicios = $servicios->sortBy(function ($producto) {
+                        return strtolower($producto['tipo']);
+                    });
+                    break;
+                case 'Z - A':
+                    $servicios = $servicios->sortByDesc(function ($producto) {
+                        return strtolower($producto['tipo']);
+                    });
+                    break;
+                case 'ANTIGUOS':
+                    $servicios = $servicios->sortBy(function ($producto) {
+                        return $producto['created_at'];
+                    });
+                    break;
+                case 'RECIENTES':
+                    $servicios = $servicios->sortByDesc(function ($producto) {
+                        return $producto['created_at'];
+                    });
+                    break;
+                case '':
+                    $this->showAll();
+                    break;
+            }
+        } else {
+            $this->showAll();
+        }
+        if (empty($this->buscado)) {
+            $this->showAll();
+        } elseif (! empty($this->buscado)) {
+            $servicios = $servicios->filter(function ($producto) {
+                return str_contains(strtolower($producto['tipo']), strtolower($this->buscado));
+            });
+        } else {
+            $this->showAll();
+        }
+
+        $this->datos = $servicios->values()->all();
+    }
+
+    //filtro
+
+    public function showAll()
+    {
+        $this->filtro = 'Todos';
+        $this->obtenerdatos();
+    }
+
+    public function az()
+    {
+        $this->datos = collect($this->datos)->sortBy('tipo')->values()->toArray();
+    }
+
+    public function za()
+    {
+        $this->datos = collect($this->datos)->sortByDesc('tipo')->values()->toArray();
+    }
+
+    public function fechaup()
+    {
+        $this->datos = collect($this->datos)->sortBy('created_at')->values()->toArray();
+    }
+
+    public function fechadown()
+    {
+        $this->datos = collect($this->datos)->sortByDesc('created_at')->values()->toArray();
+    }
+
     public function render()
     {
+        $this->buscarServicios();
+
         return view('livewire.admin.servicios.inicio');
     }
 }

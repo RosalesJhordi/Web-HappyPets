@@ -1,6 +1,6 @@
 <div class="w-full bg-white">
     <div class="max-w-2xl px-4 py-5 mx-auto sm:px-6 sm:py-10 lg:max-w-7xl lg:px-8">
-        <h2 class="text-2xl font-bold tracking-tight text-gray-500">Productos en descuento</h2>
+        <h2 class="text-xl font-bold tracking-tight text-gray-500 lg:text-2xl">Productos en descuento</h2>
         @if (!empty($datos))
             <div wire:poll='obtenerdatos'
                 class="grid grid-cols-2 mt-6 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
@@ -11,7 +11,7 @@
                             <img src="{{ 'https://api-happypetshco-com.preview-domain.com/ServidorProductos/' . $data['imagen'] }}"
                                 alt="Front of men&#039;s Basic Tee in black."
                                 class="object-cover object-center w-full h-full lg:h-full lg:w-full">
-                            <div class="absolute top-0 left-0 z-50 w-16 p-2 text-center text-white bg-red-500">
+                            <div class="absolute top-0 left-0 z-20 flex items-center justify-center w-16 h-8 p-2 text-center text-white bg-red-500" >
                                 -{{ $data['descuento'] }}%
                             </div>
                         </div>
@@ -29,7 +29,7 @@
                 @endforeach
             </div>
             <div class="flex items-center justify-end w-full py-2 mt-2">
-                <a href="{{ route('Productos') }}" class="flex items-center justify-between p-2 px-5 text-xl font-semibold btn btn-primary">
+                <a href="{{ route('Productos') }}" class="flex items-center justify-between p-1 px-2 font-semibold lg:p-2 lg:px-5 text-md lg:text-xl btn btn-primary">
                     Ver mas productos
                 </a>
             </div>
@@ -38,10 +38,10 @@
                 <h1>Productos no encontrados</h1>
             </div>
         @endif
-        <h2 class="py-5 mt-5 text-2xl font-bold tracking-tight text-gray-500">Nuestras Categorias</h2>
+        <h2 class="py-5 mt-5 text-xl font-bold tracking-tight text-gray-500 lg:text-2xl">Nuestras Categorias</h2>
         <div class="grid flex-wrap grid-cols-5 gap-2 py-2 mb-5">
             @foreach ($categorias as $categoria)
-                <a href="#" class="flex flex-col items-center justify-center text-white btn bg-rosa">
+                <a href="#" class="flex flex-col items-center justify-center w-full text-white btn bg-rosa">
                     @if ($categoria == "Alimentos y Golosinas")
                         <i class="fa-solid fa-mortar-pestle"></i>
                     @endif

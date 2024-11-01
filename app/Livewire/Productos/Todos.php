@@ -13,7 +13,7 @@ class Todos extends Component
     public $nombre;
     public function mount()
     {
-        $this->url = env('API_URL', 'https://api-happypetshco-com.preview-domain.com/api');
+        $this->url = env('API_URL', 'https://api.happypetshco.com/api');
         $this->obtenerdatos();
     }
     public function obtenerdatos()

@@ -1,11 +1,12 @@
-<div class="w-full" >
-    <div class="grid w-full grid-cols-2 gap-2 py-5 md:gap-5 md:flex md:grid-cols-4">
-
-        @livewire('admin.secciones.usuarios-count')
-        @livewire('admin.secciones.ganancias')
-        @livewire('admin.secciones.productos-count')
-        @livewire('admin.secciones.mascotas-count')
-        @livewire('admin.secciones.servicios-count')
+<div class="w-full">
+    <div class="grid w-full grid-cols-2 gap-2 py-5 md:gap-5 md:flex md:flex-wrap md:grid-cols-4">
+        @if (Session::get('authToken'))
+            @livewire('admin.secciones.usuarios-count')
+            @livewire('admin.secciones.ganancias')
+            @livewire('admin.secciones.productos-count')
+            @livewire('admin.secciones.mascotas-count')
+            @livewire('admin.secciones.servicios-count')
+        @endif
 
     </div>
     <h1 class="text-xl font-semibold text-gray-400">Graficos</h1>
@@ -215,4 +216,3 @@
         </div>
     </div>
 </div>
-

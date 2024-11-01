@@ -16,9 +16,10 @@ class CarritoCount extends Component
 
     public $importeTotal;
 
+
     public function mount()
     {
-        $this->url = env('API_URL', 'https://api-happypetshco-com.preview-domain.com/api');
+        $this->url = env('API_URL', 'https://api.happypetshco.com/api');
         if (Session::get('authToken')) {
 
             $this->datoss();
@@ -75,6 +76,10 @@ class CarritoCount extends Component
             $this->datos = $agrupados->values();
             $this->importeTotal = $agrupados->sum('importe');
         }
+    }
+
+    public function contador($cantidad,$id){
+
     }
 
     public function render()

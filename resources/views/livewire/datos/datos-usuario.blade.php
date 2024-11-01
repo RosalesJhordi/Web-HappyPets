@@ -29,7 +29,7 @@
         @foreach ($permisos as $permiso)
             @if ($permiso == 'Administrador')
                 <a href="{{ route('Admin') }}">
-                    <div class="fixed z-50 p-5 text-white bg-orange-600 rounded-md bottom-2 right-2">
+                    <div class="fixed z-50 p-5 text-white bg-orange-500 rounded-md bottom-2 right-2">
                         <span>
                             <i class="fa-solid fa-chart-simple"></i>
                         </span>

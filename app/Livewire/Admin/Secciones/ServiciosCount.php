@@ -11,7 +11,7 @@ class ServiciosCount extends Component
     public $url;
     public $totalservicios;
     public function mount(){
-        $this->url = env('API_URL', 'https://api-happypetshco-com.preview-domain.com/api');
+        $this->url = env('API_URL', 'https://api.happypetshco.com/api');
         $this->totalservicios();
     }
     public function totalservicios(){

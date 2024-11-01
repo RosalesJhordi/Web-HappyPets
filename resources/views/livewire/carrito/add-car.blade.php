@@ -1,7 +1,7 @@
 <div class="grid items-start w-full grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-12 lg:gap-x-8">
-    <div class="overflow-hidden bg-gray-100 rounded-lg aspect-h-3 aspect-w-2 sm:col-span-4 lg:col-span-5">
+    <div class="overflow-hidden bg-gray-100 rounded-lg aspect-h-2 aspect-w-2 sm:col-span-4 lg:col-span-5">
         <img src="{{ 'https://api-happypetshco-com.preview-domain.com/ServidorProductos/' . $imagen }}"
-            alt="Two each of gray, white, and black shirts arranged on table." class="object-cover object-center h-full">
+            alt="Two each of gray, white, and black shirts arranged on table." class="object-cover h-full">
     </div>
     <div class="sm:col-span-8 lg:col-span-7">
         <h2 class="text-2xl font-bold text-gray-900 sm:pr-12">{{ $nombre }}</h2>
@@ -57,35 +57,6 @@
                         @endif
                     @endforeach
                 </div>
-
-
-                {{-- <legend class="text-lg font-medium text-gray-900">Color: <strong>{{ $color }}</strong></legend>
-
-                <div class="flex items-center mt-4 space-x-3">
-                    <!-- Opción de color blanco -->
-                    <label wire:click='actualizarcolor("Blanco")'
-                        class="relative -m-0.5 flex ring-4 ring-transparent cursor-pointer items-center justify-center rounded-full p-0.5 focus:outline-none @if ($color == 'Blanco') ring-4 ring-blue-500 @endif">
-                        <input type="radio" name="color-choice" value="White" wire:model="selectedColor"
-                            class="sr-only">
-                        <span class="w-8 h-8 bg-white border border-black rounded-full border-opacity-10"></span>
-                    </label>
-
-                    <!-- Opción de color gris -->
-                    <label wire:click='actualizarcolor("Gris")'
-                        class="relative -m-0.5 flex cursor-pointer ring-4 ring-transparent items-center justify-center rounded-full p-0.5 focus:outline-none @if ($color == 'Gris') ring-4 ring-blue-500 @endif">
-                        <input type="radio" name="color-choice" value="Gray" wire:model="selectedColor"
-                            class="sr-only">
-                        <span class="w-8 h-8 bg-gray-200 border border-black rounded-full border-opacity-10"></span>
-                    </label>
-
-                    <!-- Opción de color negro -->
-                    <label wire:click='actualizarcolor("Negro")'
-                        class="relative -m-0.5 flex cursor-pointer ring-4 ring-transparent items-center justify-center rounded-full p-0.5 focus:outline-none @if ($color == 'Negro') ring-4 ring-blue-500 @endif">
-                        <input type="radio" name="color-choice" value="Black" wire:model="selectedColor"
-                            class="sr-only">
-                        <span class="w-8 h-8 bg-gray-900 border border-black rounded-full border-opacity-10"></span>
-                    </label>
-                </div> --}}
 
             </fieldset>
 

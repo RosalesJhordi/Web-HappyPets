@@ -60,7 +60,7 @@
                 <dialog id="my_modal_3" class="py-4 modal" wire:ignore.self>
                     <div class="w-11/12 max-w-4xl py-4 modal-box">
                         <form method="dialog">
-                            <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+                            <h3 class="text-xl font-semibold text-gray-900">
                                 Añade tu mascota
                             </h3>
                             <button class="absolute btn btn-sm btn-circle btn-ghost right-2 top-2">✕</button>
@@ -68,7 +68,7 @@
                         <div class="grid w-full grid-cols-2 gap-4 mt-3">
                             <div>
                                 <label for="nombre"
-                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nombre de
+                                    class="block mb-2 text-sm font-medium text-gray-900 ">Nombre de
                                     mascota</label>
                                 <input type="text" name="nombre" id="nombre" wire:model.live='nombre'
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
@@ -76,7 +76,7 @@
                             </div>
                             <div>
                                 <label for="edad"
-                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Edad</label>
+                                    class="block mb-2 text-sm font-medium text-gray-900 ">Edad</label>
                                 <input type="text" name="edad" id="edad" placeholder="2 meses"
                                     wire:model.live='edad'
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " />
@@ -84,7 +84,7 @@
                         </div>
                         <div class="flex flex-col items-center justify-between mt-4">
                             <label for="especie"
-                                class="block w-full mb-2 text-sm font-medium text-gray-900 dark:text-white text-start">Seleciona
+                                class="block w-full mb-2 text-sm font-medium text-gray-900 text-start">Seleciona
                                 Especie</label>
                             <div class="grid items-center justify-center w-full h-full grid-cols-5 gap-4">
                                 @foreach ($especies as $especie)
@@ -130,7 +130,7 @@
                         @if ($especieSeleccionada == 'Otro')
                             <div class="mt-3">
                                 <label for="especie"
-                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Especifique
+                                    class="block mb-2 text-sm font-medium text-gray-900 ">Especifique
                                     especie</label>
                                 <input type="text" name="especie" id="especie" placeholder="Raton"
                                     wire:model.live='especiee'
@@ -139,14 +139,14 @@
                         @endif
                         <div class="mt-3">
                             <label for="raza"
-                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Raza</label>
+                                class="block mb-2 text-sm font-medium text-gray-900 ">Raza</label>
                             <input type="text" name="edad" id="edad" placeholder="Golden"
                                 wire:model.live='raza'
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " />
                         </div>
 
                         <label for="raza"
-                            class="block mt-3 mb-2 text-sm font-medium text-gray-900 dark:text-white">Seleciona
+                            class="block mt-3 mb-2 text-sm font-medium text-gray-900 ">Seleciona
                             Sexo</label>
                         <div class="flex items-center justify-center gap-10 px-5 mt-1 mb-4">
                             <button wire:click='actualizarSexo("Macho")'
@@ -183,7 +183,7 @@
 
 
                         <button type="submit" wire:click='addMascota'
-                            class="w-full mt-3 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Agregar
+                            class="w-full mt-3 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Agregar
                             mascota
                         </button>
                     </div>
