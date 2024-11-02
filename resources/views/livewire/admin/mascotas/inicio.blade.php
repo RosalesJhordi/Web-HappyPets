@@ -69,7 +69,7 @@
                             <div class="flex items-center gap-3">
                                 <div class="avatar">
                                     <div class="w-20 h-12 mask mask-squircle">
-                                        <img src="{{ 'https://api-happypetshco-com.preview-domain.com/ServidorMascotas/' . $dato['imagen'] }}"
+                                        <img src="{{ 'https://api.happypetshco.com/ServidorMascotas/' . $dato['imagen'] }}"
                                             alt="Imagen servicio {{ $dato['nombre'] }}" class="w-full" />
                                     </div>
                                 </div>

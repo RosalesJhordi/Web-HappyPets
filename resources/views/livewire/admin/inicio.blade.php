@@ -36,10 +36,10 @@
         <div class="h-full px-3 pb-4 overflow-y-auto bg-white">
             <ul class="space-y-2 font-medium">
                 <li>
-                    <a href="Admin"
-                        class="flex items-center p-2 text-gray-900 rounded-lg  group {{ $activeButton === 'home' ? 'bg-blue-600 text-white hover:bg-blue-500' : 'text-gray-900 hover:bg-gray-200' }}">
+                    <a href="{{ route('Admin') }}"
+                        class="flex items-center p-2 text-gray-900 rounded-lg  group {{ Route::is('Admin') ? 'bg-blue-600 text-white hover:bg-blue-500' : 'text-gray-900 hover:bg-gray-200' }}">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
-                            class="w-6 h-6  {{ $activeButton === 'home' ? 'text-white' : 'text-gray-500' }}">
+                            class="w-6 h-6  {{ Route::is('Admin') ? 'text-white' : 'text-gray-500' }}">
                             <path
                                 d="M11.47 3.841a.75.75 0 0 1 1.06 0l8.69 8.69a.75.75 0 1 0 1.06-1.061l-8.689-8.69a2.25 2.25 0 0 0-3.182 0l-8.69 8.69a.75.75 0 1 0 1.061 1.06l8.69-8.689Z" />
                             <path
@@ -49,9 +49,9 @@
                     </a>
                 </li>
                 <li>
-                    <a href="" wire:click.prevent='setActive("productos")'
-                        class="flex items-center p-2 cursor-pointer rounded-lg {{ $activeButton === 'productos' ? 'bg-blue-600 text-white hover:bg-blue-500' : 'text-gray-900 hover:bg-gray-200' }}">
-                        <svg class="flex-shrink-0 w-5 h-5 {{ $activeButton === 'productos' ? 'text-white' : 'text-gray-500' }} transition duration-75"
+                    <a href="{{ route('Admin.Productos') }}"
+                        class="flex items-center p-2 cursor-pointer rounded-lg {{ Route::is('Admin.Productos') ? 'bg-blue-600 text-white hover:bg-blue-500' : 'text-gray-900 hover:bg-gray-200' }}">
+                        <svg class="flex-shrink-0 w-5 h-5 {{ Route::is('Admin.Productos') ? 'text-white' : 'text-gray-500' }} transition duration-75"
                             aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
                             viewBox="0 0 18 20">
                             <path
@@ -61,9 +61,9 @@
                     </a>
                 </li>
                 <li>
-                    <a href="" wire:click.prevent='setActive("servicios")'
-                        class="flex items-center p-2 rounded-lg {{ $activeButton === 'servicios' ? 'bg-blue-600 text-white hover:bg-blue-500' : 'text-gray-900 hover:bg-gray-200' }}">
-                        <svg class="flex-shrink-0 w-5 h-5 transition duration-75 {{ $activeButton === 'servicios' ? 'text-white' : 'text-gray-500' }} "
+                    <a href="{{ route('Admin.Servicios') }}"
+                        class="flex items-center p-2 rounded-lg {{ Route::is('Admin.Servicios') ? 'bg-blue-600 text-white hover:bg-blue-500' : 'text-gray-900 hover:bg-gray-200' }}">
+                        <svg class="flex-shrink-0 w-5 h-5 transition duration-75 {{ Route::is('Admin.Servicios') ? 'text-white' : 'text-gray-500' }} "
                             aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
                             viewBox="0 0 18 18">
                             <path
@@ -75,10 +75,11 @@
                 </li>
                 <li>
                     <button type="button"
-                        class="flex items-center w-full p-2 text-base transition duration-75 rounded-lg group {{ $activeButton === 'hoy' ? 'bg-blue-600 text-white hover:bg-blue-500' : 'text-gray-900 hover:bg-gray-200' }}"
+                        class="flex items-center w-full p-2 text-base transition duration-75 rounded-lg group {{ Route::is('Admin.Citas.Hoy') | Route::is('Admin.Citas.Semana') | Route::is('Admin.Citas.Mes')  ? 'bg-blue-600 text-white
+                         hover:bg-blue-500' : 'text-gray-900 hover:bg-gray-200'  }}"
                         aria-controls="dropdown-example" data-collapse-toggle="dropdown-example">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
-                            class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 ">
+                            class="flex-shrink-0 w-6 h-6  {{ Route::is('Admin.Citas.Hoy') | Route::is('Admin.Citas.Semana') | Route::is('Admin.Citas.Mes')  ? 'text-white' : 'text-gray-500' }} transition duration-75 ">
                             <path fill-rule="evenodd"
                                 d="M6.75 2.25A.75.75 0 0 1 7.5 3v1.5h9V3A.75.75 0 0 1 18 3v1.5h.75a3 3 0 0 1 3 3v11.25a3 3 0 0 1-3 3H5.25a3 3 0 0 1-3-3V7.5a3 3 0 0 1 3-3H6V3a.75.75 0 0 1 .75-.75Zm13.5 9a1.5 1.5 0 0 0-1.5-1.5H5.25a1.5 1.5 0 0 0-1.5 1.5v7.5a1.5 1.5 0 0 0 1.5 1.5h13.5a1.5 1.5 0 0 0 1.5-1.5v-7.5Z"
                                 clip-rule="evenodd" />
@@ -93,20 +94,20 @@
                     </button>
                     <ul id="dropdown-example" class="hidden py-2 space-y-2">
                         <li>
-                            <a href="" wire:click.prevent='setActive("hoy")'
+                            <a href="{{ route('Admin.Citas.Hoy') }}"
                                 class="flex items-center w-full gap-2 p-2 text-gray-600 transition duration-75 rounded-lg pl-11 group hover:bg-gray-200">
                                 <i class="text-gray-500 fa-solid fa-calendar-day"></i>
                                 Hoy
                             </a>
                         </li>
                         <li>
-                            <a href="" wire:click.prevent='setActive("semana")'
+                            <a href="{{ route('Admin.Citas.Semana') }}"
                                 class="flex items-center w-full gap-2 p-2 text-gray-600 transition duration-75 rounded-lg pl-11 group hover:bg-gray-200">
                                 <i class="text-gray-500 fa-solid fa-calendar-week "></i>
                                 Esta Semana</a>
                         </li>
                         <li>
-                            <a href="" wire:click.prevent='setActive("mes")'
+                            <a href="{{ route('Admin.Citas.Mes') }}"
                                 class="flex items-center w-full gap-2 p-2 text-gray-600 transition duration-75 rounded-lg pl-11 group hover:bg-gray-200">
                                 <i class="text-gray-500 fa-regular fa-calendar "></i>
                                 Este Mes</a>
@@ -114,19 +115,19 @@
                     </ul>
                 </li>
                 <li>
-                    <a href="" wire:click.prevent='setActive("mascotas")'
-                        class="flex items-center p-2 rounded-lg group {{ $activeButton === 'mascotas' ? 'bg-blue-600 text-white hover:bg-blue-500' : 'text-gray-900 hover:bg-gray-200' }}">
+                    <a href="{{route('Admin.Mascotas')}}"
+                        class="flex items-center p-2 rounded-lg group {{ Route::is('Admin.Mascotas') ? 'bg-blue-600 text-white hover:bg-blue-500' : 'text-gray-900 hover:bg-gray-200' }}">
                         <i
-                            class="w-6 h-6 text-lg {{ $activeButton === 'mascotas' ? 'text-white' : 'text-gray-500' }} fa-solid fa-dog"></i>
+                            class="w-6 h-6 text-lg {{ Route::is('Admin.Mascotas')  ? 'text-white' : 'text-gray-500' }} fa-solid fa-dog"></i>
                         <span class="flex-1 ms-3 whitespace-nowrap">Mascotas</span>
                     </a>
                 </li>
 
                 <li>
                     <button type="button"
-                        class="flex items-center w-full p-2 text-base transition duration-75 rounded-lg group {{ $activeButton === 'clientes' || $activeButton === 'empleados' ? 'bg-blue-600 text-white hover:bg-blue-500' : 'text-gray-900 hover:bg-gray-200' }}"
+                        class="flex items-center w-full p-2 text-base transition duration-75 rounded-lg group {{ Route::is('Admin.Clientes') | Route::is('Admin.Empleados')  ? 'bg-blue-600 text-white hover:bg-blue-500' : 'text-gray-900 hover:bg-gray-200' }}"
                         aria-controls="dropdown-example2" data-collapse-toggle="dropdown-example2">
-                        <svg class="flex-shrink-0 w-5 h-5 {{ $activeButton === 'clientes' || $activeButton === 'empleados' ? 'text-white' : 'text-gray-500' }}  transition duration-75 "
+                        <svg class="flex-shrink-0 w-5 h-5 {{ Route::is('Admin.Clientes')  | Route::is('Admin.Empleados') ? 'text-white' : 'text-gray-500' }}  transition duration-75 "
                             aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
                             viewBox="0 0 20 18">
                             <path
@@ -142,7 +143,7 @@
                     </button>
                     <ul id="dropdown-example2" class="hidden py-2 space-y-2">
                         <li>
-                            <a href="" wire:click.prevent='setActive("clientes")'
+                            <a href="{{ route('Admin.Clientes') }}"
                                 class="flex items-center w-full gap-2 p-2 text-gray-600 transition duration-75 rounded-lg pl-11 group hover:bg-gray-200">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
                                     class="text-gray-500 size-6">
@@ -156,7 +157,7 @@
                             </a>
                         </li>
                         <li>
-                            <a href="" wire:click.prevent='setActive("empleados")'
+                            <a href="{{ route('Admin.Empleados') }}"
                                 class="flex items-center w-full gap-2 p-2 text-gray-600 transition duration-75 rounded-lg pl-11 group hover:bg-gray-200">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
                                     class="text-gray-500 size-6 ">
@@ -167,18 +168,6 @@
                                 Empleados</a>
                         </li>
                     </ul>
-                </li>
-                <li>
-                    <a href="#" class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100 group">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
-                            class="text-gray-500 size-6">
-                            <path fill-rule="evenodd"
-                                d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12Zm8.706-1.442c1.146-.573 2.437.463 2.126 1.706l-.709 2.836.042-.02a.75.75 0 0 1 .67 1.34l-.04.022c-1.147.573-2.438-.463-2.127-1.706l.71-2.836-.042.02a.75.75 0 1 1-.671-1.34l.041-.022ZM12 9a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Z"
-                                clip-rule="evenodd" />
-                        </svg>
-
-                        <span class="flex-1 ms-3 whitespace-nowrap">Información</span>
-                    </a>
                 </li>
                 <li>
                     <a href="/" class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100 group">
@@ -199,40 +188,27 @@
 
     <div class="p-2 md:p-4 sm:ml-64">
         <div class="p-2 border-gray-200 md:p-4 mt-14">
-            @if ($activeButton === 'home')
+            @if (Route::is('Admin'))
                 <h1 class="text-2xl font-extrabold text-gray-600">Inicio</h1>
-            @elseif ($activeButton === 'productos')
+            @elseif (Route::is('Admin.Productos'))
                 <h1 class="text-2xl font-extrabold text-gray-600">Productos</h1>
-            @elseif ($activeButton === 'servicios')
+            @elseif (Route::is('Admin.Servicios'))
                 <h1 class="text-2xl font-extrabold text-gray-600">Servicios</h1>
-            @elseif ($activeButton === 'hoy')
+            @elseif (Route::is('Admin.Citas.Hoy'))
                 <h1 class="text-2xl font-extrabold text-gray-600">Citas Hoy</h1>
-            @elseif ($activeButton === 'semana')
+            @elseif (Route::is('Admin.Citas.Semana'))
                 <h1 class="text-2xl font-extrabold text-gray-600">Citas Semana</h1>
-            @elseif ($activeButton === 'mes')
+            @elseif (Route::is('Admin.Citas.Mes'))
                 <h1 class="text-2xl font-extrabold text-gray-600">Citas Mes</h1>
-            @elseif ($activeButton === 'mascotas')
+            @elseif (Route::is('Admin.Mascotas'))
                 <h1 class="text-2xl font-extrabold text-gray-600">Mascotas</h1>
-            @elseif ($activeButton === 'clientes')
+            @elseif (Route::is('Admin.Clientes'))
                 <h1 class="text-2xl font-extrabold text-gray-600">Clientes</h1>
-            @elseif ($activeButton === 'empleados')
+            @elseif (Route::is('Admin.Empleados'))
                 <h1 class="text-2xl font-extrabold text-gray-600">Empleados</h1>
             @endif
 
-            @if ($activeButton === 'home')
-                @livewire('admin.views.inicio')
-            @elseif ($activeButton === 'productos')
-                @livewire('admin.productos.productos')
-            @elseif ($activeButton === 'servicios')
-                @livewire('admin.servicios.inicio')
-            @elseif ($activeButton === 'mascotas')
-                @livewire('admin.mascotas.inicio')
-            @elseif ($activeButton === 'clientes')
-                @livewire('admin.usuarios.clientes')
-            @elseif ($activeButton === 'empleados')
-                @livewire('admin.usuarios.empleados')
-            @else
-            @endif
+            @yield('contenido')
         </div>
     </div>
 </div>

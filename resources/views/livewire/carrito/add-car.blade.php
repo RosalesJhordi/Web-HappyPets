@@ -1,6 +1,6 @@
 <div class="grid items-start w-full grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-12 lg:gap-x-8">
     <div class="overflow-hidden bg-gray-100 rounded-lg aspect-h-2 aspect-w-2 sm:col-span-4 lg:col-span-5">
-        <img src="{{ 'https://api-happypetshco-com.preview-domain.com/ServidorProductos/' . $imagen }}"
+        <img src="{{ 'https://api.happypetshco.com/ServidorProductos/' . $imagen }}"
             alt="Two each of gray, white, and black shirts arranged on table." class="object-cover h-full">
     </div>
     <div class="sm:col-span-8 lg:col-span-7">

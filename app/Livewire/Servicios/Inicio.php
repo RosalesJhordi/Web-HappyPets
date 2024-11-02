@@ -15,10 +15,10 @@ class Inicio extends Component
         $this->servicios();
     }
     public function servicios(){
-        $response = Http::withoutVerifying()
-        ->get($this->url . '/ListarServicios');
+        $response = Http::withoutVerifying()->withToken(Session::get('authToken'))->
+        get($this->url . '/ListarServicios');
         $respuesta = $response->json();
-        dd($respuesta);
+
         $this->datos = $respuesta['servicios'];
 
         $this->datos = collect($this->datos)

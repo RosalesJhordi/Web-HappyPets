@@ -91,6 +91,7 @@
                                 <option value="Juguetes">Juguetes</option>
                                 <option value="Ropa">Ropa</option>
                                 <option value="Camas">Camas</option>
+                                <option value="Medicamentos">Medicamentos</option>
                             </select>
 
                             {{-- colores --}}
@@ -267,7 +268,7 @@
                                 <div class="flex items-center gap-3">
                                     <div class="avatar">
                                         <div class="w-20 h-12 mask mask-squircle">
-                                            <img src="{{ 'https://api-happypetshco-com.preview-domain.com/ServidorProductos/' . $dato['imagen'] }}"
+                                            <img src="{{ 'https://api.happypetshco.com/ServidorProductos/' . $dato['imagen'] }}"
                                                 alt="Imagen servicio {{ $dato['nm_producto'] }}" class="w-full" />
                                         </div>
                                     </div>

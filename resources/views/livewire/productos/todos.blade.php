@@ -54,7 +54,7 @@
                         </style>
                         <div
                             class="w-full overflow-hidden bg-gray-200 rounded-md aspect-h-1 aspect-w-1 lg:aspect-none group-hover:opacity-75 lg:h-80 imagen">
-                            <img src="{{ 'https://api-happypetshco-com.preview-domain.com/ServidorProductos/' . $data['imagen'] }}"
+                            <img src="{{ 'https://api.happypetshco.com/ServidorProductos/' . $data['imagen'] }}"
                                 alt="Front of men&#039;s Basic Tee in black."
                                 class="object-cover object-center w-full h-full lg:h-full lg:w-full">
                         </div>

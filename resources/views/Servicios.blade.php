@@ -5,5 +5,5 @@
 @endsection
 
 @section('contenido')
-    @livewire('citas.views')
+    @livewire('servicios.inicio')
 @endsection

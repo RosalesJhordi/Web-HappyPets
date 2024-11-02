@@ -37,7 +37,7 @@
                                 <div class="flex items-start py-6">
                                     <div
                                         class="relative flex-shrink-0 w-24 h-24 overflow-hidden border border-gray-200 rounded-md">
-                                        <img src="{{ 'https://api-happypetshco-com.preview-domain.com/ServidorProductos/' . $dato['imagen'] }}"
+                                        <img src="{{ 'https://api.happypetshco.com/ServidorProductos/' . $dato['imagen'] }}"
                                             alt="imagen de producto" class="object-cover object-center w-full h-full">
                                         <div
                                             class="absolute inline-flex items-center justify-center w-6 h-6 px-4 py-4 text-lg font-bold text-white bg-red-500 border-2 border-white rounded-full -top-1 -end-2 dark:border-gray-900">

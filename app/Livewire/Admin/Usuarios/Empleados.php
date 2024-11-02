@@ -95,7 +95,8 @@ class Empleados extends Component
 
         if ($response->successful()) {
             $respuesta = $response->json();
-            session()->flash('correcto', 'Usuario actualizado correctamente');
+            $this->dispatch('correcto');
+            //session()->flash('correcto', 'Usuario actualizado correctamente');
         }else{
             session()->flash('error', 'Error al actualizar usuario');
         }

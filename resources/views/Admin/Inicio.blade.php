@@ -14,6 +14,8 @@
     <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.13/dist/full.min.css" rel="stylesheet" type="text/css" />
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/react-toastify@9.1.1/dist/ReactToastify.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/react-toastify@9.1.1/dist/ReactToastify.umd.min.js"></script>
 
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
@@ -42,4 +44,5 @@
     @livewire('admin.inicio')
     @livewireScripts
 </body>
+
 </html>

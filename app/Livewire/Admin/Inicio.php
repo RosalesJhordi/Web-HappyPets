@@ -9,7 +9,7 @@ class Inicio extends Component
 {
     public $permisos;
     public $notificacion;
-    #[Url(as:'pg')]
+
     public $activeButton;
 
     public function setActive($button)

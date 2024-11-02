@@ -3,7 +3,7 @@
     <div class="grid grid-cols-2 mt-6 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:gap-x-8">
 
         @foreach ($datos as $dato)
-            <div class="w-full bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+            <div class="w-full bg-white border-gray-200 rounded-lg shadow ">
                 <div class="relative w-full overflow-hidden rounded-md">
                     <style>
                         .imagen {
@@ -12,8 +12,8 @@
                             cursor: pointer;
                         }
                     </style>
-                    <img src="{{ 'https://api-happypetshco-com.preview-domain.com/ServidorServicios/' . $dato['imagen'] }}"
-                        alt="Aseos" class="object-cover w-full h-60 md:h-96 imagen">
+                    <img src="{{ 'https://api.happypetshco.com/ServidorServicios/' . $dato['imagen'] }}"
+                        alt="Aseos" class="object-cover w-full h-60 md:h-60 imagen">
                 </div>
                 <div class="p-2 lg:p-5">
                     <h5 class="mb-2 text-xl font-bold tracking-tight text-gray-900 md:text-2xl dark:text-white">

@@ -19,7 +19,31 @@ class ViewsController extends Controller
     }
 
     public function admin(){
-        return view('Admin.Inicio');
+        return view('Admin.Secciones.Home');
+    }
+    public function productos(){
+        return view('Admin.Secciones.Productos');
+    }
+    public function servicios(){
+        return view('Admin.Secciones.Servicios');
+    }
+    public function citasHoy(){
+        return view('Admin.Secciones.CitasHoy');
+    }
+    public function citasSemana(){
+        return view('Admin.Secciones.CitasSemana');
+    }
+    public function citasMes(){
+        return view('Admin.Secciones.CitasMes');
+    }
+    public function mascotas(){
+        return view('Admin.Secciones.Mascotas');
+    }
+    public function clientes(){
+        return view('Admin.Secciones.Clientes');
+    }
+    public function empleados(){
+        return view('Admin.Secciones.Empleados');
     }
 
     public function show($id){

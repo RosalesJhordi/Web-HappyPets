@@ -12,6 +12,7 @@ class Productos extends Component
     public $datos;
     public $nombre;
     public $filtro = 'Todos';
+    public $categorias;
     public function mount()
     {
         $this->url = env('API_URL', 'https://api.happypetshco.com/api');
@@ -22,6 +23,14 @@ class Productos extends Component
         $response = Http::withoutVerifying()->get($this->url . '/ListarProductos');
         $respuesta = $response->json();
         $productos = collect($respuesta['productos']);
+        if (isset($respuesta['productos']) && is_array($respuesta['productos'])) {
+            $data = $respuesta['productos'];
+            $this->categorias = collect($data)
+            ->pluck('categoria')
+            ->unique()
+            ->values()
+            ->all();
+        }
 
          if ($this->filtro === 'Descuento') {
 
