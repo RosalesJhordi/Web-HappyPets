@@ -56,9 +56,9 @@ class Inicio extends Component
                 $this->reset(['tipo', 'descripcion', 'imagen']);
                 $this->obtenerdatos();
 
-                return back()->with('mensaje', 'Servicio registrado exitosamente');
+                $this->dispatch('correcto', 'Servicio registrado exitosamente');
             } else {
-                return back()->with('error', 'Error: '.$response->body());
+                $this->dispatch('error', 'Error al registrar el servicio.');
             }
         } else {
             return back()->with('error', 'Por favor, sube una imagen.');
@@ -118,6 +118,18 @@ class Inicio extends Component
     {
         $this->filtro = 'Todos';
         $this->obtenerdatos();
+    }
+
+    public function eliminar($id)
+    {
+        $response = Http::withoutVerifying()->withToken(Session::get('authToken'))->delete($this->url.'/EliminarServicio='.$id);
+        dd($response->json());
+        if ($response->successful()) {
+            $this->dispatch('correcto', 'Servicio eliminado con exito');
+            $this->obtenerdatos();
+        } else {
+            return back()->with('error', 'Error: '.$response->body());
+        }
     }
 
     public function az()

@@ -46,6 +46,8 @@ class Productos extends Component
     public $color;
 
     public $colores = [];
+    public $colorr;
+    public $data;
 
     public function actualizarcolor($color)
     {
@@ -122,16 +124,11 @@ class Productos extends Component
 
     }
 
-    public function alertfalse()
-    {
-        $this->alert = false;
-    }
-
     public function eliminar($id)
     {
         $response = Http::withoutVerifying()->withToken(Session::get('authToken'))->delete($this->url.'/EliminarProducto='.$id);
         if ($response->successful()) {
-            session()->flash('success', 'Producto eliminado con exito');
+            $this->dispatch('correcto', 'Producto eliminado con exito');
             $this->alert = true;
             $this->obtenerdatos();
         } else {
@@ -234,18 +231,59 @@ class Productos extends Component
                 $this->reset(['nm_producto', 'descripcion', 'categoria', 'precio', 'descuento', 'colores', 'stock', 'imagen']);
                 $this->obtenerdatos();
 
-                return back()->with('mensaje', 'Servicio registrado exitosamente');
+                $this->dispatch('correcto', 'Producto registrado con exito');
             } else {
-                return back()->with('error', 'Error: '.$response->body());
+                $this->dispatch('error', "Error: " . $response->body());
             }
         } else {
-            return back()->with('error', 'Por favor, sube una imagen.');
+            $this->dispatch('error', 'Por favor, sube una imagen.');
         }
     }
+    public function editardatos()
+    {
+        $response = Http::withoutVerifying()->withToken(Session::get('authToken'))->put($this->url . '/ActualizarProducto', [
+            'id' => $this->id,
+            'nm_producto' => $this->nm_producto,
+            'descripcion' => $this->descripcion,
+            'categoria' => $this->categoria,
+            'precio' => $this->precio,
+            'descuento' => $this->descuento,
+            'colores' => $this->colorr,
+            'stock' => $this->stock,
+        ]);
+        if ($response->successful()) {
+            $this->verproducto($this->id);
+            $this->dispatch('correcto', 'Datos actualizados correctamente');
+        } else {
+            $this->dispatch('error','error al actualizar datos');
+        }
+    }
+    public function alertfalse(){
+        $this->alert = false;
+    }
 
+    public function delete(){
+        $response = Http::withoutVerifying()->withToken(Session::get('authToken'))->get($this->url . '/EliminarProducto=' . $this->id);
+        if ($response->successful()) {
+            $this->dispatch('correcto', 'Producto eliminado con exito');
+            $this->alert = true;
+        } else {
+            $this->dispatch('error', "Error: " . $response->body());
+        }
+    }
     public function verproducto($id)
     {
         $this->id = $id;
+        $response = Http::withoutVerifying()->withToken(Session::get('authToken'))->get($this->url . '/Producto=' . $this->id);
+        $respuesta = $response->json();
+        $this->data = $respuesta['producto'];
+        $this->nm_producto = $this->data['nm_producto'];
+        $this->descripcion = $this->data['descripcion'];
+        $this->categoria = $this->data['categoria'];
+        $this->precio = $this->data['precio'];
+        $this->descuento = $this->data['descuento'];
+        $this->colorr = $this->data['colores'];
+        $this->stock = $this->data['stock'];
         $this->ver = true;
     }
 

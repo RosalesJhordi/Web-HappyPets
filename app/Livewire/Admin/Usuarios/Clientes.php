@@ -65,12 +65,10 @@ class Clientes extends Component
     public function updatePermisos($permiso, $isChecked)
     {
         if ($isChecked) {
-            // Agregar el permiso si está marcado
             if (! in_array($permiso, $this->permisos)) {
                 $this->permisos[] = $permiso;
             }
         } else {
-            // Eliminar el permiso si no está marcado
             if (($key = array_search($permiso, $this->permisos)) !== false) {
                 unset($this->permisos[$key]);
             }
@@ -87,8 +85,12 @@ class Clientes extends Component
             'ubicacion' => $this->datosusuario['ubicacion'],
             'permisos' => $this->permisos,
         ]);
-        $respuesta = $response->json();
-        dd($respuesta);
+
+        if($response->successful()){
+            $this->dispatch('correcto');
+        }else{
+            $this->dispatch('error');
+        }
     }
 
     public function render()

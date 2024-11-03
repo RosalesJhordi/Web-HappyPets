@@ -98,7 +98,7 @@ class Empleados extends Component
             $this->dispatch('correcto');
             //session()->flash('correcto', 'Usuario actualizado correctamente');
         }else{
-            session()->flash('error', 'Error al actualizar usuario');
+            $this->dispatch('error');
         }
     }
 

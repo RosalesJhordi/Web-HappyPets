@@ -1,4 +1,7 @@
 <div class="fw-full">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/izitoast/dist/css/iziToast.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/izitoast/dist/js/iziToast.min.js"></script>
+
     <div class="flex w-full gap-5">
         @livewire('admin.secciones.servicios-count')
         <button onclick="my_modal_3.showModal()"
@@ -176,7 +179,7 @@
                                         class="fa-regular fa-eye"></i></button>
                             </div>
                             <div class="tooltip" data-tip="Eliminar">
-                                <button wire:click='eliminar({{ $dato['id'] }})'
+                                <button wire:click='eliminar({{ $dato['id'] }})'  wire:confirm="Estas seguro que deseas eliminar este producto ?"
                                     class="px-5 py-3 text-red-500 bg-red-200 border border-red-500 badge"><i
                                         class="fa-solid fa-trash"></i></button>
                             </div>
@@ -187,3 +190,34 @@
         </table>
     </div>
 </div>
+<script>
+    window.addEventListener('correcto', () => {
+        console.log('gaaa');
+        iziToast.success({
+            message: event.detail,
+            position: 'topRight',
+            timeout: 5000,
+            progressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            theme: 'light',
+            transitionIn: 'bounce'
+        });
+    });
+
+    window.addEventListener('error', () => {
+        console.log('gaaa');
+        iziToast.error({
+            message: event.detail,
+            position: 'topRight',
+            timeout: 5000,
+            progressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            theme: 'light',
+            transitionIn: 'bounce'
+        });
+    });
+</script>

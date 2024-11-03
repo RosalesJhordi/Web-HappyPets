@@ -1,4 +1,6 @@
 <div>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/izitoast/dist/css/iziToast.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/izitoast/dist/js/iziToast.min.js"></script>
     @livewire('admin.secciones.usuarios-count')
 
     @if ($ver)
@@ -69,8 +71,7 @@
                             class="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 ">
                             Guardar cambios
                             </buttonv>
-                            <button
-                                class="px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg ms-2 focus:outline-none hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100">Cancelar</button>
+
                     </div>
                 </div>
             </div>
@@ -156,3 +157,32 @@
         </div>
     @endif
 </div>
+<script>
+    window.addEventListener('correcto', () => {
+        iziToast.success({
+            message: 'Usuario actualizado correctamente',
+            position: 'topRight',
+            timeout: 5000,
+            progressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            theme: 'light',
+            transitionIn: 'bounce'
+        });
+    });
+
+    window.addEventListener('error', () => {
+        iziToast.error({
+            message: 'Error al actualizar usuario',
+            position: 'topRight',
+            timeout: 5000,
+            progressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            theme: 'light',
+            transitionIn: 'bounce'
+        });
+    });
+</script>
