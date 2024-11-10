@@ -13,36 +13,33 @@
             margin-top: 4px;
         }
     </style>
-    <div class="mx-auto p-4 flex-grow overflow-y-auto space-y-4">
+    <div class="flex-grow p-4 mx-auto space-y-4 overflow-y-auto">
         <!-- Espacio para los mensajes -->
-        @foreach ($responses as $response)
-            <div class="flex flex-col">
-                <!-- Mensaje del usuario -->
-                <div class="bg-blue-500 text-white p-3 rounded-md shadow-sm max-w-xs self-end">
-                    <p class="font-semibold mb-1">Tú:</p>
-                    <p>{{ $response['message'] }}</p>
-                </div>
-
-                <!-- Respuesta del bot -->
-                <div class="bg-gray-100 p-3 rounded-md shadow-inner max-w-xs self-start mt-2">
-                    <p class="text-indigo-600 font-semibold">HappyBot:</p>
-                    <p wire:loading.remove>
-                        {!! nl2br($response['reply']) !!}
-                    </p>
-                    <div wire:loading class="skeleton h-4 w-20"></div>
-                </div>
+        <div class="flex flex-col space-y-4">
+            <!-- Mensaje del usuario -->
+            <div class="self-end max-w-xs p-3 text-white bg-blue-500 rounded-md shadow-sm">
+                <p class="mb-1 font-semibold">Tú:</p>
+                <p>{{ $message }}</p>
             </div>
-        @endforeach
+
+            <!-- Respuesta del chatbot -->
+            @if ($output)
+                <div class="self-start max-w-xs p-3 text-white bg-gray-500 rounded-md shadow-sm">
+                    <p class="mb-1 font-semibold">ChatBot:</p>
+                    <p>{{ $output }}</p>
+                </div>
+            @endif
+        </div>
     </div>
 
     <!-- Campo para enviar mensaje -->
-    <div class="p-4 border-t sticky bottom-0 bg-white">
+    <div class="sticky bottom-0 p-4 bg-white border-t">
         <div class="flex space-x-2">
             <input type="text" wire:model="message" wire:keydown.enter="sendMessage"
                 class="flex-grow p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
                 placeholder="Escribe tu mensaje...">
             <button wire:click="sendMessage"
-                class="px-4 py-2 bg-indigo-500 text-white rounded-md hover:bg-indigo-600 transition duration-300 focus:outline-none">
+                class="px-4 py-2 text-white transition duration-300 bg-indigo-500 rounded-md hover:bg-indigo-600 focus:outline-none">
                 Enviar
             </button>
         </div>

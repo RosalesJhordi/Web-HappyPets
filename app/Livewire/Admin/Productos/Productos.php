@@ -27,6 +27,14 @@ class Productos extends Component
 
     public $categoria;
 
+    public $subcategoria;
+
+    public $subsubcategoria;
+
+    public $sub_categoria;
+
+    public $sub_sub_categoria;
+
     public $stock;
 
     public $filtro = 'Todos';
@@ -46,8 +54,18 @@ class Productos extends Component
     public $color;
 
     public $colores = [];
+
     public $colorr;
+
     public $data;
+
+    public $categorias;
+
+    public $cat1;
+
+    public $cat2;
+
+    public $cat3;
 
     public function actualizarcolor($color)
     {
@@ -72,56 +90,25 @@ class Productos extends Component
 
         // Aplicar filtro si no es "Todos"
         if ($this->filtro !== 'Todos') {
-            switch ($this->filtro) {
-                case 'A - Z':
-                    $productos = $productos->sortBy(function ($producto) {
-                        return strtolower($producto['nm_producto']);
-                    });
-                    break;
-                case 'Z - A':
-                    $productos = $productos->sortByDesc(function ($producto) {
-                        return strtolower($producto['nm_producto']);
-                    });
-                    break;
-                case 'ANTIGUOS':
-                    $productos = $productos->sortBy(function ($producto) {
-                        return $producto['created_at'];
-                    });
-                    break;
-                case 'RECIENTES':
-                    $productos = $productos->sortByDesc(function ($producto) {
-                        return $producto['created_at'];
-                    });
-                    break;
-                case 'PRECIO MIN':
-                    $productos = $productos->sortBy(function ($producto) {
-                        return (float) $producto['precio'];
-                    });
-                    break;
-                case 'PRECIO MAX':
-                    $productos = $productos->sortByDesc(function ($producto) {
-                        return (float) $producto['precio'];
-                    });
-                    break;
-                case '':
-                    $this->showAll();
-                    break;
-            }
-        } else {
-            $this->showAll();
+            $productos = $this->aplicarFiltro($productos);
         }
-        if (empty($this->buscado)) {
-            $this->showAll();
-        }elseif (!empty($this->buscado)) {
+
+        // Filtro de búsqueda por nombre
+        if (! empty($this->buscado)) {
             $productos = $productos->filter(function ($producto) {
                 return str_contains(strtolower($producto['nm_producto']), strtolower($this->buscado));
             });
         } else {
-            $this->showAll();
+            $this->obtenerdatos();
         }
 
         $this->datos = $productos->values()->all();
 
+    }
+
+    public function updatedbuscado()
+    {
+        $this->obtenerdatos();
     }
 
     public function eliminar($id)
@@ -136,11 +123,51 @@ class Productos extends Component
         }
     }
 
+    public $categoriasAll;
+
     public function obtenerdatos()
     {
         $response = Http::withoutVerifying()->withToken(Session::get('authToken'))->get($this->url.'/ListarProductos');
         $respuesta = $response->json();
         $this->datos = $respuesta['productos'];
+
+        $respuesta2 = Http::withoutVerifying()->withToken(Session::get('authToken'))->get($this->url.'/CategoriasArbol');
+        $this->categorias = collect($respuesta2->json()['categorias'] ?? []);
+
+        $consulta = Http::withoutVerifying()->withToken(Session::get('authToken'))->get($this->url.'/ListarCategorias');
+        $this->categoriasAll = $consulta->json()['categorias'];
+    }
+
+    public function updatedCategoria($categoria)
+    {
+        $this->sub_categoria = $this->categorias->firstWhere('id', $categoria)['subcategorias'] ?? [];
+    }
+
+    public function updatedSubcategoria($subcategoriaId)
+    {
+        // $this->sub_sub_categoria = $this->categorias->firstWhere('id', $sub_categoria)['sub_sub_categorias'] ?? [];
+        $subcategoria = collect($this->sub_categoria)->firstWhere('id', $subcategoriaId);
+
+        $this->sub_sub_categoria = is_array($subcategoria['sub_sub_categorias'] ?? null)
+        ? $subcategoria['sub_sub_categorias']
+        : [];
+    }
+
+    public $cat = "Todos";
+    public function filtrarCategoria($categoriaNombre)
+    {
+        $this->obtenerdatos();
+        $this->datos = collect($this->datos);
+        $this->cat = $categoriaNombre;
+        if ($categoriaNombre == 'Todos') {
+            $productosFiltrados = $this->datos;
+        } else {
+            $productosFiltrados = $this->datos->filter(function ($producto) use ($categoriaNombre) {
+                return $producto['categorias']['nombre'] == $categoriaNombre;
+            });
+        }
+
+        $this->datos = $productosFiltrados;
     }
 
     //Mostrar Todos
@@ -148,6 +175,42 @@ class Productos extends Component
     {
         $this->obtenerdatos();
         $this->filtro = 'Todos';
+    }
+
+    private function aplicarFiltro($productos)
+    {
+        $filtros = [
+            'A - Z' => function ($producto) {
+                return strtolower($producto['nm_producto']);
+            },
+            'Z - A' => function ($producto) {
+                return strtolower($producto['nm_producto']);
+            },
+            'ANTIGUOS' => function ($producto) {
+                return $producto['created_at'];
+            },
+            'RECIENTES' => function ($producto) {
+                return $producto['created_at'];
+            },
+            'PRECIO MIN' => function ($producto) {
+                return (float) $producto['precio'];
+            },
+            'PRECIO MAX' => function ($producto) {
+                return (float) $producto['precio'];
+            },
+        ];
+
+        // Si el filtro existe, aplicar el filtro correspondiente
+        if (isset($filtros[$this->filtro])) {
+            $productos = $productos->sortBy($filtros[$this->filtro]);
+
+            // Si es un filtro descendente, usar sortByDesc
+            if (in_array($this->filtro, ['Z - A', 'RECIENTES', 'PRECIO MAX'])) {
+                $productos = $productos->sortByDesc($filtros[$this->filtro]);
+            }
+        }
+
+        return $productos;
     }
 
     //Filtrar de A - Z
@@ -220,7 +283,9 @@ class Productos extends Component
             )->post($this->url.'/NuevoProducto', [
                 'nm_producto' => $this->nm_producto,
                 'descripcion' => $this->descripcion,
-                'categoria' => $this->categoria,
+                'categorias_id' => $this->categoria,
+                'sub_categorias_id' => $this->subcategoria,
+                'sub_sub_categorias_id' => $this->subsubcategoria,
                 'precio' => $this->precio,
                 'descuento' => $this->descuento,
                 'colores' => $cols,
@@ -233,15 +298,16 @@ class Productos extends Component
 
                 $this->dispatch('correcto', 'Producto registrado con exito');
             } else {
-                $this->dispatch('error', "Error: " . $response->body());
+                $this->dispatch('error', 'Error: '.$response->body());
             }
         } else {
             $this->dispatch('error', 'Por favor, sube una imagen.');
         }
     }
+
     public function editardatos()
     {
-        $response = Http::withoutVerifying()->withToken(Session::get('authToken'))->put($this->url . '/ActualizarProducto', [
+        $response = Http::withoutVerifying()->withToken(Session::get('authToken'))->put($this->url.'/ActualizarProducto', [
             'id' => $this->id,
             'nm_producto' => $this->nm_producto,
             'descripcion' => $this->descripcion,
@@ -255,31 +321,35 @@ class Productos extends Component
             $this->verproducto($this->id);
             $this->dispatch('correcto', 'Datos actualizados correctamente');
         } else {
-            $this->dispatch('error','error al actualizar datos');
+            $this->dispatch('error', 'error al actualizar datos');
         }
     }
-    public function alertfalse(){
+
+    public function alertfalse()
+    {
         $this->alert = false;
     }
 
-    public function delete(){
-        $response = Http::withoutVerifying()->withToken(Session::get('authToken'))->get($this->url . '/EliminarProducto=' . $this->id);
+    public function delete()
+    {
+        $response = Http::withoutVerifying()->withToken(Session::get('authToken'))->delete($this->url.'/EliminarProducto='.$this->id);
         if ($response->successful()) {
             $this->dispatch('correcto', 'Producto eliminado con exito');
             $this->alert = true;
         } else {
-            $this->dispatch('error', "Error: " . $response->body());
+            $this->dispatch('error', 'Error: '.$response->body());
         }
     }
+
     public function verproducto($id)
     {
         $this->id = $id;
-        $response = Http::withoutVerifying()->withToken(Session::get('authToken'))->get($this->url . '/Producto=' . $this->id);
+        $response = Http::withoutVerifying()->withToken(Session::get('authToken'))->get($this->url.'/Producto='.$this->id);
         $respuesta = $response->json();
         $this->data = $respuesta['producto'];
         $this->nm_producto = $this->data['nm_producto'];
         $this->descripcion = $this->data['descripcion'];
-        $this->categoria = $this->data['categoria'];
+        $this->categoria = $this->data['categorias_id'];
         $this->precio = $this->data['precio'];
         $this->descuento = $this->data['descuento'];
         $this->colorr = $this->data['colores'];

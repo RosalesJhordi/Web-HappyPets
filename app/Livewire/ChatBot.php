@@ -3,45 +3,57 @@
 namespace App\Livewire;
 
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Session;
 use Livewire\Component;
 
 class ChatBot extends Component
 {
     public $message = '';
     public $responses = [];
-    public function sendMessage()
+    public $output;
+    public $url;
+    public $nombres;
+    public $apellidos;
+
+    public function cargarDatosUsuario()
     {
-        $apiKey = 'AIzaSyDgUOMF0EltOBBnxtFl2ew6cvPQJyEkfZI';
-        $response = Http::withOptions([
+        $response = Http::withHeaders([
+            'Authorization' => 'Bearer '.Session::get('authToken'),
+        ])->withOptions([
             'verify' => false,
-            'timeout' => 60,
-        ])->withHeaders([
-            'Content-Type' => 'application/json'
-        ])->post("https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key={$apiKey}", [
-            'contents' => [
-                [
-                    'parts' => [
-                        ['text' => $this->message]
-                    ]
-                ]
-            ]
-        ]);
+        ])->get($this->url.'/Datos');
 
-        // Procesar la respuesta
         if ($response->successful()) {
-            $reply = $response->json()['candidates'][0]['content']['parts'][0]['text'] ?? 'No response';
-            $reply = preg_replace('/\*\*(.*?)\*\*/', '<strong>$1</strong>', $reply);
-
-            $reply = preg_replace('/^\s*\*\s*/m', '• ', $reply);
-            $reply = preg_replace('/^\*+\s*/m', '', $reply);
-            $reply = preg_replace('/^```(.*?)```$/ms', '<code>$1</code>', $reply);
-            $this->responses[] = ['message' => $this->message, 'reply' => $reply];
-
-            $this->message = '';
-        } else {
-            $this->responses[] = ['message' => $this->message, 'reply' => 'Error al obtener la respuesta.'];
+            $data = $response->json();
+            $this->nombres = $data['usuarios']['nombres'];
+            $this->apellidos = $data['usuarios']['apellidos'] ?? '';
         }
     }
+
+    public function mount()
+    {
+        $this->url = env('API_URL', 'https://api.happypetshco.com/api');
+        $this->cargarDatosUsuario();
+    }
+
+    public function sendMessage()
+    {
+        // Si apellidos está vacío, pasar una cadena vacía
+        if (empty($this->apellidos)) {
+            $this->apellidos = '';
+        }
+
+        $pythonScriptPath = base_path('01.py');
+        $arg1 = $this->nombres;
+        $arg2 = $this->apellidos;
+
+        // Ejecutar el script Python con los dos argumentos
+        $output = shell_exec('python3 '.escapeshellarg($pythonScriptPath).' '.escapeshellarg($arg1).' '.escapeshellarg($arg2));
+
+        // Guardar la salida para mostrarla
+        $this->output = $output;
+    }
+
     public function render()
     {
         return view('livewire.chat-bot');

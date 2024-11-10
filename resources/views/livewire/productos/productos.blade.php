@@ -45,7 +45,7 @@
                                             <span aria-hidden="true" class="absolute inset-0"></span>
                                             {{ $producto['nm_producto'] }}
                                         </h3>
-                                        <p class="mt-1 text-sm text-gray-500">{{ $producto['categoria'] }}</p>
+                                        <p class="mt-1 text-sm text-gray-500">{{ $producto['categorias_id'] }}</p>
                                     </div>
                                     @if ($producto['descuento'])
                                         <div class="flex flex-col">

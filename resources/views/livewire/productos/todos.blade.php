@@ -64,7 +64,7 @@
                                     <span aria-hidden="true" class="absolute inset-0"></span>
                                     {{ $data['nm_producto'] }}
                                 </h3>
-                                <p class="mt-1 text-sm text-gray-500">{{ $data['categoria'] }}</p>
+                                <p class="mt-1 text-sm text-gray-500">{{ $data['categorias_id'] }}</p>
                             </div>
                             <p class="text-sm font-medium text-gray-900">S/. {{ $data['precio'] }}</p>
                         </div>

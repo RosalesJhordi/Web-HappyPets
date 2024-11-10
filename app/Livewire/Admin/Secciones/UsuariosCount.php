@@ -20,6 +20,7 @@ class UsuariosCount extends Component
             'verify' => false,
         ])->get($this->url. '/Usuarios');
         $respuesta = $response->json();
+
         $this->totaluser = $respuesta['usuarios'];
     }
 

@@ -5,7 +5,7 @@
                 <div class="flex items-center justify-start rtl:justify-end">
                     <button data-drawer-target="logo-sidebar" data-drawer-toggle="logo-sidebar"
                         aria-controls="logo-sidebar" type="button"
-                        class="inline-flex items-center p-2 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200">
+                        class="inline-flex items-center p-2 text-sm text-gray-500 rounded-lg xl:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200">
                         <span class="sr-only">Open sidebar</span>
                         <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20"
                             xmlns="http://www.w3.org/2000/svg">
@@ -31,7 +31,7 @@
     </nav>
 
     <aside id="logo-sidebar"
-        class="fixed top-0 left-0 z-40 w-64 h-screen pt-20 transition-transform -translate-x-full bg-white border-r border-gray-200 sm:translate-x-0"
+        class="fixed top-0 left-0 z-40 w-64 h-screen pt-20 transition-transform -translate-x-full bg-white border-r border-gray-200 xl:translate-x-0"
         aria-label="Sidebar">
         <div class="h-full px-3 pb-4 overflow-y-auto bg-white">
             <ul class="space-y-2 font-medium">
@@ -169,6 +169,16 @@
                         </li>
                     </ul>
                 </li>
+
+                <li>
+                    <a href="{{route('Admin.Categorias')}}"
+                        class="flex items-center p-2 rounded-lg group {{ Route::is('Admin.Categorias') ? 'bg-blue-600 text-white hover:bg-blue-500' : 'text-gray-900 hover:bg-gray-200' }}">
+                        <i
+                            class="w-6 h-6 text-lg {{ Route::is('Admin.Categorias')  ? 'text-white' : 'text-gray-500' }} fa-solid fa-tag"></i>
+                        <span class="flex-1 ms-3 whitespace-nowrap">Categorias</span>
+                    </a>
+                </li>
+
                 <li>
                     <a href="/" class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100 group">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
@@ -186,7 +196,7 @@
         </div>
     </aside>
 
-    <div class="p-2 md:p-4 sm:ml-64">
+    <div class="p-2 md:p-4 xl:ml-64">
         <div class="p-2 border-gray-200 md:p-4 mt-14">
             @if (Route::is('Admin'))
                 <h1 class="text-2xl font-extrabold text-gray-600">Inicio</h1>
@@ -206,6 +216,8 @@
                 <h1 class="text-2xl font-extrabold text-gray-600">Clientes</h1>
             @elseif (Route::is('Admin.Empleados'))
                 <h1 class="text-2xl font-extrabold text-gray-600">Empleados</h1>
+            @elseif (Route::is('Admin.Categorias'))
+                <h1 class="text-2xl font-extrabold text-gray-600">Categorias</h1>
             @endif
 
             @yield('contenido')

@@ -60,7 +60,7 @@ class CarritoCount extends Component
                 $importeTotal = $productos->sum('importe');
                 $colores = $productos->pluck('color')->unique()->implode(', ');
                 $imagen = $productos->first()['producto']['imagen'];
-                $categoria = $productos->first()['producto']['categoria'];
+                $categoria = $productos->first()['producto']['categorias_id'];
                 $descuento = $productos->first()['producto']['descuento'];
 
                 return [

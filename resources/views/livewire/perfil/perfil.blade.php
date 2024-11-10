@@ -16,7 +16,7 @@
 
                 <div class="flex items-center justify-center w-full p-1">
                     <img class="object-cover rounded-full w-52 h-52"
-                        src="{{ 'https://api-happypetshco-com.preview-domain.com/ServidorMascotas/' . $mascotaHistorial['imagen'] }}"
+                        src="{{ 'https://api.happypetshco.com/ServidorMascotas/' . $mascotaHistorial['imagen'] }}"
                         alt="image description">
                 </div>
                 <div class="w-full mt-3 border-t">
@@ -45,7 +45,7 @@
                                 <p
                                     class="absolute w-6 h-6 rounded-full {{ $pet['estado'] == 'Activo' ? ' bg-green-500 border-green-600' : 'text-red-600 bg-red-500 border-red-600' }}">
                                 </p>
-                                <img src="{{ 'https://api-happypetshco-com.preview-domain.com/ServidorMascotas/' . $pet['imagen'] }}"
+                                <img src="{{ 'https://api.happypetshco.com/ServidorMascotas/' . $pet['imagen'] }}"
                                     class="object-cover w-20 h-20 rounded-full" alt="">
                             </div>
                             <span class="text-start">

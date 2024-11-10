@@ -166,7 +166,7 @@
                                 value="{{ $dato['tipo'] }}" disabled />
                         </td>
                         <td class="border">
-                            <input type="text" class="w-auto bg-transparent border-none focus:outline-none"
+                            <input type="text" class="w-full bg-transparent border-none focus:outline-none"
                                 value="{{ $dato['descripcion'] }}" disabled />
                         </td>
                         <td class="border">

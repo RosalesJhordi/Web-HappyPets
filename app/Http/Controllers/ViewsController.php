@@ -61,4 +61,7 @@ class ViewsController extends Controller
             return redirect()->back()->with('error', 'No se pudo obtener el servicio.');
         }
     }
+    public function categorias(){
+        return view('Admin.Secciones.Categorias');
+    }
 }

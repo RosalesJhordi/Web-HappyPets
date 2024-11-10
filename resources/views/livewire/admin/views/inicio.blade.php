@@ -6,6 +6,7 @@
             @livewire('admin.secciones.productos-count')
             @livewire('admin.secciones.mascotas-count')
             @livewire('admin.secciones.servicios-count')
+            @livewire('admin.secciones.categorias-count')
         @endif
 
     </div>
