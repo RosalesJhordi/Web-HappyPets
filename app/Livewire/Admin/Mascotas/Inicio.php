@@ -19,9 +19,34 @@ class Inicio extends Component
 
     public $buscado = '';
 
+    public $historial;
+    public $verHistorial = false;
+
     public function mount()
     {
         $this->url = env('API_URL', 'https://api.happypetshco.com/api');
+        $this->obtenerdatos();
+    }
+
+    public function ver($id){
+        $response = Http::withoutVerifying()->withToken(Session::get('authToken'))->get($this->url.'/HistorialMascota='.$id);
+        $respuesta = $response->json();
+
+        //si la respuesta es correcta
+        if ($response->successful()) {
+            $this->historial = $respuesta;
+            $this->verHistorial = true;
+        } else {
+            $this->dispatch('error', 'Error: '.$response->body());
+        }
+    }
+
+    public function ocultarHistorial(){
+        $this->verHistorial = false;
+    }
+
+    public function updatedbuscado()
+    {
         $this->obtenerdatos();
     }
 

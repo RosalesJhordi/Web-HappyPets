@@ -335,7 +335,7 @@ class Productos extends Component
         $response = Http::withoutVerifying()->withToken(Session::get('authToken'))->delete($this->url.'/EliminarProducto='.$this->id);
         if ($response->successful()) {
             $this->dispatch('correcto', 'Producto eliminado con exito');
-            $this->alert = true;
+            $this->ver = false;
         } else {
             $this->dispatch('error', 'Error: '.$response->body());
         }

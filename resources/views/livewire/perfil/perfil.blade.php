@@ -38,23 +38,25 @@
             </button>
             <div>
                 <div wire:poll="mascotas" class="grid w-full grid-cols-2 gap-2 py-5 lg:gap-4 lg:grid-cols-3">
-                    @foreach ($mascotas as $index => $pet)
-                        <button wire:click='mostraHistorial({{ $pet['id'] }})'
-                            class="flex items-center w-full h-32 gap-2 px-5 py-5 border rounded-lg shadow-md cursor-pointer j ustify-start hover:bg-gray-100 hover:text-black">
-                            <div class="relative rounded-full">
-                                <p
-                                    class="absolute w-6 h-6 rounded-full {{ $pet['estado'] == 'Activo' ? ' bg-green-500 border-green-600' : 'text-red-600 bg-red-500 border-red-600' }}">
-                                </p>
-                                <img src="{{ 'https://api.happypetshco.com/ServidorMascotas/' . $pet['imagen'] }}"
-                                    class="object-cover w-20 h-20 rounded-full" alt="">
-                            </div>
-                            <span class="text-start">
-                                <h2 class="text-lg font-semibold lg:text-md">{{ $pet['nombre'] }}</h2>
-                                <p>{{ $pet['edad'] }}</p>
-                                <p>{{ $pet['especie'] }}</p>
-                            </span>
-                        </button>
-                    @endforeach
+                    @if ($mascotas)
+                        @foreach ($mascotas as $index => $pet)
+                            <button wire:click='mostraHistorial({{ $pet['id'] }})'
+                                class="flex items-center w-full h-32 gap-2 px-5 py-5 border rounded-lg shadow-md cursor-pointer j ustify-start hover:bg-gray-100 hover:text-black">
+                                <div class="relative rounded-full">
+                                    <p
+                                        class="absolute w-6 h-6 rounded-full {{ $pet['estado'] == 'Activo' ? ' bg-green-500 border-green-600' : 'text-red-600 bg-red-500 border-red-600' }}">
+                                    </p>
+                                    <img src="{{ 'https://api.happypetshco.com/ServidorMascotas/' . $pet['imagen'] }}"
+                                        class="object-cover w-20 h-20 rounded-full" alt="">
+                                </div>
+                                <span class="text-start">
+                                    <h2 class="text-lg font-semibold lg:text-md">{{ $pet['nombre'] }}</h2>
+                                    <p>{{ $pet['edad'] }}</p>
+                                    <p>{{ $pet['especie'] }}</p>
+                                </span>
+                            </button>
+                        @endforeach
+                    @endif
                 </div>
 
                 <dialog id="my_modal_3" class="py-4 modal" wire:ignore.self>
@@ -67,16 +69,14 @@
                         </form>
                         <div class="grid w-full grid-cols-2 gap-4 mt-3">
                             <div>
-                                <label for="nombre"
-                                    class="block mb-2 text-sm font-medium text-gray-900 ">Nombre de
+                                <label for="nombre" class="block mb-2 text-sm font-medium text-gray-900 ">Nombre de
                                     mascota</label>
                                 <input type="text" name="nombre" id="nombre" wire:model.live='nombre'
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                                     placeholder="Boby" />
                             </div>
                             <div>
-                                <label for="edad"
-                                    class="block mb-2 text-sm font-medium text-gray-900 ">Edad</label>
+                                <label for="edad" class="block mb-2 text-sm font-medium text-gray-900 ">Edad</label>
                                 <input type="text" name="edad" id="edad" placeholder="2 meses"
                                     wire:model.live='edad'
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " />
@@ -129,8 +129,7 @@
                         </div>
                         @if ($especieSeleccionada == 'Otro')
                             <div class="mt-3">
-                                <label for="especie"
-                                    class="block mb-2 text-sm font-medium text-gray-900 ">Especifique
+                                <label for="especie" class="block mb-2 text-sm font-medium text-gray-900 ">Especifique
                                     especie</label>
                                 <input type="text" name="especie" id="especie" placeholder="Raton"
                                     wire:model.live='especiee'
@@ -138,15 +137,13 @@
                             </div>
                         @endif
                         <div class="mt-3">
-                            <label for="raza"
-                                class="block mb-2 text-sm font-medium text-gray-900 ">Raza</label>
+                            <label for="raza" class="block mb-2 text-sm font-medium text-gray-900 ">Raza</label>
                             <input type="text" name="edad" id="edad" placeholder="Golden"
                                 wire:model.live='raza'
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " />
                         </div>
 
-                        <label for="raza"
-                            class="block mt-3 mb-2 text-sm font-medium text-gray-900 ">Seleciona
+                        <label for="raza" class="block mt-3 mb-2 text-sm font-medium text-gray-900 ">Seleciona
                             Sexo</label>
                         <div class="flex items-center justify-center gap-10 px-5 mt-1 mb-4">
                             <button wire:click='actualizarSexo("Macho")'

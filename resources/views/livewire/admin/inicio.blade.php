@@ -74,10 +74,10 @@
                     </a>
                 </li>
                 <li>
-                    <button type="button"
+                    <a href="{{ route('Admin.Citas.Hoy') }}" type="button"
                         class="flex items-center w-full p-2 text-base transition duration-75 rounded-lg group {{ Route::is('Admin.Citas.Hoy') | Route::is('Admin.Citas.Semana') | Route::is('Admin.Citas.Mes')  ? 'bg-blue-600 text-white
                          hover:bg-blue-500' : 'text-gray-900 hover:bg-gray-200'  }}"
-                        aria-controls="dropdown-example" data-collapse-toggle="dropdown-example">
+                        >
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
                             class="flex-shrink-0 w-6 h-6  {{ Route::is('Admin.Citas.Hoy') | Route::is('Admin.Citas.Semana') | Route::is('Admin.Citas.Mes')  ? 'text-white' : 'text-gray-500' }} transition duration-75 ">
                             <path fill-rule="evenodd"
@@ -86,33 +86,7 @@
                         </svg>
 
                         <span class="flex-1 text-left ms-3 rtl:text-right whitespace-nowrap">Citas</span>
-                        <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
-                            viewBox="0 0 10 6">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="m1 1 4 4 4-4" />
-                        </svg>
-                    </button>
-                    <ul id="dropdown-example" class="hidden py-2 space-y-2">
-                        <li>
-                            <a href="{{ route('Admin.Citas.Hoy') }}"
-                                class="flex items-center w-full gap-2 p-2 text-gray-600 transition duration-75 rounded-lg pl-11 group hover:bg-gray-200">
-                                <i class="text-gray-500 fa-solid fa-calendar-day"></i>
-                                Hoy
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{{ route('Admin.Citas.Semana') }}"
-                                class="flex items-center w-full gap-2 p-2 text-gray-600 transition duration-75 rounded-lg pl-11 group hover:bg-gray-200">
-                                <i class="text-gray-500 fa-solid fa-calendar-week "></i>
-                                Esta Semana</a>
-                        </li>
-                        <li>
-                            <a href="{{ route('Admin.Citas.Mes') }}"
-                                class="flex items-center w-full gap-2 p-2 text-gray-600 transition duration-75 rounded-lg pl-11 group hover:bg-gray-200">
-                                <i class="text-gray-500 fa-regular fa-calendar "></i>
-                                Este Mes</a>
-                        </li>
-                    </ul>
+                    </a>
                 </li>
                 <li>
                     <a href="{{route('Admin.Mascotas')}}"
@@ -205,7 +179,7 @@
             @elseif (Route::is('Admin.Servicios'))
                 <h1 class="text-2xl font-extrabold text-gray-600">Servicios</h1>
             @elseif (Route::is('Admin.Citas.Hoy'))
-                <h1 class="text-2xl font-extrabold text-gray-600">Citas Hoy</h1>
+                <h1 class="mb-2 text-2xl font-extrabold text-gray-600">Citas</h1>
             @elseif (Route::is('Admin.Citas.Semana'))
                 <h1 class="text-2xl font-extrabold text-gray-600">Citas Semana</h1>
             @elseif (Route::is('Admin.Citas.Mes'))

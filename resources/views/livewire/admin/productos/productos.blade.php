@@ -204,76 +204,69 @@
     </div>
 
     @if ($ver)
-        <button wire:click="ocultar" type="button" class="w-20 text-xl btn btn-primary">
-            <i class="fa-solid fa-arrow-left"></i>
+        <button wire:click="ocultar" type="button" class="text-xl btn btn-primary">
+            x
         </button>
         <div class="flex items-center justify-center">
 
-            <div class="flex items-center justify-between border shadow-xl card card-side rounded-2xl"
-                style="width: 60%; height: 55vh;">
+            <div class="flex items-center justify-between h-auto border rounded-sm shadow-xl card card-side"
+                style="width: 60%;">
                 <figure class="w-1/2 h-full ">
                     <img src="{{ 'https://api.happypetshco.com/ServidorProductos/' . $data['imagen'] }}"
                         alt="Imagen servicio {{ $data['nm_producto'] }}" class="object-fill w-full h-full" />
                 </figure>
 
-                <div class="w-1/2 h-full px-5 py-5 bg-slate-200">
+                <div class="w-1/2 h-full px-5 py-5 bg-slate-50">
                     <h1 class="w-full text-2xl text-gray-400 text center">Datos</h1>
-                    <form class="flex flex-col w-full gap-2 py-4" wire:submit.prevent="editardatos"
-                        novalidate>
+                    <form class="flex flex-col w-full gap-2 py-4" wire:submit.prevent="editardatos" novalidate>
 
-                        <label class="flex items-center gap-2 input input-bordered input-secondary">
-                            Nomb. Producto:
+                        <label class="flex items-center gap-2 input input-bordered">
                             <input type="text" id="large-input" wire:model.live='nm_producto'
                                 value="{{ $data['nm_producto'] }}"
-                                class="block w-1/2 p-4 text-base text-gray-900 border-none rounded-lg full w- bg-gray-50 focus:ring-transparent">
+                                class="block w-full p-4 text-base text-gray-900 border-none rounded-lg bg-gray-50 focus:ring-transparent">
+                            <span class="w-1/2 text-white badge bg-rosa">Nomb. Producto</span>
                         </label>
 
-
-                        <label class="flex items-center gap-2 input input-bordered input-secondary">
-                            Descripcion:
-                            <input type="text" id="large-input" wire:model.live='descripcion'
-                                value="{{ $data['descripcion'] }}"
-                                class="block w-1/2 p-4 text-base text-gray-900 border-none rounded-lg full w- bg-gray-50 focus:ring-transparent">
+                        <label class="flex items-start h-auto gap-2 input input-bordered">
+                            <textarea id="large-input" wire:model.live='descripcion'
+                                      class="block w-full p-4 text-base text-gray-900 border-none rounded-lg bg-gray-50 focus:ring-transparent"
+                                      rows="4">{{ $data['descripcion'] }}</textarea>
+                            <span class="w-1/2 text-white bg-blue-500 badge">Descripcion</span>
                         </label>
 
-                        <label class="flex items-center gap-2 input input-bordered input-secondary">
-                            Categoria:
-                            <input type="text" id="large-input" wire:model.live='categoria'
-                                value="{{ $data['categorias_id'] }}"
-                                class="block w-1/2 p-4 text-base text-gray-900 border-none rounded-lg full w- bg-gray-50 focus:ring-transparent"
-                                disabled>
-                        </label>
-
-                        <label class="flex items-center gap-2 input input-bordered input-secondary">
-                            Precio:
+                        <label class="flex items-center gap-2 input input-bordered">
                             <input type="text" id="large-input" wire:model.live='precio'
                                 value="{{ $data['precio'] }}"
-                                class="block w-1/2 p-4 text-base text-gray-900 border-none rounded-lg full w- bg-gray-50 focus:ring-transparent">
+                                class="block w-full p-4 text-base text-gray-900 border-none rounded-lg bg-gray-50 focus:ring-transparent">
+                            <span class="w-1/2 text-white bg-green-500 badge">Precio</span>
                         </label>
 
-                        <label class="flex items-center gap-2 input input-bordered input-secondary">
-                            Descuento:
+                        <label class="flex items-center gap-2 input input-bordered">
                             <input type="text" id="large-input" wire:model.live='descuento'
-                                value="{{ $data['descuento'] ?? 0 }}"
-                                class="block w-1/2 p-4 text-base text-gray-900 border-none rounded-lg full w- bg-gray-50 focus:ring-transparent">
+                                value="{{ $data['descuento'] }}"
+                                class="block w-full p-4 text-base text-gray-900 border-none rounded-lg bg-gray-50 focus:ring-transparent">
+                            <span class="w-1/2 py-2 text-white bg-red-500 badge">Descuento</span>
                         </label>
 
-                        <label class="flex items-center gap-2 input input-bordered input-secondary">
-                            Colores:
+                        <label class="flex items-center gap-2 input input-bordered">
                             <input type="text" id="large-input" wire:model.live='colorr'
                                 value="{{ $data['colores'] }}"
-                                class="block w-1/2 p-4 text-base text-gray-900 border-none rounded-lg full w- bg-gray-50 focus:ring-transparent">
+                                class="block w-full p-4 text-base text-gray-900 border-none rounded-lg bg-gray-50 focus:ring-transparent">
+                            <span class="w-1/2 py-2 text-white bg-teal-500 badge">Colores</span>
                         </label>
+                        <div class="label">
+                            <span class="label-text-alt">Ejemplo: Blanco, Rojo, Azul, Verde, Morado, Amarillo</span>
+                        </div>
 
-                        <label class="flex items-center gap-2 input input-bordered input-secondary">
-                            Stock:
+                        <label class="flex items-center gap-2 input input-bordered">
                             <input type="text" id="large-input" wire:model.live='stock'
                                 value="{{ $data['stock'] }}"
-                                class="block w-1/2 p-4 text-base text-gray-900 border-none rounded-lg full w- bg-gray-50 focus:ring-transparent">
+                                class="block w-full p-4 text-base text-gray-900 border-none rounded-lg bg-gray-50 focus:ring-transparent">
+                            <span class="w-1/2 py-2 text-white bg-indigo-500 badge">Stock</span>
                         </label>
 
                         <div class="flex items-center justify-end w-full gap-2 py-5">
-                            <button type="submit"
+                            <button wire:loading.remove type="submit"
                                 class="flex items-center justify-center font-semibold text-blue-600 bg-blue-200 border border-blue-600 btn hover:bg-blue-600 hover:text-white">
                                 Guardar cambios
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -282,6 +275,10 @@
                                         d="M16.5 3.75V16.5L12 14.25 7.5 16.5V3.75m9 0H18A2.25 2.25 0 0 1 20.25 6v12A2.25 2.25 0 0 1 18 20.25H6A2.25 2.25 0 0 1 3.75 18V6A2.25 2.25 0 0 1 6 3.75h1.5m9 0h-9" />
                                 </svg>
                             </button>
+                            <button wire:loading type="button"  class="flex items-center justify-center font-semibold text-blue-600 bg-blue-200 border border-blue-600 btn hover:bg-blue-600 hover:text-white" disabled>
+                                <span class="loading loading-spinner loading-sm"></span>
+                                Procesando...
+                              </button>
                             <button type="button" wire:click="delete"
                                 wire:confirm="Estas seguro que deseas eliminar este producto ?"
                                 class="flex items-center justify-center font-semibold text-red-600 bg-red-200 border border-red-600 btn hover:bg-red-600 hover:text-white">
@@ -432,7 +429,8 @@
                                 </div>
                             </td>
                             <td class="border">
-                                <span class="inline-flex items-center px-2 py-1 text-sm font-medium text-blue-700 rounded-md bg-blue-50 ring-1 ring-inset ring-blue-700/10">
+                                <span
+                                    class="inline-flex items-center px-2 py-1 text-sm font-medium text-blue-700 rounded-md bg-blue-50 ring-1 ring-inset ring-blue-700/10">
                                     {{ $dato['nm_producto'] }}
                                 </span>
                             </td>
@@ -445,17 +443,20 @@
                                     value="{{ $dato['categorias']['nombre'] }}" disabled />
                             </td>
                             <td class="w-10 text-center border ">
-                                <span class="inline-flex items-center w-full px-2 py-1 font-semibold text-center text-green-700 rounded-md font-sm medium text- bg-green-50 ring-1 ring-inset ring-green-600/20">
+                                <span
+                                    class="inline-flex items-center w-full px-2 py-1 font-semibold text-center text-green-700 rounded-md font-sm medium text- bg-green-50 ring-1 ring-inset ring-green-600/20">
                                     {{ $dato['precio'] }}
                                 </span>
                             </td>
                             <td class="w-10 text-center border">
-                                <span class="inline-flex items-center px-2 py-1 font-semibold text-center text-red-700 rounded-md font-sm medium text- bg-red-50 ring-1 ring-inset ring-red-600/10">
+                                <span
+                                    class="inline-flex items-center px-2 py-1 font-semibold text-center text-red-700 rounded-md font-sm medium text- bg-red-50 ring-1 ring-inset ring-red-600/10">
                                     {{ $dato['descuento'] ?? 0 }} %
                                 </span>
                             </td>
                             <td class="w-10 border ">
-                                <span class="inline-flex items-center px-2 py-1 font-semibold text-gray-600 rounded-md font-sm medium text- bg-gray-50 ring-1 ring-inset ring-gray-500/10">
+                                <span
+                                    class="inline-flex items-center px-2 py-1 font-semibold text-gray-600 rounded-md font-sm medium text- bg-gray-50 ring-1 ring-inset ring-gray-500/10">
                                     {{ $dato['stock'] }}
                                 </span>
                             </td>
@@ -469,7 +470,8 @@
                                             class="fa-regular fa-eye"></i></button>
                                 </div>
                                 <div class="tooltip" data-tip="Eliminar">
-                                    <button wire:confirm="Estas seguro que desa eliminar este producto?" wire:click='eliminar({{ $dato['id'] }})'
+                                    <button wire:confirm="Estas seguro que desa eliminar este producto?"
+                                        wire:click='eliminar({{ $dato['id'] }})'
                                         wire:confirm="Estas seguro que deseas eliminar este producto ?"
                                         class="px-5 py-3 text-red-500 bg-red-200 border border-red-500 badge"><i
                                             class="fa-solid fa-trash"></i></button>
@@ -491,7 +493,7 @@
                             <td colspan="4 text-xl font-semibold">
                                 <span
                                     class="inline-flex items-center px-2 py-1 text-xs font-medium text-red-700 rounded-md bg-red-50 ring-1 ring-inset ring-red-600/10">
-                                    No se encontraron datos.
+                                    No se encontraron productos.
                                 </span>
                             </td>
                         </tr>

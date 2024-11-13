@@ -27,6 +27,10 @@ class Inicio extends Component
 
     public $buscado = '';
 
+    public $ver;
+    public $data;
+    
+
     public function mount()
     {
         $this->url = env('API_URL', 'https://api.happypetshco.com/api');
@@ -65,51 +69,75 @@ class Inicio extends Component
         }
     }
 
+    public function verservicio($id)
+    {
+        $response = Http::withoutVerifying()->withToken(Session::get('authToken'))->get($this->url.'/Servicio='.$id);
+        $respuesta = $response->json();
+        $this->data = $respuesta['servicio'];
+        $this->tipo = $this->data['tipo'];
+        $this->descripcion = $this->data['descripcion'];
+        $this->ver = true;
+    }
+    public function ocultar()
+    {
+        $this->ver = false;
+        $this->obtenerdatos();
+    }
+
     public function buscarServicios()
     {
-        $servicios = collect($this->datos);
+        $productos = collect($this->datos);
 
         // Aplicar filtro si no es "Todos"
         if ($this->filtro !== 'Todos') {
-            switch ($this->filtro) {
-                case 'A - Z':
-                    $servicios = $servicios->sortBy(function ($producto) {
-                        return strtolower($producto['tipo']);
-                    });
-                    break;
-                case 'Z - A':
-                    $servicios = $servicios->sortByDesc(function ($producto) {
-                        return strtolower($producto['tipo']);
-                    });
-                    break;
-                case 'ANTIGUOS':
-                    $servicios = $servicios->sortBy(function ($producto) {
-                        return $producto['created_at'];
-                    });
-                    break;
-                case 'RECIENTES':
-                    $servicios = $servicios->sortByDesc(function ($producto) {
-                        return $producto['created_at'];
-                    });
-                    break;
-                case '':
-                    $this->showAll();
-                    break;
-            }
-        } else {
-            $this->showAll();
+            $productos = $this->aplicarFiltro($productos);
         }
-        if (empty($this->buscado)) {
-            $this->showAll();
-        } elseif (! empty($this->buscado)) {
-            $servicios = $servicios->filter(function ($producto) {
+
+        // Filtro de búsqueda por nombre
+        if (! empty($this->buscado)) {
+            $productos = $productos->filter(function ($producto) {
                 return str_contains(strtolower($producto['tipo']), strtolower($this->buscado));
             });
         } else {
-            $this->showAll();
+            $this->obtenerdatos();
         }
 
-        $this->datos = $servicios->values()->all();
+        $this->datos = $productos->values()->all();
+    }
+
+    public function updatedbuscado()
+    {
+        $this->obtenerdatos();
+    }
+
+    private function aplicarFiltro($productos)
+    {
+        $filtros = [
+            'A - Z' => function ($producto) {
+                return strtolower($producto['tipo']);
+            },
+            'Z - A' => function ($producto) {
+                return strtolower($producto['tipo']);
+            },
+            'ANTIGUOS' => function ($producto) {
+                return $producto['created_at'];
+            },
+            'RECIENTES' => function ($producto) {
+                return $producto['created_at'];
+            },
+        ];
+
+        // Si el filtro existe, aplicar el filtro correspondiente
+        if (isset($filtros[$this->filtro])) {
+            $productos = $productos->sortBy($filtros[$this->filtro]);
+
+            // Si es un filtro descendente, usar sortByDesc
+            if (in_array($this->filtro, ['Z - A', 'RECIENTES'])) {
+                $productos = $productos->sortByDesc($filtros[$this->filtro]);
+            }
+        }
+
+        return $productos;
     }
 
     //filtro

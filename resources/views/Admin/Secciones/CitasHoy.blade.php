@@ -1,5 +1,5 @@
 @extends('Admin.Inicio')
 
 @section('contenido')
-   citas hoy
+    @livewire('admin.citas.inicio')
 @endsection

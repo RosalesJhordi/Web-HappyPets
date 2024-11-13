@@ -21,9 +21,7 @@ Route::middleware([CheckPermissions::class. ':Administrador'])->group(function (
     Route::get('admin/inicio', [ViewsController::class, 'admin'])->name('Admin');
     Route::get('admin/producto', [ViewsController::class, 'productos'])->name('Admin.Productos');
     Route::get('admin/servicios', [ViewsController::class, 'servicios'])->name('Admin.Servicios');
-    Route::get('admin/citas/hoy', [ViewsController::class, 'citasHoy'])->name('Admin.Citas.Hoy');
-    Route::get('admin/citas/semana', [ViewsController::class, 'citasSemana'])->name('Admin.Citas.Semana');
-    Route::get('admin/citas/mes', [ViewsController::class, 'citasMes'])->name('Admin.Citas.Mes');
+    Route::get('admin/citas', [ViewsController::class, 'citasHoy'])->name('Admin.Citas.Hoy');
     Route::get('admin/mascotas', [ViewsController::class, 'mascotas'])->name('Admin.Mascotas');
     Route::get('admin/usuarios/clientes', [ViewsController::class, 'clientes'])->name('Admin.Clientes');
     Route::get('admin/usuarios/empleados', [ViewsController::class, 'empleados'])->name('Admin.Empleados');
