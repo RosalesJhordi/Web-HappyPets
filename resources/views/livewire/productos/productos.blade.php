@@ -75,13 +75,7 @@
                                 </button>
 
                                 <dialog id="my_modal_{{ $producto['id'] }}" class="modal">
-                                    <div class="w-11/12 max-w-5xl modal-box">
-                                        <form method="dialog">
-                                            <button
-                                                class="absolute z-50 btn btn-lg btn-circle btn-ghost right-1 top-1">✕</button>
-                                        </form>
-                                        @livewire('carrito.add-car', [$producto['nm_producto'], $producto['imagen'], $producto['id'], $producto['descuento'], $producto['precio'], $producto['descripcion'], $producto['colores']], key($producto['id']))
-                                    </div>
+                                    @livewire('carrito.add-car', [$producto['nm_producto'], $producto['imagen'], $producto['id'], $producto['descuento'], $producto['precio'], $producto['descripcion'], $producto['colores'], $producto['stock']], key($producto['id']))
                                 </dialog>
 
 

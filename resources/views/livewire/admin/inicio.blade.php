@@ -154,6 +154,15 @@
                 </li>
 
                 <li>
+                    <a href="{{route('Admin.Libro')}}"
+                        class="flex items-center p-2 rounded-lg group {{ Route::is('Admin.Libro') ? 'bg-blue-600 text-white hover:bg-blue-500' : 'text-gray-900 hover:bg-gray-200' }}">
+                        <i
+                            class="w-6 h-6 text-lg {{ Route::is('Admin.Libro')  ? 'text-white' : 'text-gray-500' }} fa-solid fa-book"></i>
+                        <span class="flex-1 ms-3 whitespace-nowrap">Libro Reclamos</span>
+                    </a>
+                </li>
+
+                <li>
                     <a href="/" class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100 group">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
                             class="text-gray-500 size-6">

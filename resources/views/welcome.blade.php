@@ -9,7 +9,7 @@
     <div class="w-full">
 
         @livewire('productos.todos')
-        @livewire('productos.descuentos')
+        @livewire('servicios.todas')
         {{-- @livewire('citas.views') --}}
         {{-- @livewire('servicios.inicio') --}}
         <div class="visme_d" style="height: 50vh;" data-title="Contact Form" data-url="8r6nwpjm-contact-form"

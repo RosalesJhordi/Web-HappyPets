@@ -1,4 +1,6 @@
 <div class="w-full bg-white">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/izitoast/dist/css/iziToast.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/izitoast/dist/js/iziToast.min.js"></script>
     <div class="max-w-xl px-4 py-5 mx-auto sm:px-6 sm:py-10 lg:max-w-5xl lg:px-8">
         <h2 class="text-lg font-bold tracking-tight text-gray-500 lg:text-2xl">Hola: {{ $nombres }}</h2>
         @if ($historial)
@@ -192,22 +194,46 @@
                     <div class="pb-12 border-b border-gray-900/10">
                         <h2 class="text-base font-semibold leading-7 text-gray-900">Información Personal</h2>
 
+                        @if ($permisos && array_intersect($permisos, ['Veterinario', 'Administrador', 'Cajero/Vendedor']))
+                            @if ($imagenUser)
+                                <div class="items-center justify-center w-full avatar">
+                                    <div class="rounded-full w-60">
+                                        <img src="{{ 'https://api.happypetshco.com/ServidorPerfiles/' . $imagenUser }}" />
+                                    </div>
+                                </div>
+                            @else
+                                <div class="items-center justify-center w-full avatar">
+                                    <div class="rounded-full w-60">
+                                        <img src="{{ asset('img/profile-user-icon-2048x2048-m41rxkoe.png') }}" />
+                                    </div>
+                                </div>
+                            @endif
+                        @endif
+
                         <div class="grid grid-cols-1 mt-10 gap-x-6 gap-y-8 sm:grid-cols-6">
                             <div class="sm:col-span-3">
                                 <label for="first-name"
                                     class="block text-sm font-medium leading-6 text-gray-900">Nombres</label>
                                 <div class="mt-2">
-                                    <input type="text" name="first-name" id="first-name"
+                                    <input type="text" wire:model.live='nombres'
                                         autocomplete="given-name" value="{{ $nombres }}" disabled
                                         class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
                                 </div>
                             </div>
-
+                            <div class="sm:col-span-3">
+                                <label for="telefono"
+                                    class="block text-sm font-medium leading-6 text-gray-900">Apellidos</label>
+                                <div class="mt-2">
+                                    <input type="text" wire:model.live='apellidos'
+                                        value="{{ $apellidos }}"
+                                        class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                                </div>
+                            </div>
                             <div class="sm:col-span-3">
                                 <label for="telefono"
                                     class="block text-sm font-medium leading-6 text-gray-900">Telefono</label>
                                 <div class="mt-2">
-                                    <input type="text" name="telefono" id="telefono" autocomplete="family-name"
+                                    <input type="text" wire:model.live='telefono'
                                         value="{{ $telefono }}"
                                         class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
                                 </div>
@@ -217,22 +243,64 @@
                                 <label for="email"
                                     class="block text-sm font-medium leading-6 text-gray-900">DNI</label>
                                 <div class="mt-2">
-                                    <input id="email" name="email" type="email" autocomplete="email"
+                                    <input id="email" wire:model.live='dni'
                                         value="{{ $dni }}" disabled
                                         class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
                                 </div>
                             </div>
 
-                            <div class="col-span-full">
+                            <div class="col-span-3">
                                 <label for="street-address"
                                     class="block text-sm font-medium leading-6 text-gray-900">Ubicación</label>
                                 <div class="mt-2">
-                                    <input type="text" name="street-address" id="street-address"
+                                    <input type="text" wire:model.live='ubicacion'
                                         value="{{ $ubicacion }}" autocomplete="street-address"
                                         class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
                                 </div>
                             </div>
+                            @if ($permisos)
+                                @foreach ($permisos as $permiso)
+                                    @if ($permiso == 'Veterinario')
+                                        <div class="col-span-3">
+                                            <label for="street-address"
+                                                class="block text-sm font-medium leading-6 text-gray-900">Especialidad</label>
+                                            <div class="mt-2">
+                                                <input type="text" readonly wire:model.live='especialidad'
+                                                    id="street-address" value="{{ $especialidad }}"
+                                                    autocomplete="street-address"
+                                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                                            </div>
+                                        </div>
 
+                                        <div class="col-span-3">
+                                            <label for="street-address"
+                                                class="block text-sm font-medium leading-6 text-gray-900">Descripción</label>
+                                            <div class="mt-2 w-full rounded-md border-2 px-2 py-1.5">
+                                                {{ $descripcion ?? 'Sin Descripción' }}
+                                            </div>
+                                        </div>
+
+                                        <div class="col-span-3">
+                                            <label for="street-address"
+                                                class="block text-sm font-medium leading-6 text-gray-900">Cambiar
+                                                Perfil</label>
+                                            <div class="mt-2">
+                                                <input type="file" wire:model.live='imagenUsuario' class="block w-full text-gray-900 border-0 rounded-md shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-span-full">
+                                            <label for="street-address"
+                                                class="block text-sm font-medium leading-6 text-gray-900">Añade Descripcion</label>
+                                            <div class="mt-2">
+                                                <textarea type="text" placeholder="Descripción corta" wire:model.live='descripcion'
+                                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                                                </textarea>
+                                            </div>
+                                        </div>
+                                    @endif
+                                @endforeach
+                            @endif
 
 
                             <div class="sm:col-span-2">
@@ -250,12 +318,48 @@
                 </div>
 
                 <div class="flex items-center justify-end mt-6 gap-x-6">
-                    <button type="submit"
+                    <button type="button" wire:click='ActualizarDatos'
                         class="px-3 py-2 text-sm font-semibold text-white bg-indigo-600 rounded-md shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
-                        Guardar cambios
+                        <span wire:loading.remove>
+                            Guardar cambios
+                        </span>
+                        <span wire:loading>
+                            Cargando...
+                        </span>
                     </button>
                 </div>
             </div>
         @endif
     </div>
 </div>
+<script>
+    window.addEventListener('correcto', () => {
+        console.log('gaaa');
+        iziToast.success({
+            message: event.detail,
+            position: 'topRight',
+            timeout: 5000,
+            progressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            theme: 'light',
+            transitionIn: 'bounce'
+        });
+    });
+
+    window.addEventListener('error', () => {
+        console.log('gaaa');
+        iziToast.error({
+            message: event.detail,
+            position: 'topRight',
+            timeout: 5000,
+            progressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            theme: 'light',
+            transitionIn: 'bounce'
+        });
+    });
+</script>

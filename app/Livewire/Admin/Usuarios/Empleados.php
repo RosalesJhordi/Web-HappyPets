@@ -157,16 +157,19 @@ class Empleados extends Component
             'nombres' => $this->datosusuario['nombres'],
             'telefono' => $this->datosusuario['telefono'],
             'ubicacion' => $this->datosusuario['ubicacion'],
-            'especialidad' => $this->especialidad ?? $this->datosusuario['especialidad'],
+            'especialidad' => $this->especialidad,
             'permisos' => $this->permisos,
         ]);
 
         if ($response->successful()) {
             $respuesta = $response->json();
-            $this->dispatch('correcto');
-            //session()->flash('correcto', 'Usuario actualizado correctamente');
+            $this->users();
+            $this->verusuario($this->id);
+            $this->ver = true;
+            $this->dispatch('correcto', 'Usuario actualizado correctamente');
         }else{
             $this->dispatch('error');
+            $this->users();
         }
     }
 

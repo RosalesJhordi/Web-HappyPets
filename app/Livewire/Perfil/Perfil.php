@@ -48,13 +48,17 @@ class Perfil extends Component
     ];
 
     public $especieSeleccionada = '';
-
+    public $imagenUsuario;
+    public $imagenUser;
     public $sexo;
 
     public $datosHistorial;
+    public $especialidad;
 
     public $historialCollection;
     public $mascotaHistorial;
+    public $descripcion;
+    public $apellidos;
     #[Url(as: 'his')]
     public $his = 'historial';
 
@@ -91,7 +95,6 @@ class Perfil extends Component
             $this->datosHistorial = $response->json();
         }
     }
-
     public function cargarDatosUsuario()
     {
         $response = Http::withHeaders([
@@ -106,8 +109,12 @@ class Perfil extends Component
             $this->nombres = $data['usuarios']['nombres'];
             $this->permisos = $data['usuarios']['permisos'];
             $this->dni = $data['usuarios']['dni'];
+            $this->especialidad = $data['usuarios']['especialidad'];
+            $this->descripcion = $data['usuarios']['descripcion'];
             $this->ubicacion = $data['usuarios']['ubicacion'];
             $this->telefono = $data['usuarios']['telefono'];
+            $this->apellidos = $data['usuarios']['apellidos'];
+            $this->imagenUser = $data['usuarios']['imagen'];
 
             $dataaa = $this->permisos;
             if (is_string($dataaa)) {
@@ -115,6 +122,41 @@ class Perfil extends Component
             }
         }
     }
+
+    public function ActualizarDatos(){
+        $response = Http::withHeaders([
+            'Authorization' => 'Bearer ' . Session::get('authToken'),
+        ])->withOptions([
+            'verify' => false,
+        ]);
+
+        // Adjuntar la imagen solo si $imagenUsuario no está vacía
+        if (!empty($this->imagenUsuario)) {
+            $response = $response->attach(
+                'imagen',
+                file_get_contents($this->imagenUsuario->getRealPath()),
+                $this->imagenUsuario->getClientOriginalName()
+            );
+        }
+
+        $response = $response->post($this->url.'/EditEmpleado='.$this->id, [
+            'nombres' => $this->nombres,
+            'dni' => $this->dni,
+            'descripcion' => $this->descripcion,
+            'ubicacion' => $this->ubicacion,
+            'telefono' => $this->telefono,
+            'apellidos' => $this->apellidos,
+            'especialidad' => $this->especialidad,
+        ]);
+
+        if ($response->successful()) {
+            $this->cargarDatosUsuario();
+            $this->dispatch('correcto', 'Datos Actualizados exitosamente');
+        } else {
+            $this->dispatch('error', 'Error al actualizar datos.');
+        }
+    }
+
 
     public function addMascota()
     {
@@ -139,9 +181,11 @@ class Perfil extends Component
             'sexo' => $this->sexo,
             'id_usuario' => $this->id,
         ]);
-        dd($response);
         if ($response->successful()) {
             $this->mascotas();
+            $this->dispatch('correcto', 'Mascota Registrada exitosamente');
+        }else{
+            $this->dispatch('error', 'Error al registrar mascota.');
         }
     }
 
@@ -161,7 +205,7 @@ class Perfil extends Component
 
     public function mount()
     {
-        $this->url = env('API_URL', 'https://api.happypetshco.com/api'); 
+        $this->url = env('API_URL', 'https://api.happypetshco.com/api');
         $this->cargarDatosUsuario();
         $this->mascotas();
         $this->historialMascota();

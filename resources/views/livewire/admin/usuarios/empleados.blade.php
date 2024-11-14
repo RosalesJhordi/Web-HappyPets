@@ -24,10 +24,32 @@
                         <p>{{ implode(', ', $permisos) }}</p>
                     </span>
 
-                    <div class="shadow-md ">
-                        {{ $datosusuario['descripcion'] }}
-                        {{ $datosusuario['especialidad'] }}
+                    <div class="w-full p-6 py-2 mb-3 bg-gradient-to-r from-blue-50 via-purple-50 to-pink-50">
+                        <!-- Descripción -->
+                        <div class="mb-4">
+                            <div class="flex items-center">
+                                <svg class="w-5 h-5 mr-2 text-purple-500" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zM12 7c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 10c-1.95 0-3.8-.79-5.07-2.07.13-.43.41-.79.81-1.11.88-.68 2.07-1.13 3.26-1.13 1.19 0 2.38.45 3.26 1.13.4.31.68.68.81 1.11C15.8 16.21 13.95 17 12 17z"/>
+                                </svg>
+                                <span class="text-lg font-semibold text-purple-700">Descripción:</span>
+                            </div>
+                            <p class="mt-2 text-sm text-purple-900">
+                                {{ $datosusuario['descripcion'] }}
+                            </p>
+                        </div>
+
+                        <!-- Especialidad -->
+                        <div class="flex items-center mt-4">
+                            <svg class="w-5 h-5 mr-2 text-blue-500" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                <path d="M12 2a10 10 0 0 0-3.74 19.26c.29.05.63-.08.79-.35l1.1-1.79c.17-.27.16-.61-.03-.88l-1.12-1.32c-.16-.19-.19-.47-.08-.71a7.97 7.97 0 0 1 .7-1.02c1.33-1.33 3.51-1.4 4.92-.16.44.4.95.68 1.51.8.59.12 1.21.02 1.76-.3l2.03-.95c.26-.12.5-.3.7-.51 1.42-1.41 1.42-3.69 0-5.1a4.017 4.017 0 0 0-5.08-.22l-1.68.95a7.973 7.973 0 0 1-2.5-5.43c0-2.21.9-4.2 2.36-5.64a10.005 10.005 0 0 0-8.64 18.15c.29.05.63-.08.79-.35l1.1-1.79c.17-.27.16-.61-.03-.88l-1.12-1.32c-.16-.19-.19-.47-.08-.71a7.97 7.97 0 0 1 .7-1.02c1.33-1.33 3.51-1.4 4.92-.16.44.4.95.68 1.51.8.59.12 1.21.02 1.76-.3l2.03-.95c.26-.12.5-.3.7-.51 1.42-1.41 1.42-3.69 0-5.1a4.017 4.017 0 0 0-5.08-.22l-1.68.95a7.973 7.973 0 0 1-2.5-5.43c0-2.21.9-4.2 2.36-5.64 1.46-1.44 3.41-2.36 5.64-2.36z"/>
+                            </svg>
+                            <span class="bg-indigo-100 text-indigo-800 text-xs font-semibold mr-2 px-3 py-0.5 rounded-full dark:bg-indigo-900 dark:text-indigo-300">
+                                {{ $datosusuario['especialidad'] }}
+                            </span>
+                        </div>
                     </div>
+
+
 
                     <h3 class="w-full px-2 mb-4 font-semibold text-gray-900 text-start">Permisos</h3>
                     <ul
@@ -106,8 +128,14 @@
                     <div class="flex mt-4 md:mt-6">
                         <button wire:click="actualizar"
                             class="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 ">
-                            Guardar cambios
-                            </buttonv>
+                            <span wire:loading.remove>
+                                Guardar cambios
+                            </span>
+                            <span wire:loading class="flex items-center justify-center">
+                                Guardando
+                                <span class="loading loading-dots loading-sm">Guardando</span>
+                            </span>
+                        </button>
 
 
                     </div>
