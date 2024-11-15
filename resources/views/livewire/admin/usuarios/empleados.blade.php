@@ -43,7 +43,7 @@
                             <svg class="w-5 h-5 mr-2 text-blue-500" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                                 <path d="M12 2a10 10 0 0 0-3.74 19.26c.29.05.63-.08.79-.35l1.1-1.79c.17-.27.16-.61-.03-.88l-1.12-1.32c-.16-.19-.19-.47-.08-.71a7.97 7.97 0 0 1 .7-1.02c1.33-1.33 3.51-1.4 4.92-.16.44.4.95.68 1.51.8.59.12 1.21.02 1.76-.3l2.03-.95c.26-.12.5-.3.7-.51 1.42-1.41 1.42-3.69 0-5.1a4.017 4.017 0 0 0-5.08-.22l-1.68.95a7.973 7.973 0 0 1-2.5-5.43c0-2.21.9-4.2 2.36-5.64a10.005 10.005 0 0 0-8.64 18.15c.29.05.63-.08.79-.35l1.1-1.79c.17-.27.16-.61-.03-.88l-1.12-1.32c-.16-.19-.19-.47-.08-.71a7.97 7.97 0 0 1 .7-1.02c1.33-1.33 3.51-1.4 4.92-.16.44.4.95.68 1.51.8.59.12 1.21.02 1.76-.3l2.03-.95c.26-.12.5-.3.7-.51 1.42-1.41 1.42-3.69 0-5.1a4.017 4.017 0 0 0-5.08-.22l-1.68.95a7.973 7.973 0 0 1-2.5-5.43c0-2.21.9-4.2 2.36-5.64 1.46-1.44 3.41-2.36 5.64-2.36z"/>
                             </svg>
-                            <span class="bg-indigo-100 text-indigo-800 text-xs font-semibold mr-2 px-3 py-0.5 rounded-full dark:bg-indigo-900 dark:text-indigo-300">
+                            <span class="bg-indigo-100 text-indigo-800 text-xs font-semibold mr-2 px-3 py-0.5 rounded-full">
                                 {{ $datosusuario['especialidad'] }}
                             </span>
                         </div>
@@ -146,7 +146,7 @@
         @if (session()->has('correcto'))
             <div class="absolute top-0 right-0 w-auto text-sm font-semibold text-white bg-green-500 rounded-md alert">
                 <div
-                    class="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-green-500 bg-green-100 rounded-lg dark:bg-green-800 dark:text-green-200">
+                    class="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-green-500 bg-green-100 rounded-lg ">
                     <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
                         viewBox="0 0 20 20">
                         <path
@@ -263,41 +263,41 @@
                 </tbody>
             </table>
             <div wire:loading role="status"
-                class="w-full p-4 space-y-4 border border-gray-200 divide-y divide-gray-200 rounded shadow animate-pulse dark:divide-gray-700 md:p-6 dark:border-gray-700">
+                class="w-full p-4 space-y-4 border border-gray-200 divide-y divide-gray-200 rounded shadow animate-pulse ">
                 <div class="flex items-center justify-between">
                     <div>
-                        <div class="h-2.5 bg-gray-300 rounded-full dark:bg-gray-600 w-24 mb-2.5"></div>
-                        <div class="w-32 h-2 bg-gray-200 rounded-full dark:bg-gray-700"></div>
+                        <div class="h-2.5 bg-gray-300 rounded-full  w-24 mb-2.5"></div>
+                        <div class="w-32 h-2 bg-gray-200 rounded-full "></div>
                     </div>
-                    <div class="h-2.5 bg-gray-300 rounded-full dark:bg-gray-700 w-12"></div>
+                    <div class="h-2.5 bg-gray-300 rounded-full  w-12"></div>
                 </div>
                 <div class="flex items-center justify-between pt-4">
                     <div>
-                        <div class="h-2.5 bg-gray-300 rounded-full dark:bg-gray-600 w-24 mb-2.5"></div>
-                        <div class="w-32 h-2 bg-gray-200 rounded-full dark:bg-gray-700"></div>
+                        <div class="h-2.5 bg-gray-300 rounded-full  w-24 mb-2.5"></div>
+                        <div class="w-32 h-2 bg-gray-200 rounded-full "></div>
                     </div>
-                    <div class="h-2.5 bg-gray-300 rounded-full dark:bg-gray-700 w-12"></div>
+                    <div class="h-2.5 bg-gray-300 rounded-full  w-12"></div>
                 </div>
                 <div class="flex items-center justify-between pt-4">
                     <div>
-                        <div class="h-2.5 bg-gray-300 rounded-full dark:bg-gray-600 w-24 mb-2.5"></div>
-                        <div class="w-32 h-2 bg-gray-200 rounded-full dark:bg-gray-700"></div>
+                        <div class="h-2.5 bg-gray-300 rounded-full  w-24 mb-2.5"></div>
+                        <div class="w-32 h-2 bg-gray-200 rounded-full "></div>
                     </div>
-                    <div class="h-2.5 bg-gray-300 rounded-full dark:bg-gray-700 w-12"></div>
+                    <div class="h-2.5 bg-gray-300 rounded-full "></div>
                 </div>
                 <div class="flex items-center justify-between pt-4">
                     <div>
-                        <div class="h-2.5 bg-gray-300 rounded-full dark:bg-gray-600 w-24 mb-2.5"></div>
-                        <div class="w-32 h-2 bg-gray-200 rounded-full dark:bg-gray-700"></div>
+                        <div class="h-2.5 bg-gray-300 rounded-full  w-24 mb-2.5"></div>
+                        <div class="w-32 h-2 bg-gray-200 rounded-full "></div>
                     </div>
-                    <div class="h-2.5 bg-gray-300 rounded-full dark:bg-gray-700 w-12"></div>
+                    <div class="h-2.5 bg-gray-300 rounded-full "></div>
                 </div>
                 <div class="flex items-center justify-between pt-4">
                     <div>
-                        <div class="h-2.5 bg-gray-300 rounded-full dark:bg-gray-600 w-24 mb-2.5"></div>
-                        <div class="w-32 h-2 bg-gray-200 rounded-full dark:bg-gray-700"></div>
+                        <div class="h-2.5 bg-gray-300 rounded-full  w-24 mb-2.5"></div>
+                        <div class="w-32 h-2 bg-gray-200 rounded-full "></div>
                     </div>
-                    <div class="h-2.5 bg-gray-300 rounded-full dark:bg-gray-700 w-12"></div>
+                    <div class="h-2.5 bg-gray-300 rounded-full  w-12"></div>
                 </div>
                 <span class="sr-only">Loading...</span>
             </div>

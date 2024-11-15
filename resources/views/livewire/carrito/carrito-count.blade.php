@@ -40,7 +40,7 @@
                                         <img src="{{ 'https://api.happypetshco.com/ServidorProductos/' . $dato['imagen'] }}"
                                             alt="imagen de producto" class="object-cover object-center w-full h-full">
                                         <div
-                                            class="absolute inline-flex items-center justify-center w-6 h-6 px-4 py-4 text-lg font-bold text-white bg-red-500 border-2 border-white rounded-full -top-1 -end-2 dark:border-gray-900">
+                                            class="absolute inline-flex items-center justify-center w-6 h-6 px-4 py-4 text-lg font-bold text-white bg-red-500 border-2 border-white rounded-full -top-1 -end-2 ">
                                             {{ $dato['cantidad'] }}
                                         </div>
                                     </div>
@@ -53,8 +53,23 @@
                                                 </h3>
                                                 <p class="ml-4">S/. {{ $dato['importe'] }}</p>
                                             </div>
-                                            <p class="mt-1 text-sm text-gray-500">{{ $dato['categoria'] }}
-                                            </p>
+
+                                            <div class="flex items-center space-x-2">
+                                                <button
+                                                    class="px-3 py-1 text-white bg-red-500 rounded"
+                                                    wire:click="disminuir({{ $dato['id'] }}, {{ $dato['cantidad'] - 1 }}, {{ $dato['productoPrecio'] }})"
+                                                    {{ $dato['cantidad'] <= 1 ? 'disabled' : '' }}
+                                                >
+                                                    -
+                                                </button>
+                                                <span class="text-lg font-medium">{{ $dato['cantidad'] }}</span>
+                                                <button
+                                                    class="px-3 py-1 text-white bg-green-500 rounded"
+                                                    wire:click="aumentar({{ $dato['id'] }}, {{ $dato['cantidad'] + 1 }}, {{ $dato['productoPrecio'] }})"
+                                                >
+                                                    +
+                                                </button>
+                                            </div>
                                         </div>
                                         <div class="flex items-center justify-between flex-1 text-sm">
                                             <p class="text-gray-500">{{ $dato['colores'] }}</p>

@@ -1,8 +1,8 @@
 <div class="w-full bg-white">
     <div class="max-w-2xl px-4 py-5 mx-auto sm:px-6 sm:py-10 lg:max-w-7xl lg:px-8">
-        <h5 class="mb-2 text-3xl font-bold text-gray-900 dark:text-white">¡Mantente Informado sobre tu Clínica
+        <h5 class="mb-2 text-3xl font-bold text-gray-900">¡Mantente Informado sobre tu Clínica
             Veterinaria!</h5>
-        <p class="mb-5 text-base text-gray-500 sm:text-lg dark:text-gray-400">Descubre todas las novedades, servicios y
+        <p class="mb-5 text-base text-gray-500 sm:text-lg">Descubre todas las novedades, servicios y
             cuidados para tus mascotas con nuestra aplicación. Recibe notificaciones importantes y mantén un seguimiento
             de las citas y tratamientos. ¡Descarga la app hoy mismo y cuida de tus peludos desde cualquier lugar!</p>
 
@@ -10,7 +10,7 @@
             <div class="grid items-center justify-center w-full grid-cols-2 gap-2 xl:max-w-xl">
 
                 <a href="#"
-                    class="w-full h-16 sm:w-auto bg-green-600 hover:bg-green-500 focus:ring-4 focus:outline-none focus:ring-gray-300 text-white rounded-lg inline-flex items-center justify-center px-4 py-2.5 dark:bg-gray-700 dark:hover:bg-gray-600 dark:focus:ring-gray-700">
+                    class="w-full h-16 sm:w-auto bg-green-600 hover:bg-green-500 focus:ring-4 focus:outline-none focus:ring-gray-300 text-white rounded-lg inline-flex items-center justify-center px-4 py-2.5">
                     <svg class="me-3 w-7 h-7" aria-hidden="true" focusable="false" data-prefix="fab"
                         data-icon="google-play" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
                         <path fill="currentColor"
@@ -24,7 +24,7 @@
                 </a>
 
                 <a href="#"
-                    class="w-full h-16 sm:w-auto bg-blue-600 hover:bg-blue-500 focus:ring-4 focus:outline-none focus:ring-gray-300 text-white rounded-lg inline-flex items-center justify-center px-4 py-2.5 dark:bg-gray-700 dark:hover:bg-gray-600 dark:focus:ring-gray-700">
+                    class="w-full h-16 sm:w-auto bg-blue-600 hover:bg-blue-500 focus:ring-4 focus:outline-none focus:ring-gray-300 text-white rounded-lg inline-flex items-center justify-center px-4 py-2.5">
                     <svg class="text-white me-3 w-7 h-7" aria-hidden="true" focusable="false" data-prefix="fab"
                         data-icon="google-play" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
                         <path fill="#ffffff"

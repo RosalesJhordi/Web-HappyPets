@@ -25,7 +25,6 @@ class Inicio extends Component
             ->sortByDesc(function ($servicio) {
                 return $servicio['created_at'];
             })
-            ->take(8)
             ->values()
             ->all();
     }

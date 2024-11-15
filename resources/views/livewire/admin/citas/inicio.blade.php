@@ -192,10 +192,10 @@
                 <div class="grid w-full grid-cols-2 gap-6 p-6 xl:grid-cols-4 md:grid-cols-3">
                     @foreach ($citas as $cita)
                         <div
-                            class="p-6 transition-all duration-300 transform bg-white border border-gray-200 rounded-lg shadow-lg hover:shadow-xl hover:scale-105 hover:translate-y-2 dark:bg-gray-800 dark:border-gray-700">
+                            class="p-6 transition-all duration-300 transform bg-white border border-gray-200 rounded-lg shadow-lg hover:shadow-xl hover:scale-105 hover:translate-y-2 ">
                             <!-- Tipo de servicio -->
                             <div class="flex items-center justify-between mb-4">
-                                <h5 class="text-xl font-semibold text-gray-900 dark:text-white">
+                                <h5 class="text-xl font-semibold text-gray-900 ">
                                     {{ $cita['servicio']['tipo'] }} - {{ $cita['hora'] }}
                                 </h5>
                                 <span
@@ -211,21 +211,21 @@
                                         alt="Imagen mascota {{ $cita['mascota']['nombre'] }}"
                                         class="object-cover w-full h-full rounded-lg shadow-md">
                                 </div>
-                                <p class="text-gray-700 dark:text-gray-400">
-                                    <span class="font-semibold text-gray-900 dark:text-white">Mascota:</span>
+                                <p class="text-gray-700 ">
+                                    <span class="font-semibold text-gray-900 ">Mascota:</span>
                                     {{ $cita['mascota']['nombre'] }}
-                                    <span class="text-gray-500 dark:text-gray-300">({{ $cita['mascota']['especie'] }},
+                                    <span class="text-gray-500 ">({{ $cita['mascota']['especie'] }},
                                         {{ $cita['mascota']['edad'] }}, {{ $cita['mascota']['raza'] }})</span>
                                 </p>
-                                <p class="mt-2 text-gray-700 dark:text-gray-400">
+                                <p class="mt-2 text-gray-700 ">
                                     Estado: <span
-                                        class="italic text-gray-900 dark:text-white">{{ $cita['estado'] }}</span>.
+                                        class="italic text-gray-900 ">{{ $cita['estado'] }}</span>.
                                 </p>
                             </div>
 
                             <!-- Botón para ver detalles -->
                             <button type="button" wire:click='detallescita({{ $cita['id'] }})'
-                                class="inline-flex items-center px-6 py-3 text-sm font-medium text-white transition-all duration-200 bg-blue-600 rounded-lg shadow-md hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 dark:bg-blue-500 dark:hover:bg-blue-600 dark:focus:ring-blue-700 hover:shadow-lg">
+                                class="inline-flex items-center px-6 py-3 text-sm font-medium text-white transition-all duration-200 bg-blue-600 rounded-lg shadow-md hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 hover:shadow-lg">
                                 Ver detalles
                                 <svg class="w-5 h-5 ml-2" xmlns="http://www.w3.org/2000/svg" fill="none"
                                     viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
@@ -238,16 +238,16 @@
                 </div>
             @else
                 <div
-                    class="flex flex-col items-center justify-center p-6 bg-gray-100 rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700">
+                    class="flex flex-col items-center justify-center p-6 bg-gray-100 rounded-lg shadow-md ">
                     <!-- Imagen de estado vacío -->
                     <img src="data:image/png;base64,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"
                         alt="No hay citas" class="object-cover w-32 h-32 mb-4">
 
                     <!-- Mensaje cuando no hay citas -->
-                    <p class="text-xl font-semibold text-gray-800 dark:text-white">
+                    <p class="text-xl font-semibold text-gray-800 ">
                         No hay citas hoy
                     </p>
-                    <p class="mt-2 text-center text-gray-500 dark:text-gray-400">
+                    <p class="mt-2 text-center text-gray-500 ">
                         No se han programado citas para el día de hoy. Por favor, vuelve más tarde.
                     </p>
                 </div>

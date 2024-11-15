@@ -32,7 +32,7 @@ class Perfil extends Component
 
     public $img = false;
 
-    public $historial = false;
+    public $hist = false;
 
     //mascota
     public $nombre;
@@ -64,13 +64,24 @@ class Perfil extends Component
 
     public function mostraHistorial($id)
     {
-        $this->historial = true;
-        $this->historialCollection = collect($this->datosHistorial['mascotas']);
-        $mascotaHistorial = $this->historialCollection->firstWhere('id', $id);
-        $this->mascotaHistorial = $mascotaHistorial;
+        $this->mascotas();
+        $this->hist = true;
+        $this->MascotaHistorial($id);
+    }
+
+    public function MascotaHistorial($id){
+        $response = Http::withoutVerifying()->withToken(Session::get('authToken'))->get($this->url.'/HistorialMascota='.$id);
+        $respuesta = $response->json();
+
+        //si la respuesta es correcta
+        if ($response->successful()) {
+            $this->mascotaHistorial = $respuesta;
+        } else {
+            $this->dispatch('error', 'Error: '.$response->body());
+        }
     }
     public function ocultarHistorial(){
-        $this->historial = false;
+        $this->hist = false;
     }
 
     public function actualizarSexo($sex)

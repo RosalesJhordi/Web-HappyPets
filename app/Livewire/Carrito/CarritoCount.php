@@ -14,8 +14,11 @@ class CarritoCount extends Component
 
     public $datos;
 
+    public $contador = 0;
+
     public $importeTotal;
 
+    public $precioActual;
 
     public function mount()
     {
@@ -26,6 +29,31 @@ class CarritoCount extends Component
             $this->datosCarrito();
         }
 
+    }
+
+    public function aumentar($id,$cantidad,$precio)
+    {
+        $response = Http::withoutVerifying()->withToken(Session::get('authToken'))->put($this->url.'/ActualizarCarrito='.$id, [
+            'cantidad' => $cantidad,
+            'importe' => $precio,
+        ]);
+        if ($response->successful()) {
+            $this->datosCarrito();
+        } else {
+            $this->datosCarrito();
+        }
+    }
+    public function disminuir($id,$cantidad,$precio)
+    {
+        $response = Http::withoutVerifying()->withToken(Session::get('authToken'))->put($this->url.'/ActualizarCarrito='.$id, [
+            'cantidad' => $cantidad,
+            'importe' => $precio,
+        ]);
+        if ($response->successful()) {
+            $this->datosCarrito();
+        } else {
+            $this->datosCarrito();
+        }
     }
 
     public function datoss()
@@ -56,19 +84,23 @@ class CarritoCount extends Component
             $agrupados = collect($carrito)->groupBy(function ($item) {
                 return $item['producto']['nm_producto'];
             })->map(function ($productos, $nombreProducto) {
+                $id =  $productos->first()['id'];
                 $cantidadTotal = $productos->sum('cantidad');
                 $importeTotal = $productos->sum('importe');
                 $colores = $productos->pluck('color')->unique()->implode(', ');
                 $imagen = $productos->first()['producto']['imagen'];
                 $categoria = $productos->first()['producto']['categorias_id'];
                 $descuento = $productos->first()['producto']['descuento'];
+                $this->precioActual = $productos->first()['producto']['precio'];
 
                 return [
+                    'id' => $id,
                     'nombre' => $nombreProducto,
                     'cantidad' => $cantidadTotal,
                     'colores' => $colores,
                     'importe' => $importeTotal,
                     'imagen' => $imagen,
+                    'productoPrecio' => $this->precioActual,
                     'categoria' => $categoria,
                 ];
             });
@@ -76,10 +108,6 @@ class CarritoCount extends Component
             $this->datos = $agrupados->values();
             $this->importeTotal = $agrupados->sum('importe');
         }
-    }
-
-    public function contador($cantidad,$id){
-
     }
 
     public function render()

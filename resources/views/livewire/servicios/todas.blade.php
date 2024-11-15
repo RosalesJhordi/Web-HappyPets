@@ -3,7 +3,7 @@
     <div class="grid grid-cols-2 gap-2 mt-8 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 lg:gap-8">
         @foreach ($datos as $dato)
             <div class="w-full p-4 transition-transform transform bg-white border border-gray-200 rounded-lg shadow-md hover:shadow-lg hover:-translate-y-1">
-                <div class="relative overflow-hidden rounded-md">
+                <div class="relative overflow-hidden rounded-md cursor-pointer" onclick="document.getElementById('my_modall_{{ $dato['id'] }}').showModal()">
                     <img src="{{ 'https://api.happypetshco.com/ServidorServicios/' . $dato['imagen'] }}"
                          alt="{{ $dato['tipo'] }}" class="object-cover w-full transition-opacity duration-300 ease-in-out h-60 hover:opacity-90">
                 </div>

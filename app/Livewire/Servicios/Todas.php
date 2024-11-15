@@ -25,7 +25,7 @@ class Todas extends Component
             ->sortByDesc(function ($servicio) {
                 return $servicio['created_at'];
             })
-            ->take(8)
+            ->take(6)
             ->values()
             ->all();
     }
