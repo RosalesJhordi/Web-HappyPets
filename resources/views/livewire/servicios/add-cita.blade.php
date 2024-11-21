@@ -2,7 +2,8 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/izitoast/dist/css/iziToast.min.css">
     <script src="https://cdn.jsdelivr.net/npm/izitoast/dist/js/iziToast.min.js"></script>
     <form method="dialog">
-        <button id="closeButton" class="absolute z-50 border-none btn btn-lg btn-ghost right-1 top-1">
+        <button id="closeButton"
+            class="absolute top-0 right-0 z-50 bg-gray-100 border-none btn btn-md focus:outline-none focus:ring-0 btn-ghost">
             ✕
         </button>
     </form>
@@ -18,9 +19,9 @@
 
     @if ($step <= 0)
         <div>
-            @if ($mascotas)
-                <div
-                    class="grid grid-cols-2 gap-4 p-4 mt-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4">
+
+            <div class="grid grid-cols-2 gap-4 p-4 mt-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4">
+                @if ($mascotas)
                     @foreach ($mascotas as $mascota)
                         <button wire:click='actualizarMascota("{{ $mascota['id'] }}")'
                             class="{{ $id_mascota == $mascota['id'] ? 'ring-4 ring-blue-500' : 'ring-4 ring-transparent' }} flex flex-col items-center justify-center w-full h-44 p-1 border
@@ -46,16 +47,17 @@
                             </div>
                         </button>
                     @endforeach
-                    <button onclick="document.getElementById('my_modall_30').showModal()"
-                        class="font-semibold h-44 btn btn-primary">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                            stroke="currentColor" class="size-6">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
-                        </svg>
-                        Agregar mascota
-                    </button>
-                </div>
-            @endif
+                @endif
+                <button onclick="document.getElementById('my_modall_30').showModal()"
+                    class="font-semibold h-44 btn btn-primary">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                        stroke="currentColor" class="size-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                    </svg>
+                    Agregar mascota
+                </button>
+            </div>
+
         </div>
     @endif
     <form novalidate>
@@ -119,9 +121,10 @@
 
             <div class="grid grid-cols-4 gap-4 px-2 py-2 text-center border">
                 @forelse($availableHours as $hour)
-                <div class="p-2 border rounded-lg cursor-pointer transition duration-200 ease-in-out
+                    <div class="p-2 border rounded-lg cursor-pointer transition duration-200 ease-in-out
                 {{ $hora === $hour ? 'text-orange-600 border border-orange-600 bg-orange-100' : 'bg-gray-100' }}
-                hover:bg-orange-200" wire:click="selectHour('{{ $hour }}')">
+                hover:bg-orange-200"
+                        wire:click="selectHour('{{ $hour }}')">
                         {{ $hour }}
                     </div>
                 @empty

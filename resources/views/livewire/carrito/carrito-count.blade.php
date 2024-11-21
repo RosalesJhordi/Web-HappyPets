@@ -9,7 +9,7 @@
                     <span wire:poll='datosCarrito'
                         class="z-0 flex items-center text-base font-semibold text-white justify-start-center indicator-item badge bg-rosa">
                         @if ($datos)
-                            {{ count($datos)}}
+                            {{ count($datos) }}
                         @else
                             0
                         @endif
@@ -24,7 +24,7 @@
         </div>
         <div class="drawer-side" style="z-index: 9999;">
             <label for="my-drawer-4" aria-label="close sidebar" class="drawer-overlay"></label>
-            <ul class="min-h-full p-4 bg-white w-96 md:w-1/4 menu text-base-content" style="z-index: 9999;">
+            <ul class="min-h-full p-4 bg-white w-80 md:w-96 menu text-base-content" style="z-index: 9999;">
 
                 <div class="w-full text-2xl">
                     <h1 class="w-full font-bold text-center text-morado-oscuro">Productos en el carrito</h1>
@@ -39,10 +39,6 @@
                                         class="relative flex-shrink-0 w-24 h-24 overflow-hidden border border-gray-200 rounded-md">
                                         <img src="{{ 'https://api.happypetshco.com/ServidorProductos/' . $dato['imagen'] }}"
                                             alt="imagen de producto" class="object-cover object-center w-full h-full">
-                                        <div
-                                            class="absolute inline-flex items-center justify-center w-6 h-6 px-4 py-4 text-lg font-bold text-white bg-red-500 border-2 border-white rounded-full -top-1 -end-2 ">
-                                            {{ $dato['cantidad'] }}
-                                        </div>
                                     </div>
 
                                     <div class="flex flex-col flex-1 ml-4">
@@ -54,24 +50,20 @@
                                                 <p class="ml-4">S/. {{ $dato['importe'] }}</p>
                                             </div>
 
-                                            <div class="flex items-center space-x-2">
-                                                <button
-                                                    class="px-3 py-1 text-white bg-red-500 rounded"
+                                            <div class="flex items-center justify-between w-full space-x-2">
+                                                <button class="px-3 py-1 text-white bg-red-500 rounded"
                                                     wire:click="disminuir({{ $dato['id'] }}, {{ $dato['cantidad'] - 1 }}, {{ $dato['productoPrecio'] }})"
-                                                    {{ $dato['cantidad'] <= 1 ? 'disabled' : '' }}
-                                                >
+                                                    {{ $dato['cantidad'] <= 1 ? 'disabled' : '' }}>
                                                     -
                                                 </button>
                                                 <span class="text-lg font-medium">{{ $dato['cantidad'] }}</span>
-                                                <button
-                                                    class="px-3 py-1 text-white bg-green-500 rounded"
-                                                    wire:click="aumentar({{ $dato['id'] }}, {{ $dato['cantidad'] + 1 }}, {{ $dato['productoPrecio'] }})"
-                                                >
+                                                <button class="px-3 py-1 text-white bg-green-500 rounded"
+                                                    wire:click="aumentar({{ $dato['id'] }}, {{ $dato['cantidad'] + 1 }}, {{ $dato['productoPrecio'] }})">
                                                     +
                                                 </button>
                                             </div>
                                         </div>
-                                        <div class="flex items-center justify-between flex-1 text-sm">
+                                        <div class="flex items-center justify-between flex-1 mt-1 text-sm">
                                             <p class="text-gray-500">{{ $dato['colores'] }}</p>
                                             <div class="flex">
                                                 <button type="button"
@@ -82,27 +74,32 @@
                                 </div>
                             @endforeach
                         </ul>
-                        <div class="sticky bottom-0 z-50 px-4 py-6 bg-white border-t border-gray-200 sm:px-6">
+                        <div class="sticky bottom-0 z-50 px-4 py-6 mt-2 bg-white border-t border-gray-200 sm:px-6">
                             <div class="flex justify-between text-base font-medium text-gray-900">
                                 <p>Subtotal</p>
                                 <p>S/. {{ $importeTotal }}</p>
                             </div>
                             <p class="mt-0.5 text-sm text-gray-500">Envío e impuestos calculados al finalizar la compra.
                             </p>
-                            <div class="mt-6">
-                                <a href="#"
+                            <div class="flex items-center justify-center w-full mt-6">
+                                <button type="button" onclick="modal_pago.showModal()"
                                     class="flex items-center justify-center px-6 py-3 text-base font-medium text-white bg-indigo-600 border border-transparent rounded-md shadow-sm hover:bg-indigo-700">Confirmar
-                                    compra</a>
+                                    compra</button>
                             </div>
                             <div class="flex justify-center mt-6 text-sm text-center text-gray-500">
                                 <p>
                                     o
-                                    <button type="button" class="font-medium text-indigo-600 hover:text-indigo-500">
+                                    <a href="{{ route('Productos') }}"
+                                        class="font-medium text-indigo-600 hover:text-indigo-500">
                                         Continuar comprando
                                         <span aria-hidden="true"> &rarr;</span>
-                                    </button>
+                                    </a>
                                 </p>
                             </div>
+                            <button class="btn" type="button" wire:click='Factura'>
+                                Ver factura
+                            </button>
+
                         </div>
                     @else
                         <div class="flex flex-col items-center justify-center w-full h-full gap-4 mt-8 ">
@@ -119,11 +116,130 @@
                         <img src="{{ asset('img/undraw_empty_cart_co35.svg') }}" alt="Carr"
                             class="px-10 py-10 w-96">
                         Aun no tienes productos agregados, debes iniciar sesion para agregar productos
-                        <a href="{{ route('Registro') }}" class="w-40 py-4 mt-5 text-xl btn btn-primary">Iniciar
+                        <a href="{{ route('Registro') }}" class="w-40 mt-5 text-xl btn btn-primary">Iniciar
                             sesion</a>
                     </div>
                 @endif
             </ul>
         </div>
     </div>
+
+    <dialog id="modal_pago" class="modal" wire:ignore.self>
+        <div class="max-w-2xl rounded-sm modal-box">
+            <div>
+                <div class="mb-6 text-center">
+                    <h1 class="text-xl font-semibold text-gray-700">Elije método de pago
+                        <span class="px-2 py-1 ml-2 text-xs font-medium text-white bg-yellow-500 rounded-full">Estamos
+                            Trabajando</span>
+                    </h1>
+                </div>
+
+                <div class="py-4 text-center lg:px-4">
+                    <div class="flex items-center p-2 leading-none text-black bg-yellow-500 lg:rounded-full lg:inline-flex"
+                        role="alert">
+                        <span
+                            class="flex px-2 py-1 mr-3 text-xs font-bold text-black uppercase bg-white rounded-full">Aviso</span>
+                        <span class="flex-auto mr-2 font-semibold text-left">Por el momento, únicamente está disponible
+                            el método de pago en efectivo.</span>
+                    </div>
+                </div>
+
+                <!-- Opciones de Métodos de Pago -->
+                <div class="flex items-center justify-center w-full gap-4 py-3">
+                    <!-- Opción de Pago 1 -->
+                    <div wire:click="seleccionarMetodo('Efectivo')"
+                        class="flex flex-col items-center justify-center w-1/3 p-4 transition transform border rounded-lg h-52 cursor-pointer {{ $metodoSeleccionado == 'Efectivo' ? 'border-blue-600 shadow-xl scale-105' : 'hover:border-blue-600 hover:shadow-lg hover:scale-105' }} bg-gray-50">
+                        <img src="{{ asset('img/efectivo.jpg') }}" alt="Logo" class="object-cover w-16 h-16 mb-3">
+                        <span class="text-sm font-semibold text-gray-600">Pago con Efectivo</span>
+                        <span
+                            class="px-2 py-1 mt-2 text-xs font-medium text-white bg-green-500 rounded-full">Recomendado</span>
+                    </div>
+
+                    <!-- Opción de Pago 2 -->
+                    <div
+                        class="flex pointer-events: none; flex-col items-center justify-center w-1/3 p-4 transition transform border rounded-lg h-52 cursor-pointer {{ $metodoSeleccionado == 'Yape' ? 'border-blue-600 shadow-lg scale-105' : 'hover:border-blue-600 hover:shadow-lg hover:scale-105' }} bg-gray-50">
+                        <img src="{{ asset('img/logo (1).png') }}" alt="Logo"
+                            class="object-cover w-16 h-16 mb-3">
+                        <span class="text-sm font-semibold text-gray-600">Pago con Yape</span>
+                        <span
+                            class="px-2 py-1 mt-2 text-xs font-medium text-white bg-indigo-600 rounded-full">Próximamente</span>
+                    </div>
+
+                    <!-- Opción de Pago 3 -->
+                    <div
+                        class="flex pointer-events: none; flex-col items-center justify-center w-1/3 p-4 transition transform border rounded-lg h-52 cursor-pointer {{ $metodoSeleccionado == 'Tarjeta' ? 'border-blue-600 shadow-lg scale-105' : 'hover:border-blue-600 hover:shadow-lg hover:scale-105' }} bg-gray-50">
+                        <img src="{{ asset('img/targeta.jpg') }}" alt="Tarjeta"
+                            class="object-cover w-16 h-16 mb-3">
+                        <span class="text-sm font-semibold text-gray-600">Pago con Tarjeta</span>
+                        <span
+                            class="px-2 py-1 mt-2 text-xs font-medium text-white bg-indigo-500 rounded-full">Próximamente</span>
+                    </div>
+                </div>
+                <div class="p-6 bg-white rounded-lg shadow-lg">
+                    <h2 class="text-4xl font-extrabold text-center text-gray-800">S/. {{ $importeTotal }}</h2>
+                    <ul class="mt-6 space-y-4">
+                        @if (!empty($datos))
+                            @foreach ($datos as $dato)
+                                <li class="flex items-center gap-4 pb-3 border-b">
+                                    <span
+                                        class="flex items-center justify-center w-8 h-8 text-xs font-bold text-blue-600 bg-blue-100 rounded-full">
+                                        {{ $dato['cantidad'] }}
+                                    </span>
+                                    <span class="flex-1 text-sm text-gray-800">{{ $dato['nombre'] }}</span>
+                                    <span class="font-semibold text-gray-800">S/. {{ $dato['importe'] }}</span>
+                                </li>
+                            @endforeach
+                        @else
+                            <li class="mt-4 text-center">
+                                <a href="{{ route('Productos') }}"
+                                    class="inline-block px-6 py-2 text-sm font-semibold text-white transition bg-blue-600 rounded-md shadow-sm hover:bg-blue-700">
+                                    Agregar Productos
+                                </a>
+                            </li>
+                        @endif
+                    </ul>
+                </div>
+
+            </div>
+            <div class="modal-action">
+                <button class="btn btn-primary" wire:click='ConfirmarProductos'>Confirmar Productos</button>
+                <form method="dialog">
+                    <button class="text-white bg-red-500 btn">Cancelar</button>
+                </form>
+            </div>
+        </div>
+    </dialog>
 </div>
+<script>
+    window.addEventListener('correcto', () => {
+        document.getElementById('modal_pago').close();
+        iziToast.success({
+            message: event.detail,
+            position: 'topRight',
+            timeout: 5000,
+            progressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            theme: 'light',
+            transitionIn: 'bounce',
+            zindex: 999999
+        });
+    });
+
+    window.addEventListener('error', () => {
+        document.getElementById('modal_pago').close();
+        iziToast.error({
+            message: event.detail,
+            position: 'topRight',
+            timeout: 5000,
+            progressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            theme: 'light',
+            transitionIn: 'bounce',
+            zindex: 999999
+        });
+    });
+</script>

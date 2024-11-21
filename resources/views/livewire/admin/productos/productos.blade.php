@@ -22,7 +22,7 @@
                 <h3 class="text-lg font-bold">Agregar nuevo producto</h3>
 
                 <form class="flex flex-col items-center justify-center gap-2 px-5 py-5"
-                    wire:submit.prevent="addProducto" novalidate>
+                    wire:submit="addProducto" novalidate>
 
                     @if (session('mensaje'))
                         <div
@@ -142,7 +142,7 @@
                                     <label wire:click='actualizarcolor("{{ $colorName }}")'
                                         style="background-color: {{ $colorHex }}"
                                         class="w-6 h-6 relative -m-0.5 flex cursor-pointer items-center justify-center rounded-full p-0.5 focus:outline-none {{ in_array($colorName, $colores) ? 'ring-4 ring-blue-500' : 'ring-4 ring-transparent' }}">
-                                        <input type="checkbox" wire:model="colores" value="{{ $colorName }}"
+                                        <input type="checkbox" wire:model.live="colores" value="{{ $colorName }}"
                                             class="sr-only">
                                         <span class="w-5 h-5 border border-black rounded-full border-opacity-10"
                                             style="background-color: {{ $colorHex }};"></span>
@@ -218,7 +218,7 @@
 
                 <div class="w-1/2 h-full px-5 py-5 bg-slate-50">
                     <h1 class="w-full text-2xl text-gray-400 text center">Datos</h1>
-                    <form class="flex flex-col w-full gap-2 py-4" wire:submit.prevent="editardatos" novalidate>
+                    <form class="flex flex-col w-full gap-2 py-4" wire:submit="editardatos" novalidate>
 
                         <label class="flex items-center gap-2 input input-bordered">
                             <input type="text" id="large-input" wire:model.live='nm_producto'
@@ -300,7 +300,7 @@
             <div>
                 <label for="my_modal_6" class="hidden btn" wire:click="$set('alert', true)"></label>
 
-                <input type="checkbox" id="my_modal_6" class="modal-toggle" wire:model="alert" />
+                <input type="checkbox" id="my_modal_6" class="modal-toggle" wire:model.live="alert" />
 
                 <div class="modal" style="{{ $alert ? '' : 'display: none;' }}">
                     <div class="modal-box">

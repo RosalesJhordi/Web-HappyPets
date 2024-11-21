@@ -5,5 +5,9 @@
 @endsection
 
 @section('contenido')
-    @livewire('productos.productos')
+    @livewireStyles
+    <div class="flex items-center justify-center w-full">
+        @livewire('filtro.producto')
+    </div>
+    @livewireScripts
 @endsection

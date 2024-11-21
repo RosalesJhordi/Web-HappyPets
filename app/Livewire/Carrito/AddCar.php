@@ -82,6 +82,7 @@ class AddCar extends Component
             'id_producto' => $this->id,
             'id_usuario' => $this->id_usuario,
         ]);
+        //dump($response->json());
         //dd($this->cantidad, $this->id_usuario, $this->color, $this->importe, $this->id,$this->total);
         if ($response->successful()) {
             $this->dispatch('correct', 'Producto añadido al carrito');

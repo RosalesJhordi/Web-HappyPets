@@ -35,10 +35,11 @@
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <script src="https://unpkg.com/flowbite@latest/dist/flowbite.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.js"></script>
+    @livewireStyles
+
 </head>
 
 <body class="relative">
-    <script src="../path/to/flowbite/dist/flowbite.min.js"></script>
 
     <button onclick="toggleModal()"
         class="fixed z-50 flex items-center justify-center w-16 h-16 text-white rounded-full bottom-20 right-2 bg-primary">
@@ -48,15 +49,14 @@
     </button>
 
     <div id="chatModal"
-        class="fixed z-50 items-center justify-center hidden bg-white border rounded-md right-2 bottom-24 xl:w-1/3 md:w-1/2"
+        class="fixed z-50 h-[50vh] items-center justify-center hidden bg-white shadow-2xl rounded-md md:w-1/2 w-[90%] right-2 bottom-24 xl:w-1/4"
         style="height: 50vh;>
         <div class="w-full bg-white rounded-lg shadow-lg">
-        <div class="flex items-center justify-between w-full p-4 bg-blue-600 rounded-md">
-            <h2 class="font-bold text-white">Chatbot</h2>
+        <div class="flex items-center justify-between w-full p-2 px-4 bg-blue-600 rounded-md">
+            <h2 class="font-bold text-white">HappyBot</h2>
             <button class="text-2xl text-white hover:text-gray-300" onclick="toggleModal()">&times;</button>
         </div>
         @livewire('chat-bot')
-    </div>
     </div>
 
     <script>
@@ -244,6 +244,7 @@
             </div>
         </div>
     </footer>
+    @livewireScripts
 </body>
 
 </html>

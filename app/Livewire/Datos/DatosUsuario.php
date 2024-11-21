@@ -9,7 +9,7 @@ use Livewire\Component;
 class DatosUsuario extends Component
 {
     public $url;
-    public $nombres;
+    public $nombres = "US";
     public $permisos = [];
 
     public function cargarDatosUsuario(){
@@ -25,6 +25,8 @@ class DatosUsuario extends Component
             $this->permisos = $data['usuarios']['permisos'] ?? [];
 
             Session::put('permisos', $this->permisos);
+        }else{
+            $this->nombres = "US";
         }
     }
     public function mount(){

@@ -58,7 +58,7 @@
                             <div class="flex items-center ps-3">
                                 <input id="vue-checkbox-list" type="checkbox" value="Administrador"
                                     class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2"
-                                    wire:model="permisos"
+                                    wire:model.live="permisos"
                                     wire:change="updatePermisos('Administrador', $event.target.checked)"
                                     @if (is_array($permisos) && in_array('Administrador', $permisos)) checked @endif />
                                 <label for="vue-checkbox-list"
@@ -69,7 +69,7 @@
                             <div class="flex items-center ps-3">
                                 <input id="react-checkbox-list" type="checkbox" value="Veterinario"
                                     class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2"
-                                    wire:model="permisos"
+                                    wire:model.live="permisos"
                                     wire:change="updatePermisos('Veterinario', $event.target.checked)"
                                     @if (is_array($permisos) && in_array('Veterinario', $permisos)) checked @endif />
                                 <label for="react-checkbox-list"
@@ -80,7 +80,7 @@
                             <div class="flex items-center ps-3">
                                 <input id="angular-checkbox-list" type="checkbox" value="Cajero/Vendedor"
                                     class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2"
-                                    wire:model="permisos"
+                                    wire:model.live="permisos"
                                     wire:change="updatePermisos('Cajero/Vendedor', $event.target.checked)"
                                     @if (is_array($permisos) && in_array('Cajero/Vendedor', $permisos)) checked @endif />
                                 <label for="angular-checkbox-list"
@@ -91,7 +91,7 @@
                             <div class="flex items-center ps-3">
                                 <input id="angular-checkbox-list" type="checkbox" value="Almacenero"
                                     class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2"
-                                    wire:model="permisos" wire:change="updatePermisos('Cajero', $event.target.checked)"
+                                    wire:model.live="permisos" wire:change="updatePermisos('Cajero', $event.target.checked)"
                                     @if (is_array($permisos) && in_array('Almacenero', $permisos)) checked @endif />
                                 <label for="angular-checkbox-list"
                                     class="w-full py-3 text-sm font-medium text-gray-900 ms-2">Almacenero</label>
@@ -101,7 +101,7 @@
                             <div class="flex items-center ps-3">
                                 <input id="laravel-checkbox-list" type="checkbox" value="Cliente"
                                     class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2"
-                                    wire:model="permisos" wire:change="updatePermisos('Usuario', $event.target.checked)"
+                                    wire:model.live="permisos" wire:change="updatePermisos('Usuario', $event.target.checked)"
                                     @if (is_array($permisos) && in_array('Usuario', $permisos)) checked @endif />
                                 <label for="laravel-checkbox-list"
                                     class="w-full py-3 text-sm font-medium text-gray-900 ms-2">Cliente</label>

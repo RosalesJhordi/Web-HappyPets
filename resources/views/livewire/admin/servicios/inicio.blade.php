@@ -110,7 +110,7 @@
 
                 <div class="w-1/2 h-full px-5 py-5 bg-slate-50">
                     <h1 class="w-full text-2xl text-gray-400 text center">Datos</h1>
-                    <form class="flex flex-col w-full gap-2 py-4" wire:submit.prevent="editardatos" novalidate>
+                    <form class="flex flex-col w-full gap-2 py-4" wire:submit="editardatos" novalidate>
 
                         <label class="flex items-center gap-2 input input-bordered">
                             <input type="text" id="large-input" wire:model.live='nm_producto'

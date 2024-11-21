@@ -54,7 +54,7 @@
                 </form>
                 <h3 class="text-lg font-bold">Agregar nueva categoria</h3>
                 <form class="flex flex-col items-center justify-center gap-2 px-5 py-5"
-                    wire:submit.prevent="addCategoria" novalidate>
+                    wire:submit="addCategoria" novalidate>
                     <!-- Mensajes de éxito y error -->
                     @if (session('mensaje'))
                         <div
@@ -74,7 +74,7 @@
                         <div class="w-full col-span-2">
                             <label for="name" class="block mb-2 text-sm font-medium text-gray-900">Nombre
                                 Categoria</label>
-                            <input type="text" wire:model='nombreCategoria' name="nombre" id="nombre"
+                            <input type="text" wire:model.live='nombreCategoria' name="nombre" id="nombre"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
                                 placeholder="Juguetes, Accesorios, etc" required>
                         </div>
@@ -95,7 +95,7 @@
                 </form>
                 <h3 class="text-lg font-bold">Agregar nueva sub-categoria</h3>
                 <form class="flex flex-col items-center justify-center w-full gap-2 px-5 py-5"
-                    wire:submit.prevent="addSubCategoria" novalidate>
+                    wire:submit="addSubCategoria" novalidate>
                     <!-- Mensajes de éxito y error -->
                     @if (session('mensaje'))
                         <div
@@ -112,7 +112,7 @@
                         </div>
                     @endif
                     <div class="flex flex-col items-center justify-center w-full h-full gap-2">
-                        <select id="categoria" wire:model="categorias_id"
+                        <select id="categoria" wire:model.live="categorias_id"
                             class="bg-gray-50 border cursor-pointer border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
                             <option selected>Selecciona Categoria</option>
                             @foreach ($categorias as $categoria)
@@ -122,7 +122,7 @@
                         <div class="w-full col-span-2">
                             <label for="name" class="block mb-2 text-sm font-medium text-gray-900">Nombre
                                 Sub-Categoria</label>
-                            <input type="text" wire:model='nombreSubCategoria' name="nombre" id="nombre"
+                            <input type="text" wire:model.live='nombreSubCategoria' name="nombre" id="nombre"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
                                 required>
                         </div>
@@ -143,10 +143,10 @@
                 </form>
                 <h3 class="text-lg font-bold">Agregar nueva sub-sub-categoria</h3>
                 <form class="flex flex-col items-center justify-center gap-2 px-5 py-5"
-                    wire:submit.prevent="addSubSubCategoria" novalidate>
+                    wire:submit="addSubSubCategoria" novalidate>
 
                     <div class="flex flex-col items-center justify-center w-full h-full gap-2">
-                        <select id="categoria" wire:model="sub_categorias_id"
+                        <select id="categoria" wire:model.live="sub_categorias_id"
                             class="bg-gray-50 border cursor-pointer border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
                             <option selected>Selecciona Sub Categoria</option>
                             @foreach ($subcategorias as $categoriaa)
@@ -156,7 +156,7 @@
                         <div class="w-full col-span-2">
                             <label for="name" class="block mb-2 text-sm font-medium text-gray-900">Nombre
                                 Sub-Sub-Categoria</label>
-                            <input type="text" wire:model='nombreSubSubCategoria' name="nombre" id="nombre"
+                            <input type="text" wire:model.live='nombreSubSubCategoria' name="nombre" id="nombre"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
                                 required>
                         </div>
@@ -179,7 +179,7 @@
             <div class="grid grid-cols-1 gap-6 md:grid-cols-3 xl:grid-cols-6">
                 @foreach ($categoriaTree as $categoria)
                     <div
-                        class="relative p-6 transition-all duration-500 transform bg-white rounded-lg shadow-lg hover:shadow-2xl hover:scale-105 hover:shadow-xl">
+                        class="relative p-6 transition-all duration-500 transform bg-white rounded-lg shadow-lg hover:scale-105 hover:shadow-xl">
 
                         <button type="button"
                             class="flex items-center justify-between w-full px-4 py-3 text-left text-white transition-all duration-300 bg-purple-600 rounded-lg hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500"
@@ -198,7 +198,7 @@
                                 class="hidden mt-4 space-y-4 overflow-hidden transition-all duration-500 origin-top transform scale-y-0">
                                 @foreach ($categoria['subcategorias'] as $subcategoria)
                                     <div
-                                        class="relative p-6 transition-all duration-500 transform bg-blue-100 rounded-lg shadow-md hover:shadow-2xl hover:scale-105 hover:shadow-xl">
+                                        class="relative p-6 transition-all duration-500 transform bg-blue-100 rounded-lg hover:scale-105 hover:shadow-xl">
 
                                         <button type="button"
                                             class="flex items-center justify-between w-full px-4 py-2 text-left text-white transition-all duration-300 bg-blue-600 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
