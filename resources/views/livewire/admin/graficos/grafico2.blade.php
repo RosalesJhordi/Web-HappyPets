@@ -1,18 +1,28 @@
 <div id="chart2" class="bg-white border shadow-md "></div>
-
 <script>
-    document.addEventListener('DOMContentLoaded', function () {
+    document.addEventListener('DOMContentLoaded', function() {
+        // Datos provenientes de PHP
+        var productosMasVendidos = <?php echo json_encode($productosMasVendidos); ?>;
+
+        // Procesar los datos para ApexCharts
+        var categorias = productosMasVendidos.map(function(producto) {
+            return producto.nombre;
+        });
+
+        var cantidades = productosMasVendidos.map(function(producto) {
+            return producto.cantidad;
+        });
 
         var options = {
             chart: {
-                type: 'bar', 
+                type: 'bar',
                 toolbar: {
-                    show: true 
+                    show: true
                 },
                 animations: {
                     enabled: true,
                     easing: 'easeinout',
-                    speed: 800 
+                    speed: 800
                 }
             },
             title: {
@@ -25,8 +35,8 @@
             },
             plotOptions: {
                 bar: {
-                    columnWidth: '45%',  
-                    borderRadius: 4,      
+                    columnWidth: '45%',
+                    borderRadius: 4,
                     colors: {
                         backgroundBarColors: ['#f8f9fa'],
                         backgroundBarOpacity: 0.5
@@ -35,11 +45,11 @@
             },
             series: [{
                 name: 'Ventas',
-                data: [120, 95, 80, 70, 65, 60, 50],
-                colors: ['#FF5733'] 
+                data: cantidades,
+                colors: ['#FF5733']
             }],
             xaxis: {
-                categories: ['Collar Antipulgas', 'Juguete Interactivo', 'Shampoo para Mascotas', 'Cama para Perros', 'Alimento Premium', 'Ropa para Mascotas', 'Cepillo de Dientes'],
+                categories: categorias,
                 labels: {
                     style: {
                         colors: '#6c757d',
@@ -63,25 +73,25 @@
                 }
             },
             dataLabels: {
-                enabled: true, 
+                enabled: true,
                 style: {
                     fontSize: '12px',
                     colors: ['#fff']
                 },
-                offsetY: -5  
+                offsetY: -5
             },
             tooltip: {
-                theme: 'dark',  
+                theme: 'dark',
                 y: {
                     formatter: function(val) {
-                        return val + " unidades"; 
+                        return val + " unidades";
                     }
                 }
             },
             grid: {
                 show: true,
                 borderColor: '#e7e7e7',
-                strokeDashArray: 4 
+                strokeDashArray: 4
             },
             legend: {
                 show: true,

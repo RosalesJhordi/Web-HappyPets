@@ -15,6 +15,11 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="icon" href="{{ asset('img/logo.jpg') }}" type="image/png">
     @vite('resources/css/app.css')
+    @vite('resources/js/Drive.js')
+    <script></script>
+    <script src="https://cdn.jsdelivr.net/npm/driver.js@1.0.1/dist/driver.js.iife.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/driver.js@1.0.1/dist/driver.css" />
+
     <script>
         tailwind.config = {
             theme: {
@@ -129,17 +134,17 @@
                             <a href="{{ route('Servicios') }}"
                                 class="flex items-center justify-center h-16 px-3 text-lg font-semibold text-gray-500 border-b-4 hover:border-blue-600 {{ Route::is('Servicios') ? 'border-blue-600' : 'border-transparent' }}">Servicios</a>
                             <a href="#"
-                                class="flex items-center justify-center h-16 px-3 text-lg font-semibold text-gray-500 border-b-4 hover:border-blue-600">Sobre
+                                class="flex items-center justify-center h-16 px-3 text-lg font-semibold text-gray-500 border-b-4 hover:border-blue-600 {{ Route::is('Servicios') ? 'border-blue-600' : 'border-transparent' }}">Sobre
                                 Nosotros</a>
                             <a href="#"
-                                class="flex items-center justify-center h-16 px-3 text-lg font-semibold text-gray-500 border-b-4 hover:border-blue-600">Contactanos</a>
+                                class="flex items-center justify-center h-16 px-3 text-lg font-semibold text-gray-500 border-b-4 hover:border-blue-600 {{ Route::is('Servicios') ? 'border-blue-600' : 'border-transparent' }}">Contactanos</a>
                         </div>
                     </div>
                 </div>
 
                 <div
                     class="absolute inset-y-0 right-0 z-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-                    <button type="button"
+                    <button type="button" id="notification"
                         class="relative p-1 text-gray-400 rounded-full hover:text-gray-500 focus:outline-none focus:ring-1 focus:ring-black focus:ring-offset-1 focus:ring-offset-gray-800">
                         <span class="absolute -inset-1.5"></span>
                         <span class="sr-only">View notifications</span>
@@ -151,12 +156,14 @@
                     </button>
 
                     <div class="flex items-center justify-center">
-                        @livewire('carrito.carrito-count')
+                        <span id="carrito">
+                            @livewire('carrito.carrito-count')
+                        </span>
 
                         @if (Session::has('authToken'))
                             @livewire('datos.datos-usuario')
                         @else
-                            <div class="w-auto p-1 mt-2 md:mt-0">
+                            <div id="login" class="w-auto p-1 mt-2 md:mt-0">
                                 <a href="Registro" wire:navigate class="w-96">
                                     <span class="w-full p-2 px-3 text-white rounded-md bg-rosa">
                                         Ingresar

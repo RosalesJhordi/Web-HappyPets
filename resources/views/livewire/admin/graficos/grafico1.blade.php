@@ -1,7 +1,11 @@
-<div id="chart" class="w-full bg-white border shadow-md"></div>
+<div  id="chart" class="w-full bg-white border shadow-md"></div>
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {
+        var importesPorDia = @json($importesPorDia);
+        var dias = Object.keys(importesPorDia);
+        var importes = Object.values(importesPorDia);
+
         var options = {
             chart: {
                 type: 'line',
@@ -29,7 +33,7 @@
                 }
             },
             title: {
-                text: 'Ventas Mensuales',
+                text: 'Ventas Diarias Por Mes',
                 align: 'center',
                 style: {
                     fontSize: '20px',
@@ -43,11 +47,11 @@
             },
             series: [{
                 name: 'Ganancias',
-                data: [30, 10, 30, 65, 90, 80, 85, 40, 35, 50, 33, 49, 60, 70],
+                data: importes,
                 color: '#1E90FF'
             }],
             xaxis: {
-                categories: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul'],
+                categories: dias,
                 labels: {
                     style: {
                         colors: '#6c757d',
@@ -74,7 +78,7 @@
                 theme: 'dark',
                 y: {
                     formatter: function (val) {
-                        return val + "k";
+                        return "S/. " + val.toFixed(2);
                     }
                 }
             },

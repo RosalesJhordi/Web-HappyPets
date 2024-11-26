@@ -27,6 +27,8 @@ Route::middleware([CheckPermissions::class. ':Administrador'])->group(function (
     Route::get('admin/usuarios/empleados', [ViewsController::class, 'empleados'])->name('Admin.Empleados');
     Route::get('admin/categorias',[ViewsController::class, 'categorias'])->name('Admin.Categorias');
     Route::get('admin/libroreclamos', [ViewsController::class, 'libro'])->name('Admin.Libro');
+    Route::get('admin/ventas',[ViewsController::class, 'ventas'])->name('Admin.Ventas');
+    Route::get('admin/pedidos',[ViewsController::class, 'pedidos'])->name('Admin.Pedidos');
 });
 
 Route::get('/Productos',function(){

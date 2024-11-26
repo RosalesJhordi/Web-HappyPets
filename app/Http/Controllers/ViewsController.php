@@ -50,6 +50,13 @@ class ViewsController extends Controller
         return view('Admin.Secciones.LibroReclamos');
     }
 
+    public function ventas(){
+        return view('Admin.Secciones.Ventas');
+    }
+    public function pedidos(){
+        return view('Admin.Secciones.Pedidos');
+    }
+
     public function show($id){
         $url = env('API_URL', '');
 

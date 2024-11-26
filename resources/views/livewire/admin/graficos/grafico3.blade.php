@@ -1,27 +1,72 @@
-<div id="chart3" class="bg-white shadow-md border"></div>
+<div id="chart3" class="h-full bg-white border shadow-md"></div>
 <script>
-    document.addEventListener('DOMContentLoaded', function () {
+    document.addEventListener('DOMContentLoaded', function() {
+        // Datos provenientes de PHP
+        var estadosCompras = <?php echo json_encode($productosMasVendidos); ?>;
+
+        // Procesar los datos para ApexCharts
+        var estados = estadosCompras.map(function(estado) {
+            return estado.nombre;
+        });
+
+        var cantidades = estadosCompras.map(function(estado) {
+            return estado.cantidad;
+        });
 
         var options = {
             chart: {
-                type: 'donut'  
+                type: 'donut',
+                height: 500,
+                toolbar: {
+                    show: true
+                },
+                animations: {
+                    enabled: true,
+                    easing: 'easeinout',
+                    speed: 800
+                }
             },
             title: {
-                text: 'Productos por Categoría',
+                text: 'Estado de las Compras',
                 align: 'center',
                 style: {
                     fontSize: '18px',
                     color: '#333'
                 }
             },
-            series: [44, 55, 13, 43, 22], 
-            labels: ['A', 'B', 'C', 'D', 'E'], 
-            colors: ['#FF4560', '#00E396', '#008FFB', '#FF6D00', '#775DD0'], 
-            legend: {
-                position: 'bottom'  
+            series: cantidades,
+            labels: estados,
+            plotOptions: {
+                pie: {
+                    donut: {
+                        size: '70%'
+                    }
+                }
             },
             dataLabels: {
-                enabled: true  
+                enabled: true,
+                formatter: function(val, opts) {
+                    return opts.w.config.series[opts.seriesIndex] + " unidades";
+                },
+                style: {
+                    fontSize: '12px',
+                    colors: ['#fff']
+                },
+                dropShadow: {
+                    enabled: true
+                }
+            },
+            legend: {
+                show: true,
+                position: 'bottom'
+            },
+            tooltip: {
+                theme: 'dark',
+                y: {
+                    formatter: function(val) {
+                        return val + " unidades";
+                    }
+                }
             }
         };
 

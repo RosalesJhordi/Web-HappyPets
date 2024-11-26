@@ -75,11 +75,12 @@
                 </li>
                 <li>
                     <a href="{{ route('Admin.Citas.Hoy') }}" type="button"
-                        class="flex items-center w-full p-2 text-base transition duration-75 rounded-lg group {{ Route::is('Admin.Citas.Hoy') | Route::is('Admin.Citas.Semana') | Route::is('Admin.Citas.Mes')  ? 'bg-blue-600 text-white
-                         hover:bg-blue-500' : 'text-gray-900 hover:bg-gray-200'  }}"
-                        >
+                        class="flex items-center w-full p-2 text-base transition duration-75 rounded-lg group {{ Route::is('Admin.Citas.Hoy') | Route::is('Admin.Citas.Semana') | Route::is('Admin.Citas.Mes')
+                            ? 'bg-blue-600 text-white
+                                                 hover:bg-blue-500'
+                            : 'text-gray-900 hover:bg-gray-200' }}">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
-                            class="flex-shrink-0 w-6 h-6  {{ Route::is('Admin.Citas.Hoy') | Route::is('Admin.Citas.Semana') | Route::is('Admin.Citas.Mes')  ? 'text-white' : 'text-gray-500' }} transition duration-75 ">
+                            class="flex-shrink-0 w-6 h-6  {{ Route::is('Admin.Citas.Hoy') | Route::is('Admin.Citas.Semana') | Route::is('Admin.Citas.Mes') ? 'text-white' : 'text-gray-500' }} transition duration-75 ">
                             <path fill-rule="evenodd"
                                 d="M6.75 2.25A.75.75 0 0 1 7.5 3v1.5h9V3A.75.75 0 0 1 18 3v1.5h.75a3 3 0 0 1 3 3v11.25a3 3 0 0 1-3 3H5.25a3 3 0 0 1-3-3V7.5a3 3 0 0 1 3-3H6V3a.75.75 0 0 1 .75-.75Zm13.5 9a1.5 1.5 0 0 0-1.5-1.5H5.25a1.5 1.5 0 0 0-1.5 1.5v7.5a1.5 1.5 0 0 0 1.5 1.5h13.5a1.5 1.5 0 0 0 1.5-1.5v-7.5Z"
                                 clip-rule="evenodd" />
@@ -89,19 +90,38 @@
                     </a>
                 </li>
                 <li>
-                    <a href="{{route('Admin.Mascotas')}}"
+                    <a href="{{ route('Admin.Mascotas') }}"
                         class="flex items-center p-2 rounded-lg group {{ Route::is('Admin.Mascotas') ? 'bg-blue-600 text-white hover:bg-blue-500' : 'text-gray-900 hover:bg-gray-200' }}">
                         <i
-                            class="w-6 h-6 text-lg {{ Route::is('Admin.Mascotas')  ? 'text-white' : 'text-gray-500' }} fa-solid fa-dog"></i>
+                            class="w-6 h-6 text-lg {{ Route::is('Admin.Mascotas') ? 'text-white' : 'text-gray-500' }} fa-solid fa-dog"></i>
                         <span class="flex-1 ms-3 whitespace-nowrap">Mascotas</span>
                     </a>
                 </li>
 
                 <li>
+                    <a href="{{ route('Admin.Ventas') }}"
+                        class="flex items-center p-2 rounded-lg group {{ Route::is('Admin.Ventas') ? 'bg-blue-600 text-white hover:bg-blue-500' : 'text-gray-900 hover:bg-gray-200' }}">
+                        <i
+                            class="w-6 h-6 text-lg {{ Route::is('Admin.Ventas') ? 'text-white' : 'text-gray-500' }} fa-solid fa-boxes-packing"></i>
+                        <span class="flex-1 ms-3 whitespace-nowrap">Ventas</span>
+                    </a>
+                </li>
+
+
+                <li>
+                    <a href="{{ route('Admin.Pedidos') }}"
+                        class="flex items-center p-2 rounded-lg group {{ Route::is('Admin.Pedidos') ? 'bg-blue-600 text-white hover:bg-blue-500' : 'text-gray-900 hover:bg-gray-200' }}">
+                        <i
+                            class="w-6 h-6 text-lg {{ Route::is('Admin.Pedidos') ? 'text-white' : 'text-gray-500' }} fa-solid fa-bag-shopping"></i>
+                        <span class="flex-1 ms-3 whitespace-nowrap">Pedidos</span>
+                    </a>
+                </li>
+
+                <li>
                     <button type="button"
-                        class="flex items-center w-full p-2 text-base transition duration-75 rounded-lg group {{ Route::is('Admin.Clientes') | Route::is('Admin.Empleados')  ? 'bg-blue-600 text-white hover:bg-blue-500' : 'text-gray-900 hover:bg-gray-200' }}"
+                        class="flex items-center w-full p-2 text-base transition duration-75 rounded-lg group {{ Route::is('Admin.Clientes') | Route::is('Admin.Empleados') ? 'bg-blue-600 text-white hover:bg-blue-500' : 'text-gray-900 hover:bg-gray-200' }}"
                         aria-controls="dropdown-example2" data-collapse-toggle="dropdown-example2">
-                        <svg class="flex-shrink-0 w-5 h-5 {{ Route::is('Admin.Clientes')  | Route::is('Admin.Empleados') ? 'text-white' : 'text-gray-500' }}  transition duration-75 "
+                        <svg class="flex-shrink-0 w-5 h-5 {{ Route::is('Admin.Clientes') | Route::is('Admin.Empleados') ? 'text-white' : 'text-gray-500' }}  transition duration-75 "
                             aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
                             viewBox="0 0 20 18">
                             <path
@@ -111,8 +131,8 @@
                         <span class="flex-1 text-left ms-3 rtl:text-right whitespace-nowrap">Usuarios</span>
                         <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
                             viewBox="0 0 10 6">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                stroke-width="2" d="m1 1 4 4 4-4" />
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="m1 1 4 4 4-4" />
                         </svg>
                     </button>
                     <ul id="dropdown-example2" class="hidden py-2 space-y-2">
@@ -145,19 +165,19 @@
                 </li>
 
                 <li>
-                    <a href="{{route('Admin.Categorias')}}"
+                    <a href="{{ route('Admin.Categorias') }}"
                         class="flex items-center p-2 rounded-lg group {{ Route::is('Admin.Categorias') ? 'bg-blue-600 text-white hover:bg-blue-500' : 'text-gray-900 hover:bg-gray-200' }}">
                         <i
-                            class="w-6 h-6 text-lg {{ Route::is('Admin.Categorias')  ? 'text-white' : 'text-gray-500' }} fa-solid fa-tag"></i>
+                            class="w-6 h-6 text-lg {{ Route::is('Admin.Categorias') ? 'text-white' : 'text-gray-500' }} fa-solid fa-tag"></i>
                         <span class="flex-1 ms-3 whitespace-nowrap">Categorias</span>
                     </a>
                 </li>
 
                 <li>
-                    <a href="{{route('Admin.Libro')}}"
+                    <a href="{{ route('Admin.Libro') }}"
                         class="flex items-center p-2 rounded-lg group {{ Route::is('Admin.Libro') ? 'bg-blue-600 text-white hover:bg-blue-500' : 'text-gray-900 hover:bg-gray-200' }}">
                         <i
-                            class="w-6 h-6 text-lg {{ Route::is('Admin.Libro')  ? 'text-white' : 'text-gray-500' }} fa-solid fa-book"></i>
+                            class="w-6 h-6 text-lg {{ Route::is('Admin.Libro') ? 'text-white' : 'text-gray-500' }} fa-solid fa-book"></i>
                         <span class="flex-1 ms-3 whitespace-nowrap">Libro Reclamos</span>
                     </a>
                 </li>
@@ -201,6 +221,10 @@
                 <h1 class="text-2xl font-extrabold text-gray-600">Empleados</h1>
             @elseif (Route::is('Admin.Categorias'))
                 <h1 class="text-2xl font-extrabold text-gray-600">Categorias</h1>
+            @elseif (Route::is('Admin.Ventas'))
+                <h1 class="text-2xl font-extrabold text-gray-600">Ventas</h1>
+            @elseif (Route::is('Admin.Pedidos'))
+                <h1 class="text-2xl font-extrabold text-gray-600">Pedidos</h1>
             @endif
 
             @yield('contenido')

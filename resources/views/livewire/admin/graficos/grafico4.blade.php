@@ -1,20 +1,37 @@
-<div id="chart4" class="bg-white shadow-md border rounded-lg"></div>
+<div id="chart4" class="h-full bg-white border shadow-md"></div>
 <script>
-    document.addEventListener('DOMContentLoaded', function () {
+    document.addEventListener('DOMContentLoaded', function() {
+        // Datos provenientes de PHP
+        var citasTerminadas = <?php echo json_encode(array_values($this->citasTerminadas)); ?>;
+        var citasCanceladas = <?php echo json_encode(array_values($this->citasCanceladas)); ?>;
+        var citasPendientes = <?php echo json_encode(array_values($this->citasPendientes)); ?>;
+        var fechas = <?php echo json_encode(array_keys($this->citasTerminadas)); ?>; // Suponemos que todas tienen las mismas fechas
+
         var options = {
             chart: {
                 type: 'area',
-                height: 350
+                height: 500,
+                toolbar: {
+                    show: true
+                },
+                animations: {
+                    enabled: true,
+                    easing: 'easeinout',
+                    speed: 800
+                }
             },
             series: [{
-                name: 'Citas Programadas',
-                data: [35, 45, 50, 60, 70, 75, 90]
+                name: 'Citas Terminadas',
+                data: citasTerminadas
             }, {
-                name: 'Citas Completadas',
-                data: [30, 40, 45, 55, 65, 70, 85]
+                name: 'Citas Canceladas',
+                data: citasCanceladas
+            }, {
+                name: 'Citas Pendientes',
+                data: citasPendientes
             }],
             xaxis: {
-                categories: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul']
+                categories: fechas
             },
             fill: {
                 type: 'gradient',
@@ -23,16 +40,15 @@
                     opacityTo: 0.3
                 }
             },
-
             title: {
-                text: 'Citas',
+                text: 'Estado de las Citas por Fecha',
                 align: 'center',
                 style: {
                     fontSize: '18px',
                     color: '#333'
                 }
             },
-            colors: ['#546E7A', '#26A69A'],
+            colors: ['#28a745', '#6c757d', '#dc3545'], // Verde, Gris, Rojo
             stroke: {
                 curve: 'smooth'
             },

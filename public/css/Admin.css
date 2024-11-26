@@ -1,17 +1,4 @@
-#chart, #chart2 {
-    width: 49% !important;
-    height: 400px !important;
-}
 
-#chart3 {
-    width: 30% !important;
-    height: 400px !important;
-}
-
-#chart4 {
-    width: 68% !important;
-    height: 400px !important;
-}
 .tableii{
     width: 79%;
     height: 500px;
@@ -19,14 +6,4 @@
 .tableii2{
     width: 29%;
     height: 500px;
-}
-
-@media (max-width: 768px) {
-    #chart, #chart2, #chart3, #chart4 {
-        width: 100% !important;
-        height: 300px !important;
-    }
-    .tableii2,.tableii{
-        width: 100% !important;
-    }
 }
