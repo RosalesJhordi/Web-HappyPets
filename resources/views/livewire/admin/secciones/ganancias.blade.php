@@ -4,7 +4,7 @@
         <i class="fa-solid fa-sack-dollar"></i>
     </span>
     <span>
-        <h1 class="text-3xl font-bold text-gray-900">$456</h1>
+        <h1 class="text-2xl font-bold text-gray-900">S/. {{ number_format($totalImporte, 2) }}</h1>
         <h2 class="text-sm font-semibold">Ganacias totales</h2>
     </span>
 </div>

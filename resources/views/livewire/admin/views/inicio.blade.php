@@ -16,205 +16,71 @@
         @livewire('admin.graficos.grafico2')
         @livewire('admin.graficos.grafico3')
         @livewire('admin.graficos.grafico4')
-
     </div>
-    <div class="grid items-center justify-center w-full grid-cols-1 gap-5 md:flex ">
+    <div class="grid items-center justify-center w-full gap-5 md:flex">
         <div class="tableii">
-            <div class="w-full h-full overflow-x-auto bg-white border">
-                <table class="table">
-                    <h1 class="py-2 text-center text-gray-400">Tabla Usuarios</h1>
-                    <!-- head -->
-                    <thead>
+            <div class="w-full h-full overflow-x-auto bg-white border border-gray-200 rounded-lg shadow-sm">
+                <div class="py-2 text-center text-gray-600">
+                    <h1 class="text-lg font-semibold">Tabla Usuarios</h1>
+                </div>
+                <table class="min-w-full divide-y divide-gray-200">
+                    <thead class="bg-gray-50">
                         <tr>
-                            <th>
-                                <label>
-                                    <input type="checkbox" class="checkbox" />
-                                </label>
-                            </th>
-                            <th>Name</th>
-                            <th>Job</th>
-                            <th>Favorite Color</th>
-                            <th></th>
+                            <th class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">#</th>
+                            <th class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">Nombres</th>
+                            <th class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">Apellidos</th>
+                            <th class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">Teléfono</th>
+                            <th class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">Fecha Creación</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <!-- row 1 -->
-                        <tr>
-                            <th>
-                                <label>
-                                    <input type="checkbox" class="checkbox" />
-                                </label>
-                            </th>
-                            <td>
-                                <div class="flex items-center gap-3">
-                                    <div class="avatar">
-                                        <div class="w-12 h-12 mask mask-squircle">
-                                            <img src="https://img.daisyui.com/images/profile/demo/2@94.webp"
-                                                alt="Avatar Tailwind CSS Component" />
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="font-bold">Hart Hagerty</div>
-                                        <div class="text-sm opacity-50">United States</div>
-                                    </div>
-                                </div>
-                            </td>
-                            <td>
-                                Zemlak, Daniel and Leannon
-                                <br />
-                                <span class="badge badge-ghost badge-sm">Desktop Support Technician</span>
-                            </td>
-                            <td>Purple</td>
-                            <th>
-                                <button class="btn btn-ghost btn-xs">details</button>
-                            </th>
-                        </tr>
-                        <!-- row 2 -->
-                        <tr>
-                            <th>
-                                <label>
-                                    <input type="checkbox" class="checkbox" />
-                                </label>
-                            </th>
-                            <td>
-                                <div class="flex items-center gap-3">
-                                    <div class="avatar">
-                                        <div class="w-12 h-12 mask mask-squircle">
-                                            <img src="https://img.daisyui.com/images/profile/demo/3@94.webp"
-                                                alt="Avatar Tailwind CSS Component" />
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="font-bold">Brice Swyre</div>
-                                        <div class="text-sm opacity-50">China</div>
-                                    </div>
-                                </div>
-                            </td>
-                            <td>
-                                Carroll Group
-                                <br />
-                                <span class="badge badge-ghost badge-sm">Tax Accountant</span>
-                            </td>
-                            <td>Red</td>
-                            <th>
-                                <button class="btn btn-ghost btn-xs">details</button>
-                            </th>
-                        </tr>
-                        <!-- row 3 -->
-                        <tr>
-                            <th>
-                                <label>
-                                    <input type="checkbox" class="checkbox" />
-                                </label>
-                            </th>
-                            <td>
-                                <div class="flex items-center gap-3">
-                                    <div class="avatar">
-                                        <div class="w-12 h-12 mask mask-squircle">
-                                            <img src="https://img.daisyui.com/images/profile/demo/4@94.webp"
-                                                alt="Avatar Tailwind CSS Component" />
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="font-bold">Marjy Ferencz</div>
-                                        <div class="text-sm opacity-50">Russia</div>
-                                    </div>
-                                </div>
-                            </td>
-                            <td>
-                                Rowe-Schoen
-                                <br />
-                                <span class="badge badge-ghost badge-sm">Office Assistant I</span>
-                            </td>
-                            <td>Crimson</td>
-                            <th>
-                                <button class="btn btn-ghost btn-xs">details</button>
-                            </th>
-                        </tr>
-                        <!-- row 4 -->
-                        <tr>
-                            <th>
-                                <label>
-                                    <input type="checkbox" class="checkbox" />
-                                </label>
-                            </th>
-                            <td>
-                                <div class="flex items-center gap-3">
-                                    <div class="avatar">
-                                        <div class="w-12 h-12 mask mask-squircle">
-                                            <img src="https://img.daisyui.com/images/profile/demo/5@94.webp"
-                                                alt="Avatar Tailwind CSS Component" />
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="font-bold">Yancy Tear</div>
-                                        <div class="text-sm opacity-50">Brazil</div>
-                                    </div>
-                                </div>
-                            </td>
-                            <td>
-                                Wyman-Ledner
-                                <br />
-                                <span class="badge badge-ghost badge-sm">Community Outreach
-                                    Specialist</span>
-                            </td>
-                            <td>Indigo</td>
-                            <th>
-                                <button class="btn btn-ghost btn-xs">details</button>
-                            </th>
-                        </tr>
+                    <tbody class="bg-white divide-y divide-gray-200">
+                        @foreach ($datosClientes as $clientes)
+                            <tr>
+                                <th class="px-6 py-4 whitespace-nowrap">{{ $loop->iteration }}</th>
+                                <td class="px-6 py-4 whitespace-nowrap">{{ $clientes['nombres'] }}</td>
+                                <td class="px-6 py-4 whitespace-nowrap">{{ $clientes['apellidos'] }}</td>
+                                <td class="px-6 py-4 whitespace-nowrap">{{ $clientes['telefono'] }}</td>
+                                <td class="px-6 py-4 whitespace-nowrap">{{ \Carbon\Carbon::parse($clientes['created_at'])->diffForHumans() }}</td>
+                            </tr>
+                        @endforeach
                     </tbody>
-                    <!-- foot -->
-                    <tfoot>
-                        <tr>
-                            <th></th>
-                            <th>Name</th>
-                            <th>Job</th>
-                            <th>Favorite Color</th>
-                            <th></th>
-                        </tr>
-                    </tfoot>
                 </table>
             </div>
         </div>
+
         <div class="tableii2">
-            <div class="w-full h-full overflow-x-auto bg-white border">
-                <table class="table table-zebra ">
-                    <!-- head -->
-                    <h1 class="py-2 text-center text-gray-400">Tabla Empleados</h1>
-                    <thead>
+            <div class="w-full h-full overflow-x-auto bg-white border border-gray-200 rounded-lg shadow-sm">
+                <div class="py-2 text-center text-gray-600">
+                    <h1 class="text-lg font-semibold">Tabla Empleados</h1>
+                </div>
+                <table class="min-w-full divide-y divide-gray-200 table-auto">
+                    <thead class="bg-gray-50">
                         <tr>
-                            <th></th>
-                            <th>Name</th>
-                            <th>Job</th>
-                            <th>Favorite Color</th>
+                            <th class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">#</th>
+                            <th class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">Nombres</th>
+                            <th class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">DNI</th>
+                            <th class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">Permisos</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <!-- row 1 -->
-                        <tr>
-                            <th>1</th>
-                            <td>Cy Ganderton</td>
-                            <td>Quality Control Specialist</td>
-                            <td>Blue</td>
-                        </tr>
-                        <!-- row 2 -->
-                        <tr>
-                            <th>2</th>
-                            <td>Hart Hagerty</td>
-                            <td>Desktop Support Technician</td>
-                            <td>Purple</td>
-                        </tr>
-                        <!-- row 3 -->
-                        <tr>
-                            <th>3</th>
-                            <td>Brice Swyre</td>
-                            <td>Tax Accountant</td>
-                            <td>Red</td>
-                        </tr>
+                    <tbody class="bg-white divide-y divide-gray-200">
+                        @foreach ($datosEmpleados as $empleado)
+                            <tr>
+                                <th class="px-6 py-4 whitespace-nowrap">{{ $loop->iteration }}</th>
+                                <td class="px-6 py-4 whitespace-nowrap">{{ $empleado['nombres'] }}</td>
+                                <td class="px-6 py-4 whitespace-nowrap">{{ $empleado['dni'] }}</td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <ul class="flex flex-wrap gap-2">
+                                        @foreach ($empleado['permisos'] as $permiso)
+                                            <li class="px-2 py-1 text-xs font-medium text-white bg-blue-500 rounded-full">{{ $permiso }}</li>
+                                        @endforeach
+                                    </ul>
+                                </td>
+                            </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
+
 </div>

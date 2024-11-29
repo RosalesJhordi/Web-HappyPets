@@ -1,9 +1,9 @@
 <div>
     <div class="drawer drawer-end">
-        <input id="my-drawer-4" type="checkbox" class="drawer-toggle" />
+        <input id="my-drawer-44" type="checkbox" class="drawer-toggle" />
         <div class="drawer-content">
             <!-- Page content here -->
-            <label for="my-drawer-4" class="cursor-pointer drawer-button">
+            <label for="my-drawer-44" class="cursor-pointer drawer-button">
                 <div id="openDrawer"
                     class="flex items-center justify-center mr-4 text-gray-400 indicator hover:text-gray-500">
                     <span wire:poll='datosCarrito'
@@ -23,7 +23,7 @@
             </label>
         </div>
         <div class="drawer-side" style="z-index: 9999;">
-            <label for="my-drawer-4" aria-label="close sidebar" class="drawer-overlay"></label>
+            <label for="my-drawer-44" aria-label="close sidebar" class="drawer-overlay"></label>
             <ul class="min-h-full p-4 bg-white w-80 md:w-96 menu text-base-content" style="z-index: 9999;">
 
                 <div class="w-full text-2xl">
@@ -96,10 +96,6 @@
                                     </a>
                                 </p>
                             </div>
-                            <button class="btn" type="button" wire:click='Factura'>
-                                Ver factura
-                            </button>
-
                         </div>
                     @else
                         <div class="flex flex-col items-center justify-center w-full h-full gap-4 mt-8 ">

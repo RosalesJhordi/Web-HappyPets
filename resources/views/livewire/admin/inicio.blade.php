@@ -18,14 +18,14 @@
                         <img src="{{ asset('img/logo.jpg') }}" alt="logo" class="h-10 me-3" alt="FlowBite Logo" />
                     </a>
                 </div>
-                <div class="flex items-center">
-                    <div class="flex items-center ms-3">
-                        <div class="text-2xl indicator">
-                            <span class="text-xs indicator-item badge badge-primary">0</span>
-                            <i class="fa-regular fa-bell"></i>
-                        </div>
-                    </div>
+                <div class="flex items-center justify-center gap-2">
+                    @livewire('admin.notificaciones')
+                    @if (in_array('Administrador', $permisos) || in_array('Cajero/Vendedor', $permisos))
+                        @livewire('admin.carrito-count')
+                    @endif
+
                 </div>
+
             </div>
         </div>
     </nav>
@@ -35,153 +35,239 @@
         aria-label="Sidebar">
         <div class="h-full px-3 pb-4 overflow-y-auto bg-white">
             <ul class="space-y-2 font-medium">
-                <li>
-                    <a href="{{ route('Admin') }}"
-                        class="flex items-center p-2 text-gray-900 rounded-lg  group {{ Route::is('Admin') ? 'bg-blue-600 text-white hover:bg-blue-500' : 'text-gray-900 hover:bg-gray-200' }}">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
-                            class="w-6 h-6  {{ Route::is('Admin') ? 'text-white' : 'text-gray-500' }}">
-                            <path
-                                d="M11.47 3.841a.75.75 0 0 1 1.06 0l8.69 8.69a.75.75 0 1 0 1.06-1.061l-8.689-8.69a2.25 2.25 0 0 0-3.182 0l-8.69 8.69a.75.75 0 1 0 1.061 1.06l8.69-8.689Z" />
-                            <path
-                                d="m12 5.432 8.159 8.159c.03.03.06.058.091.086v6.198c0 1.035-.84 1.875-1.875 1.875H15a.75.75 0 0 1-.75-.75v-4.5a.75.75 0 0 0-.75-.75h-3a.75.75 0 0 0-.75.75V21a.75.75 0 0 1-.75.75H5.625a1.875 1.875 0 0 1-1.875-1.875v-6.198a2.29 2.29 0 0 0 .091-.086L12 5.432Z" />
-                        </svg>
-                        <span class="ms-3">Inicio</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="{{ route('Admin.Productos') }}"
-                        class="flex items-center p-2 cursor-pointer rounded-lg {{ Route::is('Admin.Productos') ? 'bg-blue-600 text-white hover:bg-blue-500' : 'text-gray-900 hover:bg-gray-200' }}">
-                        <svg class="flex-shrink-0 w-5 h-5 {{ Route::is('Admin.Productos') ? 'text-white' : 'text-gray-500' }} transition duration-75"
-                            aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
-                            viewBox="0 0 18 20">
-                            <path
-                                d="M17 5.923A1 1 0 0 0 16 5h-3V4a4 4 0 1 0-8 0v1H2a1 1 0 0 0-1 .923L.086 17.846A2 2 0 0 0 2.08 20h13.84a2 2 0 0 0 1.994-2.153L17 5.923ZM7 9a1 1 0 0 1-2 0V7h2v2Zm0-5a2 2 0 1 1 4 0v1H7V4Zm6 5a1 1 0 1 1-2 0V7h2v2Z" />
-                        </svg>
-                        <span class="flex-1 ms-3 whitespace-nowrap">Productos</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="{{ route('Admin.Servicios') }}"
-                        class="flex items-center p-2 rounded-lg {{ Route::is('Admin.Servicios') ? 'bg-blue-600 text-white hover:bg-blue-500' : 'text-gray-900 hover:bg-gray-200' }}">
-                        <svg class="flex-shrink-0 w-5 h-5 transition duration-75 {{ Route::is('Admin.Servicios') ? 'text-white' : 'text-gray-500' }} "
-                            aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
-                            viewBox="0 0 18 18">
-                            <path
-                                d="M6.143 0H1.857A1.857 1.857 0 0 0 0 1.857v4.286C0 7.169.831 8 1.857 8h4.286A1.857 1.857 0 0 0 8 6.143V1.857A1.857 1.857 0 0 0 6.143 0Zm10 0h-4.286A1.857 1.857 0 0 0 10 1.857v4.286C10 7.169 10.831 8 11.857 8h4.286A1.857 1.857 0 0 0 18 6.143V1.857A1.857 1.857 0 0 0 16.143 0Zm-10 10H1.857A1.857 1.857 0 0 0 0 11.857v4.286C0 17.169.831 18 1.857 18h4.286A1.857 1.857 0 0 0 8 16.143v-4.286A1.857 1.857 0 0 0 6.143 10Zm10 0h-4.286A1.857 1.857 0 0 0 10 11.857v4.286c0 1.026.831 1.857 1.857 1.857h4.286A1.857 1.857 0 0 0 18 16.143v-4.286A1.857 1.857 0 0 0 16.143 10Z" />
-                        </svg>
-                        <span class="flex-1 ms-3 whitespace-nowrap">Servicios</span>
+                @if (in_array('Administrador', $this->permisos))
+                    {{-- inicio --}}
+                    <li>
+                        <a href="{{ route('Admin') }}"
+                            class="flex items-center p-2 text-gray-900 rounded-lg  group {{ Route::is('Admin') ? 'bg-blue-600 text-white hover:bg-blue-500' : 'text-gray-900 hover:bg-gray-200' }}">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+                                class="w-6 h-6  {{ Route::is('Admin') ? 'text-white' : 'text-gray-500' }}">
+                                <path
+                                    d="M11.47 3.841a.75.75 0 0 1 1.06 0l8.69 8.69a.75.75 0 1 0 1.06-1.061l-8.689-8.69a2.25 2.25 0 0 0-3.182 0l-8.69 8.69a.75.75 0 1 0 1.061 1.06l8.69-8.689Z" />
+                                <path
+                                    d="m12 5.432 8.159 8.159c.03.03.06.058.091.086v6.198c0 1.035-.84 1.875-1.875 1.875H15a.75.75 0 0 1-.75-.75v-4.5a.75.75 0 0 0-.75-.75h-3a.75.75 0 0 0-.75.75V21a.75.75 0 0 1-.75.75H5.625a1.875 1.875 0 0 1-1.875-1.875v-6.198a2.29 2.29 0 0 0 .091-.086L12 5.432Z" />
+                            </svg>
+                            <span class="ms-3">Inicio</span>
+                        </a>
+                    </li>
+                    {{-- Productos --}}
+                    <li>
+                        <a href="{{ route('Admin.Productos') }}"
+                            class="flex items-center p-2 cursor-pointer rounded-lg {{ Route::is('Admin.Productos') ? 'bg-blue-600 text-white hover:bg-blue-500' : 'text-gray-900 hover:bg-gray-200' }}">
+                            <svg class="flex-shrink-0 w-5 h-5 {{ Route::is('Admin.Productos') ? 'text-white' : 'text-gray-500' }} transition duration-75"
+                                aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                                viewBox="0 0 18 20">
+                                <path
+                                    d="M17 5.923A1 1 0 0 0 16 5h-3V4a4 4 0 1 0-8 0v1H2a1 1 0 0 0-1 .923L.086 17.846A2 2 0 0 0 2.08 20h13.84a2 2 0 0 0 1.994-2.153L17 5.923ZM7 9a1 1 0 0 1-2 0V7h2v2Zm0-5a2 2 0 1 1 4 0v1H7V4Zm6 5a1 1 0 1 1-2 0V7h2v2Z" />
+                            </svg>
+                            <span class="flex-1 ms-3 whitespace-nowrap">Productos</span>
+                        </a>
+                    </li>
+                    {{-- Servicios --}}
+                    <li>
+                        <a href="{{ route('Admin.Servicios') }}"
+                            class="flex items-center p-2 rounded-lg {{ Route::is('Admin.Servicios') ? 'bg-blue-600 text-white hover:bg-blue-500' : 'text-gray-900 hover:bg-gray-200' }}">
+                            <svg class="flex-shrink-0 w-5 h-5 transition duration-75 {{ Route::is('Admin.Servicios') ? 'text-white' : 'text-gray-500' }} "
+                                aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                                viewBox="0 0 18 18">
+                                <path
+                                    d="M6.143 0H1.857A1.857 1.857 0 0 0 0 1.857v4.286C0 7.169.831 8 1.857 8h4.286A1.857 1.857 0 0 0 8 6.143V1.857A1.857 1.857 0 0 0 6.143 0Zm10 0h-4.286A1.857 1.857 0 0 0 10 1.857v4.286C10 7.169 10.831 8 11.857 8h4.286A1.857 1.857 0 0 0 18 6.143V1.857A1.857 1.857 0 0 0 16.143 0Zm-10 10H1.857A1.857 1.857 0 0 0 0 11.857v4.286C0 17.169.831 18 1.857 18h4.286A1.857 1.857 0 0 0 8 16.143v-4.286A1.857 1.857 0 0 0 6.143 10Zm10 0h-4.286A1.857 1.857 0 0 0 10 11.857v4.286c0 1.026.831 1.857 1.857 1.857h4.286A1.857 1.857 0 0 0 18 16.143v-4.286A1.857 1.857 0 0 0 16.143 10Z" />
+                            </svg>
+                            <span class="flex-1 ms-3 whitespace-nowrap">Servicios</span>
 
-                    </a>
-                </li>
-                <li>
-                    <a href="{{ route('Admin.Citas.Hoy') }}" type="button"
-                        class="flex items-center w-full p-2 text-base transition duration-75 rounded-lg group {{ Route::is('Admin.Citas.Hoy') | Route::is('Admin.Citas.Semana') | Route::is('Admin.Citas.Mes')
-                            ? 'bg-blue-600 text-white
-                                                 hover:bg-blue-500'
-                            : 'text-gray-900 hover:bg-gray-200' }}">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
-                            class="flex-shrink-0 w-6 h-6  {{ Route::is('Admin.Citas.Hoy') | Route::is('Admin.Citas.Semana') | Route::is('Admin.Citas.Mes') ? 'text-white' : 'text-gray-500' }} transition duration-75 ">
-                            <path fill-rule="evenodd"
-                                d="M6.75 2.25A.75.75 0 0 1 7.5 3v1.5h9V3A.75.75 0 0 1 18 3v1.5h.75a3 3 0 0 1 3 3v11.25a3 3 0 0 1-3 3H5.25a3 3 0 0 1-3-3V7.5a3 3 0 0 1 3-3H6V3a.75.75 0 0 1 .75-.75Zm13.5 9a1.5 1.5 0 0 0-1.5-1.5H5.25a1.5 1.5 0 0 0-1.5 1.5v7.5a1.5 1.5 0 0 0 1.5 1.5h13.5a1.5 1.5 0 0 0 1.5-1.5v-7.5Z"
-                                clip-rule="evenodd" />
-                        </svg>
+                        </a>
+                    </li>
+                    {{-- citas --}}
+                    <li>
+                        <a href="{{ route('Admin.Citas.Hoy') }}" type="button"
+                            class="flex items-center w-full p-2 text-base transition duration-75 rounded-lg group {{ Route::is('Admin.Citas.Hoy') | Route::is('Admin.Citas.Semana') | Route::is('Admin.Citas.Mes')
+                                ? 'bg-blue-600 text-white
+                                                                                                                                                                                         hover:bg-blue-500'
+                                : 'text-gray-900 hover:bg-gray-200' }}">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+                                class="flex-shrink-0 w-6 h-6  {{ Route::is('Admin.Citas.Hoy') | Route::is('Admin.Citas.Semana') | Route::is('Admin.Citas.Mes') ? 'text-white' : 'text-gray-500' }} transition duration-75 ">
+                                <path fill-rule="evenodd"
+                                    d="M6.75 2.25A.75.75 0 0 1 7.5 3v1.5h9V3A.75.75 0 0 1 18 3v1.5h.75a3 3 0 0 1 3 3v11.25a3 3 0 0 1-3 3H5.25a3 3 0 0 1-3-3V7.5a3 3 0 0 1 3-3H6V3a.75.75 0 0 1 .75-.75Zm13.5 9a1.5 1.5 0 0 0-1.5-1.5H5.25a1.5 1.5 0 0 0-1.5 1.5v7.5a1.5 1.5 0 0 0 1.5 1.5h13.5a1.5 1.5 0 0 0 1.5-1.5v-7.5Z"
+                                    clip-rule="evenodd" />
+                            </svg>
 
-                        <span class="flex-1 text-left ms-3 rtl:text-right whitespace-nowrap">Citas</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="{{ route('Admin.Mascotas') }}"
-                        class="flex items-center p-2 rounded-lg group {{ Route::is('Admin.Mascotas') ? 'bg-blue-600 text-white hover:bg-blue-500' : 'text-gray-900 hover:bg-gray-200' }}">
-                        <i
-                            class="w-6 h-6 text-lg {{ Route::is('Admin.Mascotas') ? 'text-white' : 'text-gray-500' }} fa-solid fa-dog"></i>
-                        <span class="flex-1 ms-3 whitespace-nowrap">Mascotas</span>
-                    </a>
-                </li>
+                            <span class="flex-1 text-left ms-3 rtl:text-right whitespace-nowrap">Citas</span>
+                        </a>
+                    </li>
+                    {{-- mascotas --}}
+                    <li>
+                        <a href="{{ route('Admin.Mascotas') }}"
+                            class="flex items-center p-2 rounded-lg group {{ Route::is('Admin.Mascotas') ? 'bg-blue-600 text-white hover:bg-blue-500' : 'text-gray-900 hover:bg-gray-200' }}">
+                            <i
+                                class="w-6 h-6 text-lg {{ Route::is('Admin.Mascotas') ? 'text-white' : 'text-gray-500' }} fa-solid fa-dog"></i>
+                            <span class="flex-1 ms-3 whitespace-nowrap">Mascotas</span>
+                        </a>
+                    </li>
+                    {{-- ventas --}}
+                    <li>
+                        <a href="{{ route('Admin.Ventas') }}"
+                            class="flex items-center p-2 rounded-lg group {{ Route::is('Admin.Ventas') ? 'bg-blue-600 text-white hover:bg-blue-500' : 'text-gray-900 hover:bg-gray-200' }}">
+                            <i
+                                class="w-6 h-6 text-lg {{ Route::is('Admin.Ventas') ? 'text-white' : 'text-gray-500' }} fa-solid fa-boxes-packing"></i>
+                            <span class="flex-1 ms-3 whitespace-nowrap">Ventas</span>
+                        </a>
+                    </li>
+                    {{-- pedidos --}}
+                    <li>
+                        <a href="{{ route('Admin.Pedidos') }}"
+                            class="flex items-center p-2 rounded-lg group {{ Route::is('Admin.Pedidos') ? 'bg-blue-600 text-white hover:bg-blue-500' : 'text-gray-900 hover:bg-gray-200' }}">
+                            <i
+                                class="w-6 h-6 text-lg {{ Route::is('Admin.Pedidos') ? 'text-white' : 'text-gray-500' }} fa-solid fa-bag-shopping"></i>
+                            <span class="flex-1 ms-3 whitespace-nowrap">Pedidos</span>
+                        </a>
+                    </li>
+                    {{-- usuarios --}}
+                    <li>
+                        <button type="button"
+                            class="flex items-center w-full p-2 text-base transition duration-75 rounded-lg group {{ Route::is('Admin.Clientes') | Route::is('Admin.Empleados') ? 'bg-blue-600 text-white hover:bg-blue-500' : 'text-gray-900 hover:bg-gray-200' }}"
+                            aria-controls="dropdown-example2" data-collapse-toggle="dropdown-example2">
+                            <svg class="flex-shrink-0 w-5 h-5 {{ Route::is('Admin.Clientes') | Route::is('Admin.Empleados') ? 'text-white' : 'text-gray-500' }}  transition duration-75 "
+                                aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                                viewBox="0 0 20 18">
+                                <path
+                                    d="M14 2a3.963 3.963 0 0 0-1.4.267 6.439 6.439 0 0 1-1.331 6.638A4 4 0 1 0 14 2Zm1 9h-1.264A6.957 6.957 0 0 1 15 15v2a2.97 2.97 0 0 1-.184 1H19a1 1 0 0 0 1-1v-1a5.006 5.006 0 0 0-5-5ZM6.5 9a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9ZM8 10H5a5.006 5.006 0 0 0-5 5v2a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-2a5.006 5.006 0 0 0-5-5Z" />
+                            </svg>
 
-                <li>
-                    <a href="{{ route('Admin.Ventas') }}"
-                        class="flex items-center p-2 rounded-lg group {{ Route::is('Admin.Ventas') ? 'bg-blue-600 text-white hover:bg-blue-500' : 'text-gray-900 hover:bg-gray-200' }}">
-                        <i
-                            class="w-6 h-6 text-lg {{ Route::is('Admin.Ventas') ? 'text-white' : 'text-gray-500' }} fa-solid fa-boxes-packing"></i>
-                        <span class="flex-1 ms-3 whitespace-nowrap">Ventas</span>
-                    </a>
-                </li>
+                            <span class="flex-1 text-left ms-3 rtl:text-right whitespace-nowrap">Usuarios</span>
+                            <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                viewBox="0 0 10 6">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                    stroke-width="2" d="m1 1 4 4 4-4" />
+                            </svg>
+                        </button>
+                        <ul id="dropdown-example2" class="hidden py-2 space-y-2">
+                            <li>
+                                <a href="{{ route('Admin.Clientes') }}"
+                                    class="flex items-center w-full gap-2 p-2 text-gray-600 transition duration-75 rounded-lg pl-11 group hover:bg-gray-200">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+                                        class="text-gray-500 size-6">
+                                        <path fill-rule="evenodd"
+                                            d="M8.25 6.75a3.75 3.75 0 1 1 7.5 0 3.75 3.75 0 0 1-7.5 0ZM15.75 9.75a3 3 0 1 1 6 0 3 3 0 0 1-6 0ZM2.25 9.75a3 3 0 1 1 6 0 3 3 0 0 1-6 0ZM6.31 15.117A6.745 6.745 0 0 1 12 12a6.745 6.745 0 0 1 6.709 7.498.75.75 0 0 1-.372.568A12.696 12.696 0 0 1 12 21.75c-2.305 0-4.47-.612-6.337-1.684a.75.75 0 0 1-.372-.568 6.787 6.787 0 0 1 1.019-4.38Z"
+                                            clip-rule="evenodd" />
+                                        <path
+                                            d="M5.082 14.254a8.287 8.287 0 0 0-1.308 5.135 9.687 9.687 0 0 1-1.764-.44l-.115-.04a.563.563 0 0 1-.373-.487l-.01-.121a3.75 3.75 0 0 1 3.57-4.047ZM20.226 19.389a8.287 8.287 0 0 0-1.308-5.135 3.75 3.75 0 0 1 3.57 4.047l-.01.121a.563.563 0 0 1-.373.486l-.115.04c-.567.2-1.156.349-1.764.441Z" />
+                                    </svg>
+                                    Clientes
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ route('Admin.Empleados') }}"
+                                    class="flex items-center w-full gap-2 p-2 text-gray-600 transition duration-75 rounded-lg pl-11 group hover:bg-gray-200">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+                                        class="text-gray-500 size-6 ">
+                                        <path fill-rule="evenodd"
+                                            d="M7.5 6a4.5 4.5 0 1 1 9 0 4.5 4.5 0 0 1-9 0ZM3.751 20.105a8.25 8.25 0 0 1 16.498 0 .75.75 0 0 1-.437.695A18.683 18.683 0 0 1 12 22.5c-2.786 0-5.433-.608-7.812-1.7a.75.75 0 0 1-.437-.695Z"
+                                            clip-rule="evenodd" />
+                                    </svg>
+                                    Empleados</a>
+                            </li>
+                        </ul>
+                    </li>
+                    {{-- categorias --}}
+                    <li>
+                        <a href="{{ route('Admin.Categorias') }}"
+                            class="flex items-center p-2 rounded-lg group {{ Route::is('Admin.Categorias') ? 'bg-blue-600 text-white hover:bg-blue-500' : 'text-gray-900 hover:bg-gray-200' }}">
+                            <i
+                                class="w-6 h-6 text-lg {{ Route::is('Admin.Categorias') ? 'text-white' : 'text-gray-500' }} fa-solid fa-tag"></i>
+                            <span class="flex-1 ms-3 whitespace-nowrap">Categorias</span>
+                        </a>
+                    </li>
+                    {{-- libro --}}
+                    <li>
+                        <a href="{{ route('Admin.Libro') }}"
+                            class="flex items-center p-2 rounded-lg group {{ Route::is('Admin.Libro') ? 'bg-blue-600 text-white hover:bg-blue-500' : 'text-gray-900 hover:bg-gray-200' }}">
+                            <i
+                                class="w-6 h-6 text-lg {{ Route::is('Admin.Libro') ? 'text-white' : 'text-gray-500' }} fa-solid fa-book"></i>
+                            <span class="flex-1 ms-3 whitespace-nowrap">Libro Reclamos</span>
+                        </a>
+                    </li>
+                @elseif (in_array('Almacenero', $this->permisos))
+                    <li>
+                        <a href="{{ route('Admin.Productos') }}"
+                            class="flex items-center p-2 cursor-pointer rounded-lg {{ Route::is('Admin.Productos') ? 'bg-blue-600 text-white hover:bg-blue-500' : 'text-gray-900 hover:bg-gray-200' }}">
+                            <svg class="flex-shrink-0 w-5 h-5 {{ Route::is('Admin.Productos') ? 'text-white' : 'text-gray-500' }} transition duration-75"
+                                aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                                viewBox="0 0 18 20">
+                                <path
+                                    d="M17 5.923A1 1 0 0 0 16 5h-3V4a4 4 0 1 0-8 0v1H2a1 1 0 0 0-1 .923L.086 17.846A2 2 0 0 0 2.08 20h13.84a2 2 0 0 0 1.994-2.153L17 5.923ZM7 9a1 1 0 0 1-2 0V7h2v2Zm0-5a2 2 0 1 1 4 0v1H7V4Zm6 5a1 1 0 1 1-2 0V7h2v2Z" />
+                            </svg>
+                            <span class="flex-1 ms-3 whitespace-nowrap">Productos</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('Admin.Categorias') }}"
+                            class="flex items-center p-2 rounded-lg group {{ Route::is('Admin.Categorias') ? 'bg-blue-600 text-white hover:bg-blue-500' : 'text-gray-900 hover:bg-gray-200' }}">
+                            <i
+                                class="w-6 h-6 text-lg {{ Route::is('Admin.Categorias') ? 'text-white' : 'text-gray-500' }} fa-solid fa-tag"></i>
+                            <span class="flex-1 ms-3 whitespace-nowrap">Categorias</span>
+                        </a>
+                    </li>
+                @elseif (in_array('Veterinario', $this->permisos))
+                    {{-- citas --}}
+                    <li>
+                        <a href="{{ route('Admin.Citas.Hoy') }}" type="button"
+                            class="flex items-center w-full p-2 text-base transition duration-75 rounded-lg group {{ Route::is('Admin.Citas.Hoy') | Route::is('Admin.Citas.Semana') | Route::is('Admin.Citas.Mes')
+                                ? 'bg-blue-600 text-white
+                                                                                                                                                                                     hover:bg-blue-500'
+                                : 'text-gray-900 hover:bg-gray-200' }}">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+                                class="flex-shrink-0 w-6 h-6  {{ Route::is('Admin.Citas.Hoy') | Route::is('Admin.Citas.Semana') | Route::is('Admin.Citas.Mes') ? 'text-white' : 'text-gray-500' }} transition duration-75 ">
+                                <path fill-rule="evenodd"
+                                    d="M6.75 2.25A.75.75 0 0 1 7.5 3v1.5h9V3A.75.75 0 0 1 18 3v1.5h.75a3 3 0 0 1 3 3v11.25a3 3 0 0 1-3 3H5.25a3 3 0 0 1-3-3V7.5a3 3 0 0 1 3-3H6V3a.75.75 0 0 1 .75-.75Zm13.5 9a1.5 1.5 0 0 0-1.5-1.5H5.25a1.5 1.5 0 0 0-1.5 1.5v7.5a1.5 1.5 0 0 0 1.5 1.5h13.5a1.5 1.5 0 0 0 1.5-1.5v-7.5Z"
+                                    clip-rule="evenodd" />
+                            </svg>
 
+                            <span class="flex-1 text-left ms-3 rtl:text-right whitespace-nowrap">Citas</span>
+                        </a>
+                    </li>
+                    {{-- Servicios --}}
+                    <li>
+                        <a href="{{ route('Admin.Servicios') }}"
+                            class="flex items-center p-2 rounded-lg {{ Route::is('Admin.Servicios') ? 'bg-blue-600 text-white hover:bg-blue-500' : 'text-gray-900 hover:bg-gray-200' }}">
+                            <svg class="flex-shrink-0 w-5 h-5 transition duration-75 {{ Route::is('Admin.Servicios') ? 'text-white' : 'text-gray-500' }} "
+                                aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                                viewBox="0 0 18 18">
+                                <path
+                                    d="M6.143 0H1.857A1.857 1.857 0 0 0 0 1.857v4.286C0 7.169.831 8 1.857 8h4.286A1.857 1.857 0 0 0 8 6.143V1.857A1.857 1.857 0 0 0 6.143 0Zm10 0h-4.286A1.857 1.857 0 0 0 10 1.857v4.286C10 7.169 10.831 8 11.857 8h4.286A1.857 1.857 0 0 0 18 6.143V1.857A1.857 1.857 0 0 0 16.143 0Zm-10 10H1.857A1.857 1.857 0 0 0 0 11.857v4.286C0 17.169.831 18 1.857 18h4.286A1.857 1.857 0 0 0 8 16.143v-4.286A1.857 1.857 0 0 0 6.143 10Zm10 0h-4.286A1.857 1.857 0 0 0 10 11.857v4.286c0 1.026.831 1.857 1.857 1.857h4.286A1.857 1.857 0 0 0 18 16.143v-4.286A1.857 1.857 0 0 0 16.143 10Z" />
+                            </svg>
+                            <span class="flex-1 ms-3 whitespace-nowrap">Servicios</span>
 
-                <li>
-                    <a href="{{ route('Admin.Pedidos') }}"
-                        class="flex items-center p-2 rounded-lg group {{ Route::is('Admin.Pedidos') ? 'bg-blue-600 text-white hover:bg-blue-500' : 'text-gray-900 hover:bg-gray-200' }}">
-                        <i
-                            class="w-6 h-6 text-lg {{ Route::is('Admin.Pedidos') ? 'text-white' : 'text-gray-500' }} fa-solid fa-bag-shopping"></i>
-                        <span class="flex-1 ms-3 whitespace-nowrap">Pedidos</span>
-                    </a>
-                </li>
-
-                <li>
-                    <button type="button"
-                        class="flex items-center w-full p-2 text-base transition duration-75 rounded-lg group {{ Route::is('Admin.Clientes') | Route::is('Admin.Empleados') ? 'bg-blue-600 text-white hover:bg-blue-500' : 'text-gray-900 hover:bg-gray-200' }}"
-                        aria-controls="dropdown-example2" data-collapse-toggle="dropdown-example2">
-                        <svg class="flex-shrink-0 w-5 h-5 {{ Route::is('Admin.Clientes') | Route::is('Admin.Empleados') ? 'text-white' : 'text-gray-500' }}  transition duration-75 "
-                            aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
-                            viewBox="0 0 20 18">
-                            <path
-                                d="M14 2a3.963 3.963 0 0 0-1.4.267 6.439 6.439 0 0 1-1.331 6.638A4 4 0 1 0 14 2Zm1 9h-1.264A6.957 6.957 0 0 1 15 15v2a2.97 2.97 0 0 1-.184 1H19a1 1 0 0 0 1-1v-1a5.006 5.006 0 0 0-5-5ZM6.5 9a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9ZM8 10H5a5.006 5.006 0 0 0-5 5v2a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-2a5.006 5.006 0 0 0-5-5Z" />
-                        </svg>
-
-                        <span class="flex-1 text-left ms-3 rtl:text-right whitespace-nowrap">Usuarios</span>
-                        <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
-                            viewBox="0 0 10 6">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="m1 1 4 4 4-4" />
-                        </svg>
-                    </button>
-                    <ul id="dropdown-example2" class="hidden py-2 space-y-2">
-                        <li>
-                            <a href="{{ route('Admin.Clientes') }}"
-                                class="flex items-center w-full gap-2 p-2 text-gray-600 transition duration-75 rounded-lg pl-11 group hover:bg-gray-200">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
-                                    class="text-gray-500 size-6">
-                                    <path fill-rule="evenodd"
-                                        d="M8.25 6.75a3.75 3.75 0 1 1 7.5 0 3.75 3.75 0 0 1-7.5 0ZM15.75 9.75a3 3 0 1 1 6 0 3 3 0 0 1-6 0ZM2.25 9.75a3 3 0 1 1 6 0 3 3 0 0 1-6 0ZM6.31 15.117A6.745 6.745 0 0 1 12 12a6.745 6.745 0 0 1 6.709 7.498.75.75 0 0 1-.372.568A12.696 12.696 0 0 1 12 21.75c-2.305 0-4.47-.612-6.337-1.684a.75.75 0 0 1-.372-.568 6.787 6.787 0 0 1 1.019-4.38Z"
-                                        clip-rule="evenodd" />
-                                    <path
-                                        d="M5.082 14.254a8.287 8.287 0 0 0-1.308 5.135 9.687 9.687 0 0 1-1.764-.44l-.115-.04a.563.563 0 0 1-.373-.487l-.01-.121a3.75 3.75 0 0 1 3.57-4.047ZM20.226 19.389a8.287 8.287 0 0 0-1.308-5.135 3.75 3.75 0 0 1 3.57 4.047l-.01.121a.563.563 0 0 1-.373.486l-.115.04c-.567.2-1.156.349-1.764.441Z" />
-                                </svg>
-                                Clientes
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{{ route('Admin.Empleados') }}"
-                                class="flex items-center w-full gap-2 p-2 text-gray-600 transition duration-75 rounded-lg pl-11 group hover:bg-gray-200">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
-                                    class="text-gray-500 size-6 ">
-                                    <path fill-rule="evenodd"
-                                        d="M7.5 6a4.5 4.5 0 1 1 9 0 4.5 4.5 0 0 1-9 0ZM3.751 20.105a8.25 8.25 0 0 1 16.498 0 .75.75 0 0 1-.437.695A18.683 18.683 0 0 1 12 22.5c-2.786 0-5.433-.608-7.812-1.7a.75.75 0 0 1-.437-.695Z"
-                                        clip-rule="evenodd" />
-                                </svg>
-                                Empleados</a>
-                        </li>
-                    </ul>
-                </li>
-
-                <li>
-                    <a href="{{ route('Admin.Categorias') }}"
-                        class="flex items-center p-2 rounded-lg group {{ Route::is('Admin.Categorias') ? 'bg-blue-600 text-white hover:bg-blue-500' : 'text-gray-900 hover:bg-gray-200' }}">
-                        <i
-                            class="w-6 h-6 text-lg {{ Route::is('Admin.Categorias') ? 'text-white' : 'text-gray-500' }} fa-solid fa-tag"></i>
-                        <span class="flex-1 ms-3 whitespace-nowrap">Categorias</span>
-                    </a>
-                </li>
-
-                <li>
-                    <a href="{{ route('Admin.Libro') }}"
-                        class="flex items-center p-2 rounded-lg group {{ Route::is('Admin.Libro') ? 'bg-blue-600 text-white hover:bg-blue-500' : 'text-gray-900 hover:bg-gray-200' }}">
-                        <i
-                            class="w-6 h-6 text-lg {{ Route::is('Admin.Libro') ? 'text-white' : 'text-gray-500' }} fa-solid fa-book"></i>
-                        <span class="flex-1 ms-3 whitespace-nowrap">Libro Reclamos</span>
-                    </a>
-                </li>
-
+                        </a>
+                    </li>
+                    {{-- mascotas --}}
+                    <li>
+                        <a href="{{ route('Admin.Mascotas') }}"
+                            class="flex items-center p-2 rounded-lg group {{ Route::is('Admin.Mascotas') ? 'bg-blue-600 text-white hover:bg-blue-500' : 'text-gray-900 hover:bg-gray-200' }}">
+                            <i
+                                class="w-6 h-6 text-lg {{ Route::is('Admin.Mascotas') ? 'text-white' : 'text-gray-500' }} fa-solid fa-dog"></i>
+                            <span class="flex-1 ms-3 whitespace-nowrap">Mascotas</span>
+                        </a>
+                    </li>
+                @elseif (in_array('Cajero/Vendedor', $this->permisos))
+                    {{-- ventas --}}
+                    <li>
+                        <a href="{{ route('Admin.Ventas') }}"
+                            class="flex items-center p-2 rounded-lg group {{ Route::is('Admin.Ventas') ? 'bg-blue-600 text-white hover:bg-blue-500' : 'text-gray-900 hover:bg-gray-200' }}">
+                            <i
+                                class="w-6 h-6 text-lg {{ Route::is('Admin.Ventas') ? 'text-white' : 'text-gray-500' }} fa-solid fa-boxes-packing"></i>
+                            <span class="flex-1 ms-3 whitespace-nowrap">Ventas</span>
+                        </a>
+                    </li>
+                    {{-- pedidos --}}
+                    <li>
+                        <a href="{{ route('Admin.Pedidos') }}"
+                            class="flex items-center p-2 rounded-lg group {{ Route::is('Admin.Pedidos') ? 'bg-blue-600 text-white hover:bg-blue-500' : 'text-gray-900 hover:bg-gray-200' }}">
+                            <i
+                                class="w-6 h-6 text-lg {{ Route::is('Admin.Pedidos') ? 'text-white' : 'text-gray-500' }} fa-solid fa-bag-shopping"></i>
+                            <span class="flex-1 ms-3 whitespace-nowrap">Pedidos</span>
+                        </a>
+                    </li>
+                @endif
                 <li>
                     <a href="/" class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100 group">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"

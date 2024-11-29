@@ -71,40 +71,6 @@ class Clientes extends Component
         }
     }
 
-    private function aplicarFiltro($usuarios)
-    {
-        $filtros = [
-            'A - Z' => function ($usuario) {
-                return strtolower($usuario['nombres']);
-            },
-            'Z - A' => function ($usuario) {
-                return strtolower($usuario['nombres']);
-            },
-            'ANTIGUOS' => function ($usuario) {
-                return $usuario['created_at'];
-            },
-            'RECIENTES' => function ($usuario) {
-                return $usuario['created_at'];
-            },
-        ];
-
-        if (isset($filtros[$this->filtro])) {
-            $usuarios = $usuarios->sortBy($filtros[$this->filtro]);
-
-            if (in_array($this->filtro, ['Z - A', 'RECIENTES'])) {
-                $usuarios = $usuarios->sortByDesc($filtros[$this->filtro]);
-            }
-        }
-
-        return $usuarios;
-    }
-
-    public function showAll()
-    {
-        $this->filtro = 'Todos';
-        $this->users();
-    }
-
     public function users()
     {
         $response = Http::withoutVerifying()->withToken(Session::get('authToken'))->withOptions([
@@ -115,7 +81,7 @@ class Clientes extends Component
         //     return $usuario['dni'] !== '71654843';
         // });
 
-        $permisosExcluidos = ['Administrador', 'Veterinario', 'Cajero', 'Vendedor', 'Almacenero'];
+        $permisosExcluidos = ['Administrador', 'Veterinario', 'Cajero/Vendedor', 'Almacenero'];
 
         // Filtrar para excluir los usuarios con los permisos especificados
         $this->datos = array_filter($respuesta['usuarios'], function ($usuario) use ($permisosExcluidos) {

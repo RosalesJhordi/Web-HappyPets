@@ -40,6 +40,8 @@
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <script src="https://unpkg.com/flowbite@latest/dist/flowbite.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/pagedone@1.2.2/src/css/pagedone.css " rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/pagedone@1.2.2/src/js/pagedone.js"></script>
     @livewireStyles
 
 </head>
@@ -106,11 +108,9 @@
                                         hover:border-blue-600 {{ Route::is('Productos') ? 'border-blue-600' : 'border-transparent' }}">Productos</a>
                                     <a href="{{ route('Servicios') }}"
                                         class="flex items-center justify-center h-16 px-3 text-lg font-semibold text-gray-500 border-b-4 {{ Route::is('Servicios') ? 'border-blue-600' : 'border-transparent' }} hover:border-blue-600">Servicios</a>
-                                    <a href="#"
+                                    <a href="{{ route('SobreNosotros') }}"
                                         class="flex items-center justify-center h-16 px-3 text-lg font-semibold text-gray-500 border-b-4 border-transparent hover:border-blue-600">Sobre
                                         Nosotros</a>
-                                    <a href="#"
-                                        class="flex items-center justify-center h-16 px-3 text-lg font-semibold text-gray-500 border-b-4 border-transparent hover:border-blue-600">Contactanos</a>
                                 </div>
                             </ul>
                         </div>
@@ -133,27 +133,18 @@
                                 class="flex items-center justify-center h-16 px-3 text-lg font-semibold text-gray-500 border-b-4 hover:border-blue-600 {{ Route::is('Productos') ? 'border-blue-600' : 'border-transparent' }}">Productos</a>
                             <a href="{{ route('Servicios') }}"
                                 class="flex items-center justify-center h-16 px-3 text-lg font-semibold text-gray-500 border-b-4 hover:border-blue-600 {{ Route::is('Servicios') ? 'border-blue-600' : 'border-transparent' }}">Servicios</a>
-                            <a href="#"
-                                class="flex items-center justify-center h-16 px-3 text-lg font-semibold text-gray-500 border-b-4 hover:border-blue-600 {{ Route::is('Servicios') ? 'border-blue-600' : 'border-transparent' }}">Sobre
+                            <a href="{{ route('SobreNosotros') }}"
+                                class="flex items-center justify-center h-16 px-3 text-lg font-semibold text-gray-500 border-b-4 border-transparent hover:border-blue-600">Sobre
                                 Nosotros</a>
-                            <a href="#"
-                                class="flex items-center justify-center h-16 px-3 text-lg font-semibold text-gray-500 border-b-4 hover:border-blue-600 {{ Route::is('Servicios') ? 'border-blue-600' : 'border-transparent' }}">Contactanos</a>
                         </div>
                     </div>
                 </div>
 
                 <div
                     class="absolute inset-y-0 right-0 z-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-                    <button type="button" id="notification"
-                        class="relative p-1 text-gray-400 rounded-full hover:text-gray-500 focus:outline-none focus:ring-1 focus:ring-black focus:ring-offset-1 focus:ring-offset-gray-800">
-                        <span class="absolute -inset-1.5"></span>
-                        <span class="sr-only">View notifications</span>
-                        <svg class="w-6 h-6 " fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                            stroke="currentColor" aria-hidden="true" data-slot="icon">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 0 1-5.714 0m5.714 0a3 3 0 1 1-5.714 0" />
-                        </svg>
-                    </button>
+                    <div class="w-auto mr-2">
+                        @livewire('admin.notificaciones')
+                    </div>
 
                     <div class="flex items-center justify-center">
                         <span id="carrito">
@@ -189,10 +180,10 @@
                     <h2 class="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">EMPRESA</h2>
                     <ul class="font-medium text-gray-500 dark:text-gray-400">
                         <li class="mb-4">
-                            <a href="#" class=" hover:underline">Sobre Nosotros</a>
+                            <a href="{{ route('SobreNosotros') }}" class=" hover:underline">Sobre Nosotros</a>
                         </li>
                         <li class="mb-4">
-                            <a href="#" class="hover:underline">Veterinarios</a>
+                            <a href="{{ route('SobreNosotros') }}" class="hover:underline">Veterinarios</a>
                         </li>
                     </ul>
                 </div>
@@ -217,21 +208,34 @@
                     <h2 class="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">LEGAL</h2>
                     <ul class="font-medium text-gray-500 dark:text-gray-400">
                         <li class="mb-4">
-                            <a href="#" class="hover:underline">Política de privacidad</a>
+                            <a href="#" onclick="my_modal_1.showModal()" class="hover:underline">Política de
+                                privacidad</a>
                         </li>
                         <li class="mb-4">
-                            <a href="#" class="hover:underline">Libro de reclamos</a>
-                        </li>
-                        <li class="mb-4">
-                            <a href="#" class="hover:underline">Términos y condiciones</a>
+                            @livewire('reclamos-libro')
                         </li>
                     </ul>
                 </div>
+
+                <dialog id="my_modal_1" class="modal">
+                    <div class="modal-box">
+                        <h3 class="text-lg font-bold">Política de privacidad</h3>
+                        <p class="py-4">En HappyPets, nos comprometemos a proteger tu
+                            información personal mediante el uso de medidas de seguridad avanzadas para evitar accesos
+                            no autorizados, pérdida o divulgación indebida, garantizando que tus datos estén siempre
+                            seguros y sean tratados con la máxima confidencialidad.</p>
+                        <div class="modal-action">
+                            <form method="dialog">
+                                <button class="btn btn-primary">Aceptar</button>
+                            </form>
+                        </div>
+                    </div>
+                </dialog>
                 <div>
                     <h2 class="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">Descargas</h2>
                     <ul class="font-medium text-gray-500 dark:text-gray-400">
                         <li class="mb-4">
-                            <a href="#" class="hover:underline">Android</a>
+                            <a hhref="{{ route('download.apk') }}" class="hover:underline">Android</a>
                         </li>
                         <li class="mb-4">
                             <a class="text-gray-500 hover:underline">Windows (Proximante)</a>

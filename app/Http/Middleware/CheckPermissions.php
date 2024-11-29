@@ -14,15 +14,16 @@ class CheckPermissions
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function handle(Request $request, Closure $next, $permisoRequerido)
+    public function handle(Request $request, Closure $next, $permisos)
     {
+        $userPermissions = array_map('strtolower', Session::get('permisos', []));
+        $requiredPermissions = array_map('strtolower', explode(',', $permisos));
 
-        $userPermissions = Session::get('permisos', []);
-
-        if (!in_array($permisoRequerido, $userPermissions)) {
-            return redirect('NoAutorizado')->with('error', 'No tienes acceso a esta página.');
+        if (array_intersect($requiredPermissions, $userPermissions)) {
+            return $next($request); // Tiene permisos, continuar
         }
 
-        return $next($request);
+        // Si no tiene permisos, redirigir a la página de acceso denegado
+        return redirect('NoAutorizado')->with('error', 'No tienes acceso a esta página.');
     }
 }

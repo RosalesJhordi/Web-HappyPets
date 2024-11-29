@@ -27,12 +27,21 @@ class Grafico2 extends Component
     }
 
     public function procesarDatos()
-    {
-        $this->productosMasVendidos = collect($this->data)->groupBy('id_producto')->map(function ($producto) {
-            return ['nombre' => $producto->first()['producto']['nm_producto'], 'cantidad' => $producto->sum('cantidad')];
-        })->sortByDesc('cantidad')->take(10)->values()->toArray();
-        //dump($this->productosMasVendidos);
-    }
+{
+    $this->productosMasVendidos = collect($this->data)
+        ->groupBy('id_producto')
+        ->map(function ($producto) {
+            return [
+                'nombre' => $producto->first()['producto']['nm_producto'],
+                'cantidad' => $producto->sum('cantidad'),
+            ];
+        })
+        ->sortByDesc('cantidad')
+        ->take(6)
+        ->values()
+        ->toArray();
+}
+
 
     public function mount()
     {

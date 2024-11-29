@@ -16,6 +16,7 @@
         var options = {
             chart: {
                 type: 'bar',
+                height: 500,
                 toolbar: {
                     show: true
                 },

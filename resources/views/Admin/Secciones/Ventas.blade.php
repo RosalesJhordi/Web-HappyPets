@@ -1,5 +1,5 @@
 @extends('Admin.Inicio')
 
 @section('contenido')
-    @livewire('admin.mascotas.inicio')
+    @livewire('admin.ventas.inicio')
 @endsection

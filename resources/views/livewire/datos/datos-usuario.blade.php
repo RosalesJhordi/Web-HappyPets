@@ -36,6 +36,33 @@
                         Administrar
                     </div>
                 </a>
+            @elseif ($permiso == 'Almacenero')
+                <a href="{{ route('Admin.Productos') }}">
+                    <div class="fixed z-50 p-5 text-white bg-orange-500 rounded-md bottom-2 right-2">
+                        <span>
+                            <i class="fa-solid fa-chart-simple"></i>
+                        </span>
+                        Administrar
+                    </div>
+                </a>
+            @elseif ($permiso == 'Veterinario')
+                <a href="{{ route('Admin.Citas.Hoy') }}">
+                    <div class="fixed z-50 p-5 text-white bg-orange-500 rounded-md bottom-2 right-2">
+                        <span>
+                            <i class="fa-solid fa-chart-simple"></i>
+                        </span>
+                        Administrar
+                    </div>
+                </a>
+            @else
+                <a href="{{ route('Admin.Ventas') }}">
+                    <div class="fixed z-50 p-5 text-white bg-orange-500 rounded-md bottom-2 right-2">
+                        <span>
+                            <i class="fa-solid fa-chart-simple"></i>
+                        </span>
+                        Administrar
+                    </div>
+                </a>
             @endif
         @endforeach
     @endif

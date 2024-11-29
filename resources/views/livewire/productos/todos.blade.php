@@ -9,7 +9,7 @@
         <div class="flex items-center justify-center w-full">
             <div class="grid items-center justify-center w-full grid-cols-2 gap-2 xl:max-w-xl">
 
-                <a href="#"
+                <button
                     class="w-full h-16 sm:w-auto bg-green-600 hover:bg-green-500 focus:ring-4 focus:outline-none focus:ring-gray-300 text-white rounded-lg inline-flex items-center justify-center px-4 py-2.5">
                     <svg class="me-3 w-7 h-7" aria-hidden="true" focusable="false" data-prefix="fab"
                         data-icon="google-play" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
@@ -20,10 +20,11 @@
                     <div class="text-left rtl:text-right">
                         <div class="mb-1 text-xs">Disponible en</div>
                         <div class="-mt-1 font-sans text-sm font-semibold">Google Play</div>
+                        <span class="text-sm">Proximanete</span>
                     </div>
-                </a>
+                </button>
 
-                <a href="#"
+                <a href="{{ route('download.apk') }}"
                     class="w-full h-16 sm:w-auto bg-blue-600 hover:bg-blue-500 focus:ring-4 focus:outline-none focus:ring-gray-300 text-white rounded-lg inline-flex items-center justify-center px-4 py-2.5">
                     <svg class="text-white me-3 w-7 h-7" aria-hidden="true" focusable="false" data-prefix="fab"
                         data-icon="google-play" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">

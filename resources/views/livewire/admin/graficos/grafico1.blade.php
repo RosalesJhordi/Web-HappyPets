@@ -9,6 +9,7 @@
         var options = {
             chart: {
                 type: 'line',
+                height: 500,
                 toolbar: {
                     show: true
                 },

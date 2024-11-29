@@ -263,10 +263,6 @@
                     {{ $currentYear }}
                 </h2>
             </div>
-            <button
-                class="px-4 py-2 text-sm font-semibold transition duration-300 ease-in-out bg-green-500 rounded-md shadow-lg hover:bg-green-600">
-                filtro
-            </button>
         </div>
 
         <div class="grid grid-cols-7 overflow-hidden font-semibold text-center text-white bg-gray-200 shadow">
@@ -298,17 +294,18 @@
                         @endphp
 
                         @if ($fechaEvento->day == $dia && $fechaEvento->month == $currentMonth && $fechaEvento->year == $currentYear)
-                            <div class="w-full">
-                                <span
-                                    class="inline-flex items-center px-2 py-1 mt-2 text-xs font-medium rounded-md ring-1 ring-inset
-                            {{ $evento['estado'] == 'Terminado' ? 'text-indigo-700 bg-indigo-50 ring-indigo-600/10' : 'text-emerald-700 bg-emerald-50 ring-emerald-600/10' }}">
-                                    <span class="px-2">
-                                        <i class="fa-solid fa-shield-dog"></i>
-                                    </span>
-                                    {{ $evento['servicio']['tipo'] }} - {{ $evento['estado'] }} -
-                                    {{ $evento['hora'] }}
+                        <div class="w-full">
+                            <span
+                                class="inline-flex items-center px-2 py-1 mt-2 text-xs font-medium rounded-md ring-1 ring-inset
+                                {{ $evento['estado'] == 'Terminado' ? 'text-red-700 bg-red-50 ring-red-600/10' :
+                                   ($evento['estado'] == 'Cancelado' ? 'text-gray-500 bg-gray-100 ring-gray-400/10' :
+                                   'text-emerald-700 bg-emerald-50 ring-emerald-600/10') }}">
+                                <span class="px-2">
+                                    <i class="fa-solid fa-shield-dog"></i>
                                 </span>
-                            </div>
+                                {{ $evento['servicio']['tipo'] }} - {{ $evento['estado'] }} - {{ $evento['hora'] }}
+                            </span>
+                        </div>
                         @endif
                     @endforeach
 
