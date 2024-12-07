@@ -62,7 +62,7 @@ class Notificaciones extends Component
             $this->NotiPedidoAll = $notificaciones;
         }
     }
-    private function cargarNotificaciones()
+    public function cargarNotificaciones()
     {
         if (in_array('Administrador', $this->permisos)) {
             $this->NotiPedido();
@@ -148,8 +148,7 @@ class Notificaciones extends Component
            'verify' => false,
         ])->get($this->url.'/NotiPedidoUpdate='.$id."=".$this->id);
         if($response->successful()){
-            $this->NotiPedido();
-            $this->NotiPedidoAll();
+            $this->cargarNotificaciones();
         }
     }
 
@@ -160,8 +159,7 @@ class Notificaciones extends Component
            'verify' => false,
         ])->get($this->url.'/NotiCitaUp='.$id."=".$this->id);
         if($response->successful()){
-            $this->NotiCitasAll();
-            $this->NotiCitas();
+            $this->cargarNotificaciones();
         }
     }
 
@@ -172,8 +170,7 @@ class Notificaciones extends Component
            'verify' => false,
         ])->get($this->url.'/NotiNovedadesUpdate='.$id."=".$this->id);
         if($response->successful()){
-            $this->NotiNovedades();
-            $this->NotiNovedadesAll();
+            $this->cargarNotificaciones();
         }
     }
 
@@ -183,7 +180,7 @@ class Notificaciones extends Component
         if(Session::get('authToken')){
             $this->cargarDatosUsuario();
         }
-        
+
     }
 
     public function render()

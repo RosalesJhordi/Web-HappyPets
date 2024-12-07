@@ -15,11 +15,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="icon" href="{{ asset('img/logo.jpg') }}" type="image/png">
     @vite('resources/css/app.css')
-    @vite('resources/js/Drive.js')
-    <script></script>
     <script src="https://cdn.jsdelivr.net/npm/driver.js@1.0.1/dist/driver.js.iife.js"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/driver.js@1.0.1/dist/driver.css" />
-
     <script>
         tailwind.config = {
             theme: {
@@ -28,6 +24,7 @@
                         'morado-oscuro': '#805395',
                         'morado-claro': '#A881B7',
                         'rosa': "#E94282",
+                        'btn-primary': '#1fb6ff'
                     },
                 }
             }
@@ -43,21 +40,23 @@
     <link href="https://cdn.jsdelivr.net/npm/pagedone@1.2.2/src/css/pagedone.css " rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/npm/pagedone@1.2.2/src/js/pagedone.js"></script>
     @livewireStyles
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 
 </head>
 
 <body class="relative">
 
     <button onclick="toggleModal()"
-        class="fixed z-50 flex items-center justify-center w-16 h-16 text-white rounded-full bottom-20 right-2 bg-primary">
+        class="fixed z-50 flex items-center justify-center w-16 h-16 text-white rounded-full chatbot bottom-20 right-2 bg-primary">
         <div class="text-2xl indicator">
             <i class="fa-solid fa-robot"></i>
         </div>
     </button>
 
     <div id="chatModal"
-        class="fixed z-50 h-[50vh] items-center justify-center hidden bg-white shadow-2xl rounded-md md:w-1/2 w-[90%] right-2 bottom-24 xl:w-1/4"
-        style="height: 50vh;>
+        class="fixed z-50 h-[60vh] items-center justify-center hidden bg-white shadow-2xl rounded-md md:w-1/2 w-[90%] right-2 bottom-24 xl:w-1/4"
+        style="height: 60vh;>
         <div class="w-full bg-white rounded-lg shadow-lg">
         <div class="flex items-center justify-between w-full p-2 px-4 bg-blue-600 rounded-md">
             <h2 class="font-bold text-white">HappyBot</h2>
@@ -142,19 +141,19 @@
 
                 <div
                     class="absolute inset-y-0 right-0 z-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-                    <div class="w-auto mr-2">
+                    <div class="w-auto mr-2 notification">
                         @livewire('admin.notificaciones')
                     </div>
 
                     <div class="flex items-center justify-center">
-                        <span id="carrito">
+                        <span class="carrito">
                             @livewire('carrito.carrito-count')
                         </span>
 
                         @if (Session::has('authToken'))
                             @livewire('datos.datos-usuario')
                         @else
-                            <div id="login" class="w-auto p-1 mt-2 md:mt-0">
+                            <div id="login" class="w-auto p-1 mt-2 login md:mt-0">
                                 <a href="Registro" wire:navigate class="w-96">
                                     <span class="w-full p-2 px-3 text-white rounded-md bg-rosa">
                                         Ingresar
@@ -170,6 +169,62 @@
         </div>
 
     </nav>
+
+    <script>
+        const driver = window.driver.js.driver;
+        if (!localStorage.getItem('tourShown')) {
+            const driverObj = driver({
+                nextBtnText: 'Siguiente ➡',
+                prevBtnText: 'Anterior ⬅',
+                doneBtnText: 'Terminar ❌',
+                showProgress: true,
+                showProgress: true,
+                steps: [
+
+                    {
+                        element: '.login',
+                        popover: {
+                            title: 'Registro y Autenticación',
+                            description: 'En esta sección puedes registrarse o crear una cuenta.'
+                        }
+                    }, {
+                        element: '.notification',
+                        popover: {
+                            title: 'Notificaciones',
+                            description: 'En esta sección se le mostrara notificaciones.'
+                        }
+                    }, {
+                        element: '.carrito',
+                        popover: {
+                            title: 'Carrito de Compras',
+                            description: 'En esta sección se le mostrara los productsos que añada a su carrito de compras.'
+                        }
+                    }, {
+                        element: '.chatbot',
+                        popover: {
+                            title: 'Asistente Virtual',
+                            description: 'En esta parte encontraras un asistente que da dara información en tiempo real.'
+                        }
+                    }, {
+                        element: '.onirix',
+                        popover: {
+                            title: 'Realidad Aumentada',
+                            description: 'En esta parte encontraras una experiencia que te guiara a la empresa y al llegar te mostrara una aminación en 3D.'
+                        }
+                    }, {
+                        element: '.reclamos',
+                        popover: {
+                            title: 'Libro de Reclamos',
+                            description: 'En esta parte puedes realizar tus reclamos'
+                        }
+                    },
+                ]
+            });
+
+            driverObj.drive();
+            localStorage.setItem('tourShown', 'true');
+        }
+    </script>
 
     @yield('contenido')
 
@@ -211,7 +266,7 @@
                             <a href="#" onclick="my_modal_1.showModal()" class="hover:underline">Política de
                                 privacidad</a>
                         </li>
-                        <li class="mb-4">
+                        <li class="mb-4 reclamos">
                             @livewire('reclamos-libro')
                         </li>
                     </ul>

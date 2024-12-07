@@ -1,7 +1,7 @@
 <div class="z-10 flex items-center justify-center gap-3">
 
     <div class="relative z-10 inline-block text-left">
-        <div class="z-10">
+        <div class="z-10 perfil">
             <button type="button"
                 class="inline-flex z-10 justify-center items-center h-8 w-8 gap-x-1.5 rounded-full bg-blue-600 px-3 py-2 text-base font-normal text-white  hover:bg-blue-500"
                 id="menu-button" aria-expanded="false" aria-haspopup="true" onclick="toggleDropdown()">
@@ -66,6 +66,33 @@
             @endif
         @endforeach
     @endif
+    {{-- <script>
+        const authToken = @json(Session::has('authToken'));
+        const driver = window.driver.js.driver;
+        if (!localStorage.getItem('tourShow')) {
+            const driverObj = driver({
+                nextBtnText: 'Siguiente ➡',
+                prevBtnText: 'Anterior ⬅',
+                doneBtnText: 'Terminar ❌',
+                showProgress: true,
+                showProgress: true,
+                steps: [
+                    if (authToken) {
+                        {
+                            element: '.perfil',
+                            popover: {
+                                title: 'Perfil',
+                                description: 'En esta sección pencontras mas sobre tu informacion como tambien información de su mascota como las citas e historial clínico.'
+                            }
+                        },
+                    }
+                ]
+            });
+
+            driverObj.drive();
+            localStorage.setItem('tourShow', 'true');
+        }
+    </script> --}}
 </div>
 
 <script>

@@ -2,7 +2,6 @@
 
 namespace App\Livewire;
 
-use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Session;
 use Livewire\Component;
@@ -13,7 +12,7 @@ class ChatBot extends Component
 
     public $url;
 
-    public $nombres;
+    public $nombres = 'Usuario';
 
     public $text = '';
 
@@ -27,10 +26,47 @@ class ChatBot extends Component
 
     public $temporaryAudioPath;
 
+    public $dataProductos;
+
+    public $dataServicios;
+
     public function mount()
     {
+        $this->messages = [];
+
+        $this->nombres = 'Usuario';
+
+        $this->text = '';
+
+        $this->responseText;
+
+        $this->microfono = false;
+
+        $this->sonido = false;
         $this->url = env('API_URL', 'https://api.happypetshco.com/api');
         $this->cargarDatosUsuario();
+        $this->cargarServicios();
+        $this->cargarProductos();
+    }
+
+    public function cargarProductos()
+    {
+        $response = Http::withOptions([
+            'verify' => false,
+        ])->get($this->url.'/ListarProductos');
+        if ($response->successful()) {
+            $this->dataProductos = $response->json()['productos'];
+        }
+    }
+
+    public function cargarServicios()
+    {
+        $response = Http::withOptions([
+            'verify' => false,
+        ])->get($this->url.'/ListarServicios');
+        if ($response->successful()) {
+            $this->dataServicios = $response->json()['servicios'];
+        }
     }
 
     public $transcribedText = '';
@@ -44,96 +80,89 @@ class ChatBot extends Component
         }
     }
 
-    public function iniciarGrabacion()
-    {
-        $mensaje = 'Hable ahora...';
-        $audioBot = $this->convertToSpeech($mensaje);
-        $this->messages[] = [
-            'sender' => 'system',
-            'text' => $mensaje,
-            'audio' => $audioBot,
-            'time' => now()->format('h:i A'),
-        ];
-    }
-
-    public function detenerGrabacion()
-    {
-        // Decodificar el audio desde Base64 y guardarlo como un archivo temporal
-        $audioContent = base64_decode($this->audioBase64);
-        $this->temporaryAudioPath = storage_path('framework/cache/audio_'.uniqid().'.wav');
-        File::put($this->temporaryAudioPath, $audioContent);
-
-        // Convertir audio a texto
-        $transcribedText = $this->convertirAudioATexto($this->temporaryAudioPath);
-
-        if ($transcribedText) {
-            $this->messages[] = [
-                'sender' => 'user',
-                'text' => $transcribedText,
-                'time' => now()->format('h:i A'),
-            ];
-
-            // Generar respuesta y reproducirla
-            $response = $this->generateResponse($transcribedText);
-            $audioResponse = $this->convertToSpeech($response);
-
-            $this->messages[] = [
-                'sender' => 'system',
-                'text' => $response,
-                'audio' => $audioResponse,
-                'time' => now()->format('h:i A'),
-            ];
-        } else {
-            $this->messages[] = [
-                'sender' => 'system',
-                'text' => 'No se pudo procesar el audio.',
-                'time' => now()->format('h:i A'),
-            ];
-        }
-
-        // Eliminar archivo temporal
-        File::delete($this->temporaryAudioPath);
-    }
-
     public function sendMessage()
-    {
-        if (empty($this->text)) {
-            return;
-        }
-        $message = $this->text;
-        $currentTime = now()->format('h:i A');
-        $this->messages[] = [
-            'sender' => 'user',
-            'text' => $message,
-            'time' => $currentTime,
-        ];
-
-        $this->responseText = $this->processMessage($this->text);
-
-        $responseMessage = [
-            'sender' => 'system',
-            'text' => $this->responseText,
-            'time' => $currentTime,
-        ];
-
-        if ($this->sonido) {
-            $audioBase64 = $this->convertToSpeech($this->responseText);
-            $responseMessage['audio'] = $audioBase64;
-        }
-
-        $this->messages[] = $responseMessage;
-
-        if ($this->responseText === 'Redirigiendo a la sección de productos.') {
-            $this->text = '';
-            $this->dispatch('redirect');
-        }
-
-        $this->text = '';
+{
+    if (empty($this->text)) {
+        return;
     }
+
+    $message = $this->text;
+    $currentTime = now()->format('h:i A');
+
+    // Añade el mensaje del usuario al historial
+    $this->messages[] = [
+        'sender' => 'user',
+        'text' => $message,
+        'time' => $currentTime,
+    ];
+
+    // Buscar todos los productos coincidentes
+    $productosEncontrados = collect($this->dataProductos)->filter(function ($producto) use ($message) {
+        return stripos($producto['nm_producto'], $message) !== false;
+    });
+
+    if ($productosEncontrados->isNotEmpty()) {
+        // Construir la respuesta con todos los productos encontrados
+        $this->responseText = "Productos encontrados:\n";
+        foreach ($productosEncontrados as $producto) {
+            $this->responseText .=
+                "- Nombre: {$producto['nm_producto']}\n".
+                "  Precio: {$producto['precio']} Soles\n".
+                "  Descripción: {$producto['descripcion']}\n\n";
+        }
+    } elseif (isset($this->dataServicios)) {
+        // Si no hay producto, buscar en servicios
+        $servicioEncontrado = collect($this->dataServicios)->first(function ($servicio) use ($message) {
+            return stripos($servicio['tipo'], $message) !== false;
+        });
+
+        if ($servicioEncontrado) {
+            $this->responseText = "Servicio encontrado: \n".
+                "Tipo: {$servicioEncontrado['tipo']}\n".
+                "Descripción: {$servicioEncontrado['descripcion']}";
+        } else {
+            // Si no se encuentra en productos ni servicios, procesar como mensaje normal
+            $this->responseText = $this->processMessage($message);
+        }
+    } else {
+        // Si no se encuentra nada, enviar un mensaje genérico
+        $this->responseText = "No se encontraron coincidencias para tu búsqueda.";
+    }
+
+    // Preparar el mensaje de respuesta
+    $responseMessage = [
+        'sender' => 'system',
+        'text' => $this->responseText,
+        'time' => $currentTime,
+    ];
+
+    if ($this->sonido) {
+        $audioBase64 = $this->convertToSpeech($this->responseText);
+        $responseMessage['audio'] = $audioBase64;
+    }
+
+    // Añade el mensaje de respuesta al historial
+    $this->messages[] = $responseMessage;
+
+    if ($this->responseText === 'Redirigiendo a la sección de productos.') {
+        $this->text = '';
+        $this->dispatch('redirect');
+    }
+    if ($this->responseText === 'Redirigiendo a la sección de servicios.') {
+        $this->text = '';
+        $this->dispatch('redirectService');
+    }
+
+    $this->reset(['text']);
+}
 
     public function redirectToProducts($goo)
     {
         return redirect()->route('Productos');
+    }
+    public function redirectToServices($goo)
+    {
+        return redirect()->route('Servicios');
     }
 
     public function processMessage($message)
@@ -153,55 +182,59 @@ class ChatBot extends Component
             ],
             'citas' => [
                 'keywords' => ['cita', 'reservar', 'agenda', 'turno', 'consultar disponibilidad'],
-                'response' => 'Claro, ¿para qué día y hora te gustaría agendar tu cita? ',
+                'response' => 'Claro, ofrecemos servicios especializados para tus mascotas, puedes visitar la sección de servicios.',
             ],
             'horarios' => [
                 'keywords' => ['horario', 'a qué hora abren', 'cuándo están abiertos', 'horas de atención'],
-                'response' => 'Nuestros horarios de atención son de lunes a sábado, de 8:00 AM a 6:00 PM. ¿Te interesa agendar una cita? ',
+                'response' => 'Nuestros horarios de atención son de lunes a sábado, de 8:00 AM a 5:00 PM.',
             ],
             'emergencias' => [
                 'keywords' => ['emergencia', 'urgente', 'urgencia', 'emergencias', 'urgencias'],
                 'response' => 'Para emergencias, por favor llama directamente al número de contacto de emergencia: 987-654-321. ',
             ],
-            'servicios' => [
-                'keywords' => ['servicios', 'qué ofrecen', 'qué hacen', 'tratamientos', 'vacunas'],
-                'response' => 'Ofrecemos consultas, vacunación, desparasitación, cirugía, estética y más. ¿Quieres más información sobre algún servicio en particular? ',
-            ],
             'ubicación' => [
-                'keywords' => ['dónde están', 'ubicación', 'dirección', 'cómo llegar'],
-                'response' => 'Estamos ubicados en la Av. Principal 123, cerca del parque central. ¿Te gustaría agendar una cita? ',
+                'keywords' => ['dónde están', 'ubicacion', 'ubicación', 'dirección', 'cómo llegar'],
+                'response' => 'Estamos ubicados en el Jirón Aguilar 649, cerca del parque Santo Domingo - Huánuco.',
             ],
-            'vacunación' => [
-                'keywords' => ['vacunas', 'vacunación', 'vacunar', 'vacunas para perros', 'vacunas para gatos'],
-                'response' => 'Ofrecemos un esquema completo de vacunación para perros y gatos. ¿Te gustaría agendar una cita para vacunación? ',
-            ],
-            'esterilización' => [
-                'keywords' => ['esterilización', 'castración', 'operación para mi mascota'],
-                'response' => 'La esterilización es un procedimiento seguro que ayuda a prevenir enfermedades y controlar la población. ¿Quieres más información o agendar una cita? ✂️',
-            ],
-            'alimentación' => [
-                'keywords' => ['alimentación', 'qué debe comer', 'comida para perros', 'comida para gatos', 'recomendación de alimento'],
-                'response' => 'Podemos recomendarte la dieta adecuada para tu mascota según su edad, raza y necesidades. ¿Quieres más detalles? ',
-            ],
-            'baño' => [
-                'keywords' => ['baño', 'estética', 'corte de pelo', 'arreglo', 'limpieza'],
-                'response' => 'Ofrecemos servicios de baño, corte de pelo y estética para tu mascota. ¿Te interesa agendar un turno?',
-            ],
+            // 'esterilización' => [
+            //     'keywords' => ['esterilización', 'castración', 'operación para mi mascota'],
+            //     'response' => 'La esterilización es un procedimiento seguro que ayuda a prevenir enfermedades y controlar la población. ¿Quieres más información o agendar una cita? ✂️',
+            // ],
+            // 'alimentación' => [
+            //     'keywords' => ['alimentación', 'qué debe comer', 'comida para perros', 'comida para gatos', 'recomendación de alimento'],
+            //     'response' => 'Podemos recomendarte la dieta adecuada para tu mascota según su edad, raza y necesidades. ¿Quieres más detalles? ',
+            // ],
+            // 'baño' => [
+            //     'keywords' => ['baño', 'estética', 'corte de pelo', 'arreglo', 'limpieza'],
+            //     'response' => 'Ofrecemos servicios de baño, corte de pelo y estética para tu mascota. ¿Te interesa agendar un turno?',
+            // ],
             'vacaciones' => [
                 'keywords' => ['dejar mi mascota', 'vacaciones', 'hotel para mascotas', 'dónde dejo a mi mascota'],
                 'response' => 'Ofrecemos servicio de hospedaje para mascotas durante tus vacaciones. ¿Te gustaría más información? ',
             ],
             'adopción' => [
-                'keywords' => ['adopción', 'adoptar', 'mascotas en adopción'],
-                'response' => 'Contamos con un programa de adopción para dar hogar a mascotas que lo necesitan. ¿Quieres saber más? ',
+                'keywords' => ['adopción', 'adopcion', 'adoptar', 'mascotas en adopción'],
+                'response' => 'Todavía no contamos con este programa',
             ],
             'contacto' => [
-                'keywords' => ['teléfono', 'número', 'contacto', 'cómo los llamo'],
-                'response' => 'Puedes contactarnos al 123-456-789 o escribirnos por WhatsApp al mismo número.',
+                'keywords' => ['teléfono', 'telefono', 'número', 'numero', 'contacto', 'cómo los llamo'],
+                'response' => 'Puedes contactarnos al 916-236-760 o escribirnos por WhatsApp al mismo número.',
             ],
             'productos' => [
                 'keywords' => ['sección de productos', 'productos', 'ver productos', 'catalogo', 'quién ofrece productos'],
                 'response' => 'Redirigiendo a la sección de productos.',
+            ],
+            'servicios' => [
+                'keywords' => ['sección de servicios', 'servicios', 'ver servicios', 'quién ofrece servicios'],
+                'response' => 'Redirigiendo a la sección de servicios.',
+            ],
+            'pregunta' => [
+                'keywords' => ['como me llamo', 'mi nombre', 'di mi nombre'],
+                'response' => 'Tu nombre es '.$this->nombres,
+            ],
+            'bot' => [
+                'keywords' => ['como te llamas', 'tu nombre', 'di tu nombre', 'que eres', 'quien eres'],
+                'response' => 'Soy HappyBot tu asistente virtual de la clínica veterinaria HappyPets.',
             ],
         ];
 
@@ -228,11 +261,6 @@ class ChatBot extends Component
             $data = $response->json();
             $this->nombres = $data['usuarios']['nombres'];
         }
-    }
-
-    public function generateResponse($userMessage)
-    {
-        return "Hola, entendí tu mensaje: \"$userMessage\". ¿En qué más puedo ayudarte?";
     }
 
     public function convertToSpeech()

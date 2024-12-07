@@ -9,8 +9,7 @@
             @endisset
             {{-- dni --}}
 
-            <div
-                class="flex w-full border rounded-md border-rosa focus-within:ring-1 focus-within:ring-rosa">
+            <div class="flex w-full border rounded-md border-rosa focus-within:ring-1 focus-within:ring-rosa">
                 <span
                     class="inline-flex items-center px-3 text-lg text-white border-gray-300 border-none rounded-sm bg-rosa border-e-0 ">
                     <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24"
@@ -111,8 +110,9 @@
         <form wire:submit="login" @if ($dni2 != null or $dni2 != '') wire:poll='login' @endif novalidate
             class="flex flex-col gap-4">
 
-            @if(session('exito'))
-                <p class="p-1 mt-2 font-semibold text-center text-green-600 bg-green-300 rounded-sm">{{ session('exito') }}
+            @if (session('exito'))
+                <p class="p-1 mt-2 font-semibold text-center text-green-600 bg-green-300 rounded-sm">
+                    {{ session('exito') }}
                 </p>
             @endif
 
@@ -124,8 +124,7 @@
 
 
             {{-- DNI --}}
-            <div
-                class="flex w-full border rounded-md border-rosa focus-within:ring-1 focus-within:ring-rosa">
+            <div class="flex w-full border rounded-md border-rosa focus-within:ring-1 focus-within:ring-rosa">
                 <span
                     class="inline-flex items-center px-3 text-lg text-white border-gray-300 border-none rounded-sm bg-rosa border-e-0 ">
                     <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24"
@@ -144,6 +143,9 @@
                 <p class="p-1 text-center text-red-600 bg-red-100 border border-red-600 rounded-sm">
                     {{ $error['error']['dni'][0] }}</p>
             @endisset
+            <p class="flex items-end justify-end w-full">
+                <a href="{{ route('Restablecer') }}" class="font-semibold text-blue-500">Olvidaste tu contraseña ??</a>
+            </p>
 
             {{-- Contraseña --}}
             <div class="flex border rounded-md border-rosa focus-within:ring-1 focus-within:ring-rosa">
@@ -166,7 +168,7 @@
             @endisset
 
             {{-- Botón de login --}}
-            <button type="submit" class="w-full p-2 mt-5 text-white rounded bg-rosa btn hover:bg-rosa">Login</button>
+            <button type="submit" class="w-full p-2 mt-5 text-white rounded bg-rosa btn hover:bg-rosa">Ingresar</button>
 
             <div class="divider">O</div>
             <p class="w-full mt-5 text-center">No tienes una cuenta?

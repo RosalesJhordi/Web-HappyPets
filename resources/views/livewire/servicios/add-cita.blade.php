@@ -19,7 +19,6 @@
 
     @if ($step <= 0)
         <div>
-
             <div class="grid grid-cols-2 gap-4 p-4 mt-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4">
                 @if ($mascotas)
                     @foreach ($mascotas as $mascota)
@@ -57,7 +56,6 @@
                     Agregar mascota
                 </button>
             </div>
-
         </div>
     @endif
     <form novalidate>
@@ -117,22 +115,21 @@
         </div>
         {{-- horas --}}
         <div id="paso2" style="@if ($step != 2) display: none; @endif">
-            <h1 class="py-2 font-semibold uppercase text-graay-400">Elige la hora</h1>
+            <h1 class="py-2 font-semibold text-gray-400 uppercase">Elige la hora</h1>
 
             <div class="grid grid-cols-4 gap-4 px-2 py-2 text-center border">
                 @forelse($availableHours as $hour)
-                    <div class="p-2 border rounded-lg cursor-pointer transition duration-200 ease-in-out
-                {{ $hora === $hour ? 'text-orange-600 border border-orange-600 bg-orange-100' : 'bg-gray-100' }}
-                hover:bg-orange-200"
-                        wire:click="selectHour('{{ $hour }}')">
+                    <div class="p-2 border rounded-lg cursor-pointer transition duration-200 ease-in-out {{ $hora === $hour ? 'text-orange-600 border border-orange-600 bg-orange-100' : 'bg-gray-100' }}
+                    hover:bg-orange-200 {{ $horasOcupadas && $horasOcupadas->contains($hour) ? 'bg-red-600 text-white cursor-not-allowed' : '' }}"
+                        wire:click="{{ $horasOcupadas && $horasOcupadas->contains($hour) ? '' : 'selectHour(\'' . $hour . '\')' }}">
                         {{ $hour }}
                     </div>
-                @empty
-                    <p class="text-gray-500">No hay horas disponibles para este día.</p>
-                @endforelse
 
+                @empty
+                    <p class="w-full text-gray-500">No hay horas disponibles para este día, Seleciona otro día.</p>
+                @endforelse
             </div>
-            <!-- Mostrar la hora seleccionada -->
+
             @if ($hora)
                 <div class="p-4 mt-2 font-semibold text-orange-600 bg-orange-100 border border-orange-600 rounded-lg">
                     <h3 class="text-lg font-semibold">Hora Seleccionada:</h3>
@@ -141,7 +138,6 @@
             @endif
 
             <input type="text" class="hidden border" wire:model.live="hora">
-
         </div>
 
         <div id="paso3" style="@if ($step != 3) display: none; @endif" class="gap-2">
@@ -197,7 +193,7 @@
                 </div>
 
                 <!-- Opción de Pago 2 -->
-                <div wire:click="seleccionarMetodo('yape')"
+                <div
                     class="flex flex-col items-center justify-center w-1/3 p-4 transition transform border rounded-lg h-52 cursor-pointer {{ $metodoSeleccionado == 'yape' ? 'border-blue-600 shadow-lg scale-105' : 'hover:border-blue-600 hover:shadow-lg hover:scale-105' }} bg-gray-50">
                     <img src="{{ asset('img/logo (1).png') }}" alt="Logo" class="object-cover w-16 h-16 mb-3">
                     <span class="text-sm font-semibold text-gray-600">Pago con Yape</span>
@@ -206,7 +202,7 @@
                 </div>
 
                 <!-- Opción de Pago 3 -->
-                <div wire:click="seleccionarMetodo('tarjeta')"
+                <div
                     class="flex flex-col items-center justify-center w-1/3 p-4 transition transform border rounded-lg h-52 cursor-pointer {{ $metodoSeleccionado == 'tarjeta' ? 'border-blue-600 shadow-lg scale-105' : 'hover:border-blue-600 hover:shadow-lg hover:scale-105' }} bg-gray-50">
                     <img src="{{ asset('img/targeta.jpg') }}" alt="Tarjeta" class="object-cover w-16 h-16 mb-3">
                     <span class="text-sm font-semibold text-gray-600">Pago con Tarjeta</span>
@@ -361,45 +357,45 @@
             @endif
         @endif
     </div>
+    <script>
+        window.addEventListener('correc', () => {
+            iziToast.success({
+                message: event.detail,
+                position: 'topRight',
+                timeout: 5000,
+                progressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                theme: 'light',
+                transitionIn: 'bounce'
+            });
+        });
+
+        window.addEventListener('modal', event => {
+            const modalId = event.detail;
+            const modal = document.getElementById("my_modall_" + modalId);
+
+            if (modal) {
+                console.log("cerrado");
+                modal.close();
+            } else {
+                console.log(modal);
+            }
+        });
+
+        window.addEventListener('err', () => {
+            iziToast.error({
+                message: event.detail,
+                position: 'topRight',
+                timeout: 5000,
+                progressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                theme: 'light',
+                transitionIn: 'bounce'
+            });
+        });
+    </script>
 </div>
-<script>
-    window.addEventListener('correcto', () => {
-        iziToast.success({
-            message: event.detail,
-            position: 'topRight',
-            timeout: 5000,
-            progressBar: true,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            theme: 'light',
-            transitionIn: 'bounce'
-        });
-    });
-
-    window.addEventListener('modal', event => {
-        const modalId = event.detail;
-        const modal = document.getElementById("my_modall_" + modalId);
-
-        if (modal) {
-            console.log("cerrado");
-            modal.close();
-        } else {
-            console.log(modal);
-        }
-    });
-
-    window.addEventListener('error', () => {
-        iziToast.error({
-            message: event.detail,
-            position: 'topRight',
-            timeout: 5000,
-            progressBar: true,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            theme: 'light',
-            transitionIn: 'bounce'
-        });
-    });
-</script>
