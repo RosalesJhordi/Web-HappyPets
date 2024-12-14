@@ -22,7 +22,7 @@ class ChatBot extends Component
 
     public $sonido = false;
 
-    public $audioBase64; // Variable para recibir el audio en Base64
+    public $audioBase64;
 
     public $temporaryAudioPath;
 
@@ -81,166 +81,208 @@ class ChatBot extends Component
     }
 
     public function sendMessage()
-{
-    if (empty($this->text)) {
-        return;
-    }
-
-    $message = $this->text;
-    $currentTime = now()->format('h:i A');
-
-    // Añade el mensaje del usuario al historial
-    $this->messages[] = [
-        'sender' => 'user',
-        'text' => $message,
-        'time' => $currentTime,
-    ];
-
-    // Buscar todos los productos coincidentes
-    $productosEncontrados = collect($this->dataProductos)->filter(function ($producto) use ($message) {
-        return stripos($producto['nm_producto'], $message) !== false;
-    });
-
-    if ($productosEncontrados->isNotEmpty()) {
-        // Construir la respuesta con todos los productos encontrados
-        $this->responseText = "Productos encontrados:\n";
-        foreach ($productosEncontrados as $producto) {
-            $this->responseText .=
-                "- Nombre: {$producto['nm_producto']}\n".
-                "  Precio: {$producto['precio']} Soles\n".
-                "  Descripción: {$producto['descripcion']}\n\n";
+    {
+        if (empty($this->text)) {
+            return;
         }
-    } elseif (isset($this->dataServicios)) {
-        // Si no hay producto, buscar en servicios
-        $servicioEncontrado = collect($this->dataServicios)->first(function ($servicio) use ($message) {
-            return stripos($servicio['tipo'], $message) !== false;
+
+        $message = $this->text;
+        $currentTime = now()->format('h:i A');
+
+        $this->messages[] = [
+            'sender' => 'user',
+            'text' => $message,
+            'time' => $currentTime,
+        ];
+
+        $productosEncontrados = collect($this->dataProductos)->filter(function ($producto) use ($message) {
+            return stripos($producto['nm_producto'], $message) !== false;
         });
 
-        if ($servicioEncontrado) {
-            $this->responseText = "Servicio encontrado: \n".
-                "Tipo: {$servicioEncontrado['tipo']}\n".
-                "Descripción: {$servicioEncontrado['descripcion']}";
+        if ($productosEncontrados->isNotEmpty()) {
+            // Construir la respuesta con todos los productos encontrados
+            $this->responseText = "Productos encontrados:\n";
+            foreach ($productosEncontrados as $producto) {
+                $this->responseText .=
+                    "- Nombre: {$producto['nm_producto']}\n".
+                    "  Precio: {$producto['precio']} Soles\n".
+                    "  Descripción: {$producto['descripcion']}\n\n";
+            }
+        } elseif (isset($this->dataServicios)) {
+            // Si no hay producto, buscar en servicios
+            $servicioEncontrado = collect($this->dataServicios)->first(function ($servicio) use ($message) {
+                return stripos($servicio['tipo'], $message) !== false;
+            });
+
+            if ($servicioEncontrado) {
+                $this->responseText = "Servicio encontrado: \n".
+                    "Tipo: {$servicioEncontrado['tipo']}\n".
+                    "Descripción: {$servicioEncontrado['descripcion']}";
+            } else {
+                // Si no se encuentra en productos ni servicios, procesar como mensaje normal
+                $this->responseText = $this->processMessage($message);
+            }
         } else {
-            // Si no se encuentra en productos ni servicios, procesar como mensaje normal
-            $this->responseText = $this->processMessage($message);
+            // Si no se encuentra nada, enviar un mensaje genérico
+            $this->responseText = 'No se encontraron coincidencias para tu búsqueda.';
         }
-    } else {
-        // Si no se encuentra nada, enviar un mensaje genérico
-        $this->responseText = "No se encontraron coincidencias para tu búsqueda.";
+
+        // Preparar el mensaje de respuesta
+        $responseMessage = [
+            'sender' => 'system',
+            'text' => $this->responseText,
+            'time' => $currentTime,
+        ];
+
+        if ($this->sonido) {
+            $audioBase64 = $this->convertToSpeech($this->responseText);
+            $responseMessage['audio'] = $audioBase64;
+        }
+
+        // Añade el mensaje de respuesta al historial
+        $this->messages[] = $responseMessage;
+
+        if ($this->responseText === 'Redirigiendo a la sección de productos.') {
+            $this->text = '';
+            $this->dispatch('redirect');
+        }
+        if ($this->responseText === 'Redirigiendo a la sección de servicios.') {
+            $this->text = '';
+            $this->dispatch('redirectService');
+        }
+
+        $this->reset(['text']);
     }
-
-    // Preparar el mensaje de respuesta
-    $responseMessage = [
-        'sender' => 'system',
-        'text' => $this->responseText,
-        'time' => $currentTime,
-    ];
-
-    if ($this->sonido) {
-        $audioBase64 = $this->convertToSpeech($this->responseText);
-        $responseMessage['audio'] = $audioBase64;
-    }
-
-    // Añade el mensaje de respuesta al historial
-    $this->messages[] = $responseMessage;
-
-    if ($this->responseText === 'Redirigiendo a la sección de productos.') {
-        $this->text = '';
-        $this->dispatch('redirect');
-    }
-    if ($this->responseText === 'Redirigiendo a la sección de servicios.') {
-        $this->text = '';
-        $this->dispatch('redirectService');
-    }
-
-    $this->reset(['text']);
-}
 
     public function redirectToProducts($goo)
     {
         return redirect()->route('Productos');
     }
+
     public function redirectToServices($goo)
     {
         return redirect()->route('Servicios');
+    }
+
+    // Función para eliminar tildes (acentos) de un texto
+    public function removeAccents($text)
+    {
+        $accents = [
+            'á' => 'a', 'é' => 'e', 'í' => 'i', 'ó' => 'o', 'ú' => 'u',
+            'Á' => 'A', 'É' => 'E', 'Í' => 'I', 'Ó' => 'O', 'Ú' => 'U',
+            'ñ' => 'n', 'Ñ' => 'N',
+        ];
+
+        return strtr($text, $accents);
     }
 
     public function processMessage($message)
     {
         $synonyms = [
             'saludos' => [
-                'keywords' => ['hola', 'buenas', 'qué tal', 'saludos'],
-                'response' => '¡Hola! Bienvenido a nuestra clínica veterinaria HappyPets. ¿En qué puedo ayudarte? ',
+                'keywords' => [
+                    'hola', 'buenas', 'qué tal', 'saludos', 'hey', 'buenos días', 'buenas tardes', 'buenas noches',
+                    'qué pasa', 'cómo estás', 'cómo va todo', 'qué tal todo', 'qué hay', 'saludos cordiales',
+                ],
+                'response' => '¡Hola! Bienvenido a nuestra clínica veterinaria HappyPets. ¿En qué puedo ayudarte hoy? Estamos aquí para cuidar a tu mascota. ',
             ],
             'despedida' => [
-                'keywords' => ['adiós', 'chau', 'nos vemos', 'hasta luego', 'bye', 'adios'],
-                'response' => '¡Hasta luego! Gracias por confiar en nosotros. ',
+                'keywords' => [
+                    'adiós', 'chau', 'nos vemos', 'hasta luego', 'bye', 'adios', 'hasta pronto', 'nos estamos viendo', 'hasta la próxima',
+                ],
+                'response' => '¡Hasta luego! Gracias por confiar en nosotros. No dudes en contactarnos si necesitas algo más. ',
             ],
             'agradecimiento' => [
-                'keywords' => ['gracias', 'agradecido', 'mil gracias', 'muchas gracias', 'te lo agradezco'],
-                'response' => '¡De nada! Estamos aquí para ayudarte. ',
+                'keywords' => [
+                    'gracias', 'agradecido', 'mil gracias', 'muchas gracias', 'te lo agradezco', 'te doy las gracias', 'gracias por todo', 'te agradezco mucho',
+                ],
+                'response' => '¡De nada! Estamos aquí para ayudarte siempre que lo necesites. No dudes en volver si tienes más preguntas. ',
             ],
             'citas' => [
-                'keywords' => ['cita', 'reservar', 'agenda', 'turno', 'consultar disponibilidad'],
-                'response' => 'Claro, ofrecemos servicios especializados para tus mascotas, puedes visitar la sección de servicios.',
+                'keywords' => [
+                    'cita', 'reservar', 'agenda', 'turno', 'consultar disponibilidad', 'agendar', 'hacer una cita', 'reserva de cita', 'programar una cita','como reservo cita','quiero mas informacion de citas','quiero mas informacion de cita','como reservo una cita','informacion de cita', 'informacion cita','dame informacion sobre cita','sobre cita'
+                ],
+                'response' => 'Claro, ofrecemos servicios especializados para tus mascotas. Puedes visitar la sección de servicios para poder reservar una cita, solo seleciona el servicio el dia y la hora que desea.',
             ],
             'horarios' => [
-                'keywords' => ['horario', 'a qué hora abren', 'cuándo están abiertos', 'horas de atención'],
-                'response' => 'Nuestros horarios de atención son de lunes a sábado, de 8:00 AM a 5:00 PM.',
+                'keywords' => [
+                    'horario', 'a qué hora abren', 'están atendiendo', 'están atendiendo ahora', 'están atendiendo ahurita', 'están atendiendo ahorita', 'cuándo están abiertos', 'horas de atención', 'cuando abren', 'horarios de apertura', 'hora de apertura', 'horarios de atención','estan disponibles','esta abierto',
+                ],
+                'response' => 'Nuestros horarios de atención son de lunes a sábado, de 8:00 AM a 5:00 PM. Estamos cerrados los domingos.',
             ],
             'emergencias' => [
-                'keywords' => ['emergencia', 'urgente', 'urgencia', 'emergencias', 'urgencias'],
-                'response' => 'Para emergencias, por favor llama directamente al número de contacto de emergencia: 987-654-321. ',
+                'keywords' => [
+                    'emergencia', 'urgente', 'urgencia', 'emergencias', 'urgencias', 'emergencia veterinaria', 'urgencia veterinaria', 'atención urgente', 'atención emergente','ayuda',
+                ],
+                'response' => 'Para emergencias, por favor llama directamente al número de contacto de emergencia: 987-654-321. Estamos disponibles para ayudarte en cualquier momento.',
             ],
             'ubicación' => [
-                'keywords' => ['dónde están', 'ubicacion', 'ubicación', 'dirección', 'cómo llegar'],
-                'response' => 'Estamos ubicados en el Jirón Aguilar 649, cerca del parque Santo Domingo - Huánuco.',
-            ],
-            // 'esterilización' => [
-            //     'keywords' => ['esterilización', 'castración', 'operación para mi mascota'],
-            //     'response' => 'La esterilización es un procedimiento seguro que ayuda a prevenir enfermedades y controlar la población. ¿Quieres más información o agendar una cita? ✂️',
-            // ],
-            // 'alimentación' => [
-            //     'keywords' => ['alimentación', 'qué debe comer', 'comida para perros', 'comida para gatos', 'recomendación de alimento'],
-            //     'response' => 'Podemos recomendarte la dieta adecuada para tu mascota según su edad, raza y necesidades. ¿Quieres más detalles? ',
-            // ],
-            // 'baño' => [
-            //     'keywords' => ['baño', 'estética', 'corte de pelo', 'arreglo', 'limpieza'],
-            //     'response' => 'Ofrecemos servicios de baño, corte de pelo y estética para tu mascota. ¿Te interesa agendar un turno?',
-            // ],
-            'vacaciones' => [
-                'keywords' => ['dejar mi mascota', 'vacaciones', 'hotel para mascotas', 'dónde dejo a mi mascota'],
-                'response' => 'Ofrecemos servicio de hospedaje para mascotas durante tus vacaciones. ¿Te gustaría más información? ',
+                'keywords' => [
+                    'dónde están', 'ubicacion', 'ubicación', 'dirección', 'cómo llegar', 'donde los encuentro', 'dónde queda', 'cómo llegar hasta allí', 'dónde los encuentro','como los ubico','donde los ubico'
+                ],
+                'response' => 'Estamos ubicados en el Jirón Aguilar 649, cerca del parque Santo Domingo - Huánuco. Puedes usar Google Maps o la experiencia de Realidad Aumentada para indicaciones precisas.',
             ],
             'adopción' => [
-                'keywords' => ['adopción', 'adopcion', 'adoptar', 'mascotas en adopción'],
-                'response' => 'Todavía no contamos con este programa',
+                'keywords' => [
+                    'adopción', 'adopcion', 'adoptar', 'mascotas en adopción', 'dar en adopción', 'adoptar una mascota', 'adopción de animales', 'quiero adoptar una mascota',
+                ],
+                'response' => 'Todavía no contamos con un programa de adopción, pero mantente en contacto para cualquier novedad.',
             ],
             'contacto' => [
-                'keywords' => ['teléfono', 'telefono', 'número', 'numero', 'contacto', 'cómo los llamo'],
-                'response' => 'Puedes contactarnos al 916-236-760 o escribirnos por WhatsApp al mismo número.',
+                'keywords' => [
+                    'teléfono', 'telefono', 'número', 'numero', 'contacto', 'cómo los llamo', 'cómo contactar', 'cómo te llamo','numero de llamada','llamada','como los contacto','informacion de contacto',
+                ],
+                'response' => 'Puedes contactarnos al 916-236-760 o escribirnos por WhatsApp al mismo número. También puedes enviar un correo a happypets@gmail.com',
             ],
             'productos' => [
-                'keywords' => ['sección de productos', 'productos', 'ver productos', 'catalogo', 'quién ofrece productos'],
-                'response' => 'Redirigiendo a la sección de productos.',
+                'keywords' => [
+                    'sección de productos', 'productos', 'ver productos', 'catalogo', 'quién ofrece productos', 'productos disponibles', 'artículos para mascotas', 'productos para mi mascota','comida para gato','comida para perro',
+                ],
+                'response' => 'Redirigiendo a la sección de productos. Aquí podrás encontrar todo lo que necesitas para tu mascota.',
             ],
             'servicios' => [
-                'keywords' => ['sección de servicios', 'servicios', 'ver servicios', 'quién ofrece servicios'],
-                'response' => 'Redirigiendo a la sección de servicios.',
+                'keywords' => [
+                    'sección de servicios', 'servicios', 'ver servicios', 'quién ofrece servicios', 'servicios disponibles', 'atención veterinaria', 'consultas veterinarias', 'servicios para mascotas',
+                ],
+                'response' => 'Redirigiendo a la sección de servicios. Aquí podrás conocer todos los servicios que ofrecemos para tu mascota.',
             ],
             'pregunta' => [
-                'keywords' => ['como me llamo', 'mi nombre', 'di mi nombre'],
+                'keywords' => [
+                    'como me llamo', 'mi nombre','nombre', 'di mi nombre', 'cómo me llamas', 'cuál es mi nombre', 'qué nombre tengo', 'qué nombre me diste',
+                ],
                 'response' => 'Tu nombre es '.$this->nombres,
             ],
             'bot' => [
-                'keywords' => ['como te llamas', 'tu nombre', 'di tu nombre', 'que eres', 'quien eres'],
-                'response' => 'Soy HappyBot tu asistente virtual de la clínica veterinaria HappyPets.',
+                'keywords' => [
+                    'como te llamas', 'tu nombre', 'di tu nombre', 'que eres', 'quien eres', 'quién eres', 'qué eres', 'qué haces aquí',
+                ],
+                'response' => 'Soy HappyBot, tu asistente virtual de la clínica veterinaria HappyPets. Estoy aquí para ayudarte con todo lo relacionado con tus mascotas.',
+            ],
+            'fecha' => [
+                'keywords' => [
+                    'qué día es hoy', 'día de hoy', 'qué fecha es', 'cuál es la fecha', 'qué día es',
+                ],
+                'response' => 'Hoy es '.now()->format('l, j F Y').'.',
+            ],
+            'hora' => [
+                'keywords' => [
+                    'qué hora es', 'cuál es la hora', 'hora actual', 'a qué hora', 'qué hora tienes',
+                ],
+                'response' => 'La hora actual es '.now()->format('h:i A').'.',
+            ],
+            'clínica' => [
+                'keywords' => [
+                    'qué es HappyPets', 'quiénes son', 'qué hacen', 'qué servicios ofrece HappyPets', 'de qué se trata HappyPets', 'quiénes son ustedes', 'qué tipo de clínica es',
+                ],
+                'response' => 'HappyPets es una clínica veterinaria especializada en el cuidado integral de tus mascotas. Ofrecemos consultas, tratamientos, y servicios de alojamiento. ¡Estamos aquí para ayudarte a cuidar de tu amigo peludo! ',
             ],
         ];
 
+        $messageWithoutAccents = $this->removeAccents($message);
+
         foreach ($synonyms as $category => $data) {
             foreach ($data['keywords'] as $keyword) {
-                if (stripos($message, $keyword) !== false) {
+                if (stripos($this->removeAccents($keyword), $messageWithoutAccents) !== false) {
                     return $data['response'];
                 }
             }
